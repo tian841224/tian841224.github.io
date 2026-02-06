@@ -382,7 +382,19 @@ body {
     }
 
     .terminal-menu {
+        display: flex;
+        /* 確保選單容器顯示 */
+        gap: 0.5rem;
+    }
+
+    .menu-link {
         display: none;
+        /* 手機版隱藏文字連結，節省空間 */
+    }
+
+    .github-icon {
+        margin-left: 0;
+        /* 手機版取消左邊距 */
     }
 
     .terminal-title {

@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-    }, { threshold: 0.2 });  // 當 20% 的內容進入視窗時觸發
+    }, { threshold: 0.1 });  // 當 10% 的內容進入視窗時觸發，提高手機版靈敏度
 
     // 觀察所有內容區塊（除了 about，它由初始化動畫觸發）
     sections.forEach(section => {
