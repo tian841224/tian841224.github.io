@@ -1,0 +1,511 @@
+/* ===== Terminal Portfolio - 優化配色版 ===== */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    background: #0a0a0a;
+    color: #e6e6e6;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Terminal Container */
+.terminal-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    background: #1a1a1a;
+    border-radius: 8px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(100, 150, 255, 0.3);
+    overflow: hidden;
+    min-height: calc(100vh - 4rem);
+}
+
+/* Terminal Header */
+.terminal-header {
+    background: #0d0d0d;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(100, 150, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.btn-close {
+    background: #ff5f56;
+}
+
+.btn-minimize {
+    background: #ffbd2e;
+}
+
+.btn-maximize {
+    background: #27c93f;
+}
+
+.terminal-title {
+    font-size: 0.875rem;
+    color: #666;
+    flex: 1;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.terminal-title:hover {
+    color: #7a9cff;
+}
+
+.terminal-menu {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.menu-link {
+    color: #7a9cff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.menu-link:hover {
+    color: #a8c0ff;
+    text-decoration: underline;
+}
+
+.github-icon {
+    color: #7a9cff;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.github-icon:hover {
+    color: #a8c0ff;
+    transform: scale(1.1);
+}
+
+.github-icon svg {
+    display: block;
+}
+
+/* Terminal Body */
+.terminal-body {
+    padding: 2rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.terminal-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: #0d0d0d;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #7a9cff;
+    border-radius: 5px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8c0ff;
+}
+
+/* CMD Lines - 指令要小且不顯眼,初始隱藏等待動畫 */
+.cmd-line {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    color: #666;
+    opacity: 0;
+}
+
+.cmd-line.blank {
+    height: 1rem;
+}
+
+.prompt {
+    color: #666;
+    font-weight: 400;
+    user-select: none;
+}
+
+.command {
+    color: #888;
+    font-weight: 400;
+}
+
+.typing-cursor {
+    color: #666;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* CMD Output - 重點內容要大,初始隱藏等待動畫 */
+.cmd-output {
+    margin-left: 1.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.output-line {
+    margin-bottom: 0.4rem;
+    color: #e6e6e6;
+    opacity: 0;
+}
+
+.output-line.blank {
+    height: 0.75rem;
+}
+
+/* JSON Output */
+.json-output {
+    font-family: 'Fira Code', monospace;
+    line-height: 1.8;
+    color: #e6e6e6;
+    margin: 0;
+    white-space: pre;
+    font-size: 1.15rem;
+}
+
+.key {
+    color: #7a9cff;
+    font-weight: 500;
+}
+
+.value {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Motto 標語樣式 */
+.motto {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 2px;
+    margin: 2rem 0;
+    text-shadow: 0 0 20px rgba(122, 156, 255, 0.5);
+}
+
+/* Text Styling - 增加配色 */
+.highlight {
+    color: #7a9cff;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    color: #a8c0ff;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.period {
+    color: #aaa;
+    font-weight: 600;
+}
+
+.role {
+    color: #fff;
+    font-weight: 600;
+}
+
+.success {
+    color: #a8c0ff;
+    font-weight: 600;
+}
+
+.tech-label {
+    color: #7a9cff;
+    font-weight: 600;
+}
+
+.link {
+    color: #7a9cff;
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: #a8c0ff;
+}
+
+.info {
+    color: #888;
+    font-style: italic;
+}
+
+/* File Listing Styles */
+.dir {
+    color: #a8c0ff;
+    font-weight: 600;
+}
+
+.file {
+    color: #ccc;
+}
+
+.file-main {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Project Styles */
+.project-badge {
+    background: rgba(122, 156, 255, 0.2);
+    color: #a8c0ff;
+    padding: 0.125rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(122, 156, 255, 0.3);
+}
+
+.project-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Skills 多欄排列 */
+.skills-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.skills-columns .output-line {
+    margin-bottom: 0.3rem;
+}
+
+/* Section Spacing */
+.cmd-section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 5rem;
+}
+
+/* Selection */
+::selection {
+    background: #7a9cff;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #7a9cff;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .skills-columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .terminal-container {
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .terminal-body {
+        padding: 1rem;
+        font-size: 0.9rem;
+        max-height: calc(100vh - 4rem);
+    }
+
+    .terminal-menu {
+        display: none;
+    }
+
+    .terminal-title {
+        font-size: 0.75rem;
+    }
+
+    .json-output {
+        font-size: 0.95rem;
+    }
+
+    .highlight {
+        font-size: 1.5rem;
+    }
+
+    .skills-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .terminal-body {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .cmd-output {
+        margin-left: 1rem;
+    }
+
+    .terminal-buttons span {
+        width: 10px;
+        height: 10px;
+    }
+
+    .json-output {
+        font-size: 0.85rem;
+    }
+
+    .highlight {
+        font-size: 1.3rem;
+    }
+}
+
+/* Smooth Scroll */
+html {
+    scroll-padding-top: 5rem;
+}
+
+/* Stats Section */
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    justify-content: center;
+}
+
+.stat-card {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #1a1a1a;
+}
+
+.stat-card-large {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+}
+
+.stat-card-full {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.stat-card-medium {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #1a1a1a;
+}
+
+.stats-container-left {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    justify-content: flex-start;
+}
+
+.stat-card-large {
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* 桌面版字體放大 */
+@media (min-width: 1200px) {
+    html {
+        font-size: 20px;
+        /* 從 18px 提升到 20px */
+    }
+
+    .motto {
+        font-size: 3rem;
+        /* 從 2.75rem 提升 */
+    }
+
+    .highlight {
+        font-size: 2.2rem;
+        /* 從 2rem 提升 */
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+        /* 從 1.2rem 提升 */
+    }
+
+    .cmd-output {
+        font-size: 1.1rem;
+        /* 從 1.05rem 提升 */
+    }
+
+    .json-output {
+        font-size: 1.2rem;
+        /* 從 1.15rem 提升 */
+    }
+}

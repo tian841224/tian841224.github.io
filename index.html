@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tian - 後端工程師 | 專注於 Go, C#, TypeScript 後端開發,擅長 Clean Architecture 與高流量系統設計">
+    <meta name="keywords" content="後端工程師, Go, Golang, C#, TypeScript, Clean Architecture, SOLID, Docker, AWS">
+    <meta name="author" content="Tian">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Tian - 後端工程師">
+    <meta property="og:description" content="成就感來自於學習 | 專注於後端開發與系統架構設計">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tian1224.github.io">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tian - 後端工程師">
+    <meta name="twitter:description" content="成就感來自於學習 | 專注於後端開發與系統架構設計">
+
+    <title>Tian - 後端工程師 Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/terminal.css">
+</head>
+
+<body>
+    <!-- 整個網站就是一個大的終端機視窗 -->
+    <div class="terminal-container">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn-close"></span>
+                <span class="btn-minimize"></span>
+                <span class="btn-maximize"></span>
+            </div>
+            <a href="https://github.com/tian841224" target="_blank" class="terminal-title">tian@portfolio:~</a>
+            <div class="terminal-menu">
+                <a href="#home" class="menu-link">home</a>
+                <a href="#about" class="menu-link">about</a>
+                <a href="#experience" class="menu-link">projects</a>
+                <a href="#skills" class="menu-link">skills</a>
+                <a href="#blog" class="menu-link">blog</a>
+                <a href="#stats" class="menu-link">stats</a>
+                <a href="#contact" class="menu-link">contact</a>
+                <a href="https://github.com/tian841224" target="_blank" class="github-icon" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Terminal Body - 所有內容都在這裡 -->
+        <div class="terminal-body" id="terminalBody">
+            <!-- 初始化訊息 -->
+            <div class="cmd-line">
+                <span class="prompt">$</span>
+                <span class="command">
+                    <span id="typing-init-cmd"></span>
+                    <span class="typing-cursor">_</span>
+                </span>
+            </div>
+            <div class="cmd-output" id="init-message-1" style="opacity: 0;"></div>
+            <div class="cmd-output" id="init-message-2" style="opacity: 0;"></div>
+            <div class="cmd-line blank"></div>
+
+            <!-- Home Section - 簡化版 -->
+            <div class="cmd-section" id="home">
+                <div class="cmd-line" id="motto-cmd-line" style="opacity: 0;">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-motto-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="motto-content" style="opacity: 0;">
+                    <div class="output-line motto"><span id="typing-motto"></span><span class="typing-cursor">_</span>
+                    </div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- About Section -->
+            <div class="cmd-section" id="about">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-about-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="about-content" style="opacity: 0;">
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line"><span class="highlight">關於我</span></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line">擁有 <span id="years-experience"></span> 年後端開發經驗的軟體工程師,專注於打造高效能、可擴展的企業級系統。
+                    </div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line">我的技術之旅始於 2019 年,從 C# WinForm 桌面應用開發起步,逐步深入</div>
+                    <div class="output-line">Web 後端領域。目前專精於 Go 語言微服務架構,致力於解決高併發場景下</div>
+                    <div class="output-line">的效能瓶頸與系統穩定性挑戰。</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="subtitle">▸ 核心成就</span></div>
+                    <div class="output-line"> • <span class="key">效能優化</span> - 主導高流量訊息系統重構,成功將系統效能提升 10 倍</div>
+                    <div class="output-line"> • <span class="key">架構設計能力</span> - 從零建構微服務架構系統,實踐 Clean Architecture 原則
+                    </div>
+                    <div class="output-line"> • <span class="key">技術債處理</span> - 優化累積多年的 ERP 核心系統,提升程式碼可維護性</div>
+                    <div class="output-line"> • <span class="key">DevOps 實踐</span> - 建立完整的 CI/CD 自動化部署流程,提升團隊開發效率</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="info">💡 「成就感來自於學習」- 持續精進技術能力,追求卓越的程式碼品質</span></div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Projects/Experience Section - 改為專案導向 -->
+            <div class="cmd-section" id="experience">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-experience-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="experience-content" style="opacity: 0;">
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line"><span class="highlight">專案經歷</span></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 1: 高流量訊息系統重構 -->
+                    <div class="output-line"><span class="subtitle">▸ 高流量訊息系統重構與優化</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> 主導舊有會員後台與訊息系統的全面重構,解決高流量場景下的效能瓶頸</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">技術亮點:</span></div>
+                    <div class="output-line"> • 採用 DTO 轉換、三層式架構各司其職、Interface 降低耦合</div>
+                    <div class="output-line"> • 將同步執行流程改為非同步與多執行緒架構,避免主流程阻塞</div>
+                    <div class="output-line"> • 導入 Redis 取代 Memory Cache,讓多實例服務可共用快取資料</div>
+                    <div class="output-line"> • 重構 RabbitMQ 底層實作,支援非同步處理並提升訊息吞吐量</div>
+                    <div class="output-line"> • 導入 ELK 作為集中式 Log 系統,提升除錯與問題追蹤效率</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="success">成果: 效能提升 10x (50-100 TPS → 1000+
+                            TPS),系統穩定度大幅提升</span></div>
+                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> Go, Redis, RabbitMQ, ELK,
+                        Docker</div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+
+                    <!-- Project 2: 系統管理後台 -->
+                    <div class="output-line"><span class="subtitle">▸ 微服務架構系統管理後台</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> 從零建構企業級系統管理後台</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
+                    <div class="output-line"> • 安全性要求高 → 實作 JWT + Middleware 雙層驗證，確保 API 安全性</div>
+                    <div class="output-line"> • 環境不一致導致部署問題 → 使用 Docker Compose 統一開發、測試、正式環境</div>
+                    <div class="output-line"> • 需求變更頻繁 → 採用微服務架構，各模組獨立部署，降低變更風險</div>
+                    <div class="output-line"> • 權限管理需求複雜 → 設計完整的 RBAC 權限系統，支援多層級角色與權限控制</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="success">成果: 完成系統從 MVP 到正式版的完整開發，成功上線並投入實際使用</span></div>
+                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> ASP.NET, MS SQL, Redis,
+                        RabbitMQ, Docker, Jenkins</div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 3: ERP 系統優化 -->
+                    <div class="output-line"><span class="subtitle">▸ ERP 核心系統優化與重構</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> 接手累積 5 年技術債的 ERP 系統，解決效能瓶頸與維護困難問題</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
+                    <div class="output-line"> • 核心查詢效能低落 → 重構 Stored Procedure，優化查詢邏輯（索引優化、執行計畫分析、Query
+                        Tuning），效能提升 300%</div>
+                    <div class="output-line"> • 資料庫鎖定頻繁 → 解決多重關聯問題，使用 NOWAIT、優化 Cursor，減少 60% 鎖定時間</div>
+                    <div class="output-line"> • 業務邏輯複雜冗餘 → 重構及優化業務邏輯，提升系統反應速度，減少不必要的資源消耗</div>
+                    <div class="output-line"> • 缺乏系統文件 → 深入分析程式碼，建立完整的系統架構與業務流程文件</div>
+                    <div class="output-line"> • 程式碼可維護性差 → 重構關鍵模組，引入設計模式，降低後續維護成本</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="success">成果:
+                            成功將系統提升至可維護且能快速維護的狀態，團隊無須長時間摸索即可上手，為後續功能擴展奠定基礎</span></div>
+                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> ASP.NET, C#, MS SQL, EF Core,
+                        AJAX, JavaScript</div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 4: 企業應用系統開發 -->
+                    <div class="output-line"><span class="subtitle">▸ 企業應用系統開發</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> 從需求了解、業務邏輯分析、系統開發到驗收交付的完整流程，開發多個企業級應用系統</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">核心專案:</span></div>
+                    <div class="output-line"> • CRM 客戶管理系統</div>
+                    <div class="output-line"> - 設計三層式架構（Presentation、Business Logic、Data Access），確保系統可維護性</div>
+                    <div class="output-line"> - 使用 Entity Framework 與 LINQ 優化資料查詢，管理 10,000+ 筆客戶資料</div>
+                    <div class="output-line"> - 實作權限控制、操作日誌與自動化工作流程等核心功能</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> • 准考證套印系統 - 使用多執行緒優化，處理 50,000+ 張准考證，效能提升 5 倍</div>
+                    <div class="output-line"> • 考試報到系統 - SQLite + 區網同步方案，支援離線作業，確保考試順利進行</div>
+                    <div class="output-line"> • Delphi 系統重寫 - 將舊有 Delphi 系統以 C# 重寫，提升可維護性與擴展性</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> ASP.NET MVC, C#, WinForm, MS
+                        SQL, SQLite, EF Core, LINQ</div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Skills Section - 簡化版 -->
+            <div class="cmd-section" id="skills">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-skills-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="skills-content" style="opacity: 0;">
+                    <!-- 多欄排列 -->
+                    <div class="skills-columns">
+                        <!-- Column 1 -->
+                        <div>
+                            <div class="output-line"><span class="dir">backend/</span></div>
+                            <div class="output-line"> ├── <span class="file-main">Go (Golang)</span> ⭐</div>
+                            <div class="output-line"> ├── <span class="file">C# (.NET)</span></div>
+                            <div class="output-line"> └── <span class="file">TypeScript / Node.js</span></div>
+                            <div class="output-line blank"></div>
+
+
+                            <div class="output-line"><span class="dir">architecture/</span></div>
+                            <div class="output-line"> ├── <span class="file">Clean Architecture</span></div>
+                            <div class="output-line"> ├── <span class="file">SOLID 原則</span></div>
+                            <div class="output-line"> ├── <span class="file">DRY 原則</span></div>
+                            <div class="output-line"> ├── <span class="file">物件導向設計</span></div>
+                            <div class="output-line"> └── <span class="file">微服務架構</span></div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div>
+                            <div class="output-line"><span class="dir">database/</span></div>
+                            <div class="output-line"> ├── <span class="file">PostgreSQL</span></div>
+                            <div class="output-line"> ├── <span class="file">MS SQL Server</span></div>
+                            <div class="output-line"> ├── <span class="file">MySQL</span></div>
+                            <div class="output-line"> ├── <span class="file">MongoDB</span></div>
+                            <div class="output-line"> ├── <span class="file">SQLite</span></div>
+                            <div class="output-line"> ├── <span class="file">Redis</span></div>
+                            <div class="output-line"> └── <span class="file">GORM / EF Core / Dapper</span></div>
+                            <div class="output-line blank"></div>
+
+                            <div class="output-line"><span class="dir">messaging/</span></div>
+                            <div class="output-line"> ├── <span class="file">RabbitMQ</span></div>
+                            <div class="output-line"> └── <span class="file">ELK Stack</span></div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div>
+                            <div class="output-line"><span class="dir">devops/</span></div>
+                            <div class="output-line"> ├── <span class="file">Docker / Docker Compose</span></div>
+                            <div class="output-line"> ├── <span class="file">GitHub Actions</span></div>
+                            <div class="output-line"> ├── <span class="file">Jenkins</span></div>
+                            <div class="output-line"> ├── <span class="file">AWS EC2</span></div>
+                            <div class="output-line"> ├── <span class="file">GCP CloudRun</span></div>
+                            <div class="output-line"> ├── <span class="file">Azure</span></div>
+                            <div class="output-line"> ├── <span class="file">Cloudflare</span></div>
+                            <div class="output-line"> └── <span class="file">Nginx</span></div>
+                            <div class="output-line blank"></div>
+
+                            <div class="output-line"><span class="dir">other/</span></div>
+                            <div class="output-line"> ├── <span class="file">Telegram Bot API</span></div>
+                            <div class="output-line"> ├── <span class="file">LINE Bot API</span></div>
+                            <div class="output-line"> ├── <span class="file">Git / GitHub</span></div>
+                            <div class="output-line"> ├── <span class="file">RESTful API</span></div>
+                            <div class="output-line"> └── <span class="file">JWT</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Open Source Projects Section -->
+            <div class="cmd-section" id="projects">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-projects-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="projects-content" style="opacity: 0;">
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line"><span class="highlight">開源專案</span></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 1 -->
+                    <div class="output-line"><span class="project-badge">[主要專案]</span> <span
+                            class="project-name">stock-bot-golang</span> ⭐ 1</div>
+                    <div class="output-line"> 台股查詢機器人 - 基於 Telegram/LINE 的即時股價、K線圖表、新聞訂閱系統</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="subtitle">專案亮點:</span></div>
+                    <div class="output-line"> • 採用 Clean Architecture 設計,確保程式碼可維護性</div>
+                    <div class="output-line"> • 支援多平台整合 (Telegram + LINE)</div>
+                    <div class="output-line"> • 即時股價查詢與訂閱功能</div>
+                    <div class="output-line"> • K線圖表視覺化呈現</div>
+                    <div class="output-line"> • 完整的 CI/CD 部署流程</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">Tech:</span> Go 1.24, Clean Architecture,
+                        PostgreSQL, Docker</div>
+                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/stock-bot-golang"
+                            target="_blank" class="link">https://github.com/tian841224/stock-bot-golang</a></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 2 -->
+                    <div class="output-line"><span class="project-name">stock_bot_nodejs</span> ⭐ 1</div>
+                    <div class="output-line"> 台股資訊查詢機器人 (Node.js 版本)</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">Tech:</span> TypeScript, Node.js, Telegram Bot,
+                        LINE Bot</div>
+                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/stock_bot_nodejs"
+                            target="_blank" class="link">https://github.com/tian841224/stock_bot_nodejs</a></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 3 -->
+                    <div class="output-line"><span class="project-name">tgbot_rssfeed</span> ⭐ 1</div>
+                    <div class="output-line"> Telegram RSS 訂閱服務機器人</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">Tech:</span> C#, .NET, Telegram Bot, RSS</div>
+                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/tgbot_rssfeed" target="_blank"
+                            class="link">https://github.com/tian841224/tgbot_rssfeed</a>
+                    </div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- Project 4 -->
+                    <div class="output-line"><span class="project-name">fetch-sketchfab-data</span> ⭐ 1</div>
+                    <div class="output-line"> Sketchfab 排程 Demo 作品</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"> <span class="tech-label">Tech:</span> Go, Web Scraping, Scheduler</div>
+                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/fetch-sketchfab-data"
+                            target="_blank" class="link">https://github.com/tian841224/fetch-sketchfab-data</a></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="info">更多專案請訪問: <a
+                                href="https://github.com/tian841224?tab=repositories" target="_blank"
+                                class="link">https://github.com/tian841224?tab=repositories</a></span></div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Blog Section -->
+            <div class="cmd-section" id="blog">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-blog-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="blog-content" style="opacity: 0;">
+                    <div class="output-line"><span class="file">C#物件導向觀念</span></div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/S1lu8-_41e" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/S1lu8-_41e</a>
+                    </div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="file">DRY原則</span></div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/SyDcYGKNyl" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/SyDcYGKNyl</a>
+                    </div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="file">SOLID原則</span></div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/S1qci5UVye" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/S1qci5UVye</a>
+                    </div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="file">資料庫觀念</span>
+                    </div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/HJu-wx7Cp" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/HJu-wx7Cp</a></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="file">Docker自動部署至EC2</span></div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/HJPmJuws6" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/HJPmJuws6</a></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="file">Cloudflare設定HTTPS</span></div>
+                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/ryu7bmCq1l" target="_blank"
+                            class="link">https://hackmd.io/@tian841224/ryu7bmCq1l</a>
+                    </div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Stats Section - GitHub & LeetCode -->
+            <div class="cmd-section" id="stats">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-stats-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="stats-content" style="opacity: 0;">
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line"><span class="highlight">開發統計</span></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+
+                    <!-- GitHub Stats -->
+                    <div class="output-line"><span class="subtitle">▸ GitHub 貢獻紀錄</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="stats-container-left">
+                        <img src="https://ghchart.rshah.org/7a9cff/tian841224" alt="GitHub Contributions"
+                            class="stat-card-large">
+                    </div>
+                    <div class="output-line blank"></div>
+
+                    <!-- LeetCode Stats -->
+                    <div class="output-line"><span class="subtitle">▸ LeetCode 解題紀錄</span></div>
+                    <div class="output-line blank"></div>
+                    <div class="stats-container-left">
+                        <img src="https://leetcard.jacoblin.cool/Tian1224?theme=dark&font=Noto%20Sans%20TC&ext=heatmap"
+                            alt="LeetCode Stats" class="stat-card-medium">
+                    </div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="cmd-section" id="contact">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command">
+                        <span id="typing-contact-cmd"></span>
+                        <span class="typing-cursor">_</span>
+                    </span>
+                </div>
+                <div class="cmd-output" id="contact-content" style="opacity: 0;">
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line"><span class="highlight">聯絡方式</span></div>
+                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="key">GitHub:</span> <a href="https://github.com/tian841224"
+                            target="_blank" class="link">https://github.com/tian841224</a></div>
+                    <div class="output-line"><span class="key">Email:</span> <a href="mailto:jacky841224j@gmail.com"
+                            class="link">jacky841224j@gmail.com</a></div>
+                    <div class="output-line blank"></div>
+                    <div class="output-line"><span class="subtitle">開放合作機會:</span></div>
+                    <div class="output-line"> ▸ 後端開發職位</div>
+                    <div class="output-line"> ▸ 系統架構設計</div>
+                    <div class="output-line"> ▸ 技術諮詢</div>
+                    <div class="output-line"> ▸ 開源專案協作</div>
+                </div>
+                <div class="cmd-line blank"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="cmd-section">
+                <div class="cmd-line">
+                    <span class="prompt">$</span>
+                    <span class="command typing-cursor">_</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/terminal.js"></script>
+</body>
+
+</html>

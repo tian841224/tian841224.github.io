@@ -1,0 +1,191 @@
+/* ===== CMD-Style Section Headers ===== */
+.section-header-cmd {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(0, 255, 65, 0.05);
+    border-left: 3px solid var(--color-green);
+    border-radius: var(--radius-sm);
+}
+
+.section-header-cmd .prompt {
+    color: var(--color-green);
+    margin-right: 0.5rem;
+}
+
+.section-header-cmd .command {
+    color: var(--color-cyan);
+}
+
+/* 為所有 section 添加 CMD 風格的標題樣式 */
+section h2.section-title {
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    text-align: left;
+    margin-bottom: var(--spacing-lg);
+}
+
+section h2.section-title::before {
+    content: '$ ';
+    color: var(--color-green);
+    margin-right: 0.5rem;
+}
+
+/* 讓卡片更像終端機視窗 */
+.project-card,
+.blog-card,
+.skill-category,
+.timeline-content,
+.highlight-item,
+.education-card,
+.contact-item,
+.cta-card {
+    background: var(--bg-terminal);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project-card:hover,
+.blog-card:hover,
+.skill-category:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+/* Tech tags 更像 CMD 標籤 */
+.tech-tag,
+.tag {
+    font-family: var(--font-mono);
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--color-green);
+    color: var(--color-green);
+}
+
+/* Timeline 更像 CMD 輸出 */
+.timeline::before {
+    background: var(--color-green);
+}
+
+.timeline-marker {
+    background: var(--color-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.timeline-period {
+    font-family: var(--font-mono);
+    color: var(--color-cyan);
+}
+
+/* 技能項目更像 CMD 列表 */
+.skill-item::before {
+    content: '>';
+    color: var(--color-green);
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+.skill-item.featured {
+    background: rgba(0, 255, 65, 0.15);
+    border-color: var(--color-green);
+}
+
+/* 專案標題更像檔案路徑 */
+.project-title a::before {
+    content: '~/projects/';
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* Blog 卡片標題 */
+.blog-card h3 a {
+    font-family: var(--font-mono);
+}
+
+/* 按鈕更像 CMD 命令 */
+.btn-primary,
+.btn-secondary {
+    font-family: var(--font-mono);
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--color-green);
+    color: var(--color-green);
+}
+
+.btn-primary::before {
+    content: '$ ';
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    background: var(--color-green);
+    color: var(--bg-primary);
+}
+
+/* Contact 區塊 CMD 風格 */
+.contact-details h3 {
+    font-family: var(--font-mono);
+    color: var(--color-cyan);
+}
+
+/* Achievement 數字更突出 */
+.achievement-number {
+    color: var(--color-green);
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* 為列表項目添加 CMD 風格 */
+ul li {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--color-green);
+}
+
+/* Section subtitle CMD 風格 */
+.section-subtitle {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+.section-subtitle::before {
+    content: '# ';
+    color: var(--color-green);
+}
+
+/* 滾動條 CMD 風格 */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-green);
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-cyan);
+}
+
+/* 選取文字的顏色 */
+::selection {
+    background: var(--color-green);
+    color: var(--bg-primary);
+}
+
+::-moz-selection {
+    background: var(--color-green);
+    color: var(--bg-primary);
+}
