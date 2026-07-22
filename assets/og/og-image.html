@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- og-image 原始碼：1200x630 社群分享圖。
+     產生方式：chrome --headless --screenshot=og-image.png --window-size=1200,630 file:///.../og-image.html -->
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    width: 1200px;
+    height: 630px;
+    background: #05070b;
+    font-family: 'Fira Code', 'Noto Sans TC', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+/* 背景微光 */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 700px 400px at 30% 20%, rgba(122,156,255,0.12), transparent),
+        radial-gradient(ellipse 600px 350px at 80% 90%, rgba(61,220,132,0.1), transparent);
+}
+.window {
+    position: relative;
+    width: 1000px;
+    background: #10151f;
+    border: 1px solid rgba(122,156,255,0.4);
+    border-radius: 14px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.7);
+    overflow: hidden;
+}
+.header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    background: #0b0f17;
+    border-bottom: 1px solid rgba(122,156,255,0.25);
+}
+.dots { display: flex; gap: 9px; }
+.dots span { width: 15px; height: 15px; border-radius: 50%; }
+.d1 { background: #ff5f56; }
+.d2 { background: #ffbd2e; }
+.d3 { background: #27c93f; }
+.title { color: #8a93a6; font-size: 18px; }
+.bodyx { padding: 40px 48px 44px; }
+.line { font-size: 22px; color: #8a93a6; margin-bottom: 8px; }
+.prompt { color: #3ddc84; font-weight: 700; }
+.name {
+    font-size: 76px;
+    font-weight: 700;
+    color: #d6deeb;
+    letter-spacing: 0.01em;
+    text-shadow: 0 0 40px rgba(122,156,255,0.4);
+    margin: 4px 0 2px;
+}
+.role {
+    font-size: 34px;
+    color: #7a9cff;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.hl { margin-top: 6px; font-size: 24px; color: #d6deeb; line-height: 1.7; }
+.hl .g { color: #3ddc84; font-weight: 600; }
+.url {
+    margin-top: 34px;
+    font-size: 21px;
+    color: #8a93a6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.url .cursor {
+    display: inline-block;
+    width: 12px; height: 26px;
+    background: #3ddc84;
+}
+</style>
+</head>
+<body>
+<div class="window">
+    <div class="header">
+        <div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        <div class="title">tian@portfolio:~</div>
+    </div>
+    <div class="bodyx">
+        <div class="line"><span class="prompt">$</span> whoami</div>
+        <div class="name">Tian</div>
+        <div class="role">Backend Engineer</div>
+        <div class="line"><span class="prompt">$</span> cat highlights.txt</div>
+        <div class="hl"><span class="g">Go</span> · <span class="g">C# (.NET)</span> · <span class="g">TypeScript</span> · Clean Architecture</div>
+        <div class="hl">後端系統開發與架構設計 · 7+ 年經驗</div>
+        <div class="url">https://tian1224.uk <span class="cursor"></span></div>
+    </div>
+</div>
+</body>
+</html>

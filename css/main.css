@@ -1,0 +1,913 @@
+/* =====================================================
+   Tian Portfolio — Terminal Geek 視覺系統
+   純 CSS，無框架。深色終端機 + CRT 氛圍 + 進場動畫。
+   動畫原則：只在進場播一次，落定後歸於靜態。
+   ===================================================== */
+
+:root {
+    /* 色彩系統（深色終端機） */
+    --bg: #0b0e14;
+    --panel: #10151f;
+    --panel-alt: #0d1118;
+    --border: rgba(122, 156, 255, 0.25);
+    --border-strong: rgba(122, 156, 255, 0.5);
+    --text: #d6deeb;
+    --text-dim: #8a93a6;
+    --accent: #7a9cff;
+    --accent-soft: #a8c0ff;
+    --green: #3ddc84;
+    --amber: #ffbd2e;
+    --red: #ff5f56;
+    --glow: rgba(61, 220, 132, 0.35);
+
+    /* 字級（手機優先，桌機放大） */
+    --fs-body: 14px;
+    --fs-caption: 12px;
+    --fs-h3: 16px;
+    --fs-h2: 20px;
+    --fs-name: 28px;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --fs-body: 15px;
+        --fs-h3: 18px;
+        --fs-h2: 24px;
+        --fs-name: 34px;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --fs-body: 16px;
+        --fs-h3: 20px;
+        --fs-h2: 28px;
+        --fs-name: 40px;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+}
+
+body {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    background: var(--bg);
+    color: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 中文內文混排 */
+.output-line,
+.plain-list li,
+.achievement-detail p,
+.motto {
+    font-family: 'Fira Code', 'Noto Sans TC', monospace, sans-serif;
+    line-height: 1.7;
+    overflow-wrap: break-word;
+    min-width: 0;
+}
+
+::selection {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* ===== 開機畫面 ===== */
+#boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #05070b;
+    padding: clamp(16px, 5vw, 64px);
+    font-size: var(--fs-body);
+    color: var(--green);
+    overflow: hidden;
+    transition: opacity 0.45s ease;
+}
+
+#boot-screen.boot-done {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.boot-log {
+    white-space: pre-wrap;
+    line-height: 1.8;
+}
+
+.boot-log .dim { color: var(--text-dim); }
+.boot-log .ok { color: var(--green); }
+
+.boot-skip {
+    position: fixed;
+    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    color: var(--text-dim);
+    font-size: var(--fs-caption);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 4px;
+    animation: pulse-hint 2s ease-in-out infinite;
+}
+
+@keyframes pulse-hint {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+}
+
+/* CRT 開機亮起：主畫面第一幀 */
+@keyframes crt-on {
+    0% { opacity: 0; filter: brightness(3) saturate(0.2); transform: scaleY(0.85); }
+    35% { opacity: 1; filter: brightness(1.6); transform: scaleY(1.01); }
+    100% { opacity: 1; filter: brightness(1); transform: scaleY(1); }
+}
+
+body.booted .terminal-container {
+    animation: crt-on 0.5s ease-out both;
+}
+
+/* ===== Matrix 背景 ===== */
+#matrix-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ===== 終端機主視窗 ===== */
+.terminal-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 16px auto 0;
+    background: color-mix(in srgb, var(--panel) 92%, transparent);
+    border: 1px solid var(--border);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    min-height: calc(100vh - 16px);
+    overflow: clip;
+}
+
+/* CRT scanline 氛圍層（極淡，靜態） */
+.terminal-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.025) 0px,
+        rgba(255, 255, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    mix-blend-mode: overlay;
+}
+
+@media (min-width: 768px) {
+    .terminal-container { margin: 24px auto 0; min-height: calc(100vh - 24px); }
+}
+
+/* ===== Header ===== */
+.terminal-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    padding-top: max(10px, env(safe-area-inset-top, 0px));
+    background: rgba(9, 12, 18, 0.9);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.btn-close { background: var(--red); }
+.btn-minimize { background: var(--amber); }
+.btn-maximize { background: #27c93f; }
+
+.terminal-title {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: var(--fs-caption);
+    padding: 8px 4px;
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s ease;
+}
+
+.terminal-title:hover,
+.terminal-title:focus-visible { color: var(--accent-soft); }
+
+.terminal-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.menu-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: var(--fs-caption);
+    padding: 10px 8px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-link::before { content: "./"; opacity: 0.4; }
+
+.menu-link:hover { color: var(--text); }
+
+.menu-link.active {
+    color: var(--accent-soft);
+    border-bottom-color: var(--accent);
+}
+
+.github-icon {
+    color: var(--text-dim);
+    display: inline-flex;
+    padding: 12px;
+    transition: color 0.2s ease;
+}
+
+.github-icon:hover { color: var(--text); }
+
+/* focus 可見性（全站） */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ===== Terminal Body ===== */
+.terminal-body {
+    padding: 20px 16px calc(96px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+    .terminal-body { padding: 28px 24px calc(110px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (min-width: 1024px) {
+    .terminal-body { padding: 32px 40px calc(120px + env(safe-area-inset-bottom, 0px)); }
+}
+
+.cmd-section {
+    margin-bottom: 56px;
+}
+
+/* ===== 指令行 ===== */
+.cmd-line {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin: 4px 0;
+}
+
+.prompt {
+    color: var(--green);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.command { color: var(--accent-soft); word-break: break-all; }
+
+.typing-cursor {
+    display: inline-block;
+    color: var(--green);
+    animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* 打字完成後隱藏該行游標（footer 常駐游標除外） */
+.cmd-line.typed .typing-cursor:not(.keep) { display: none; }
+
+.cmd-output { margin: 8px 0 0 2px; }
+
+.output-line { margin: 2px 0; }
+.output-line.blank { height: 0.9em; }
+.output-line.dim { color: var(--text-dim); }
+
+.ok { color: var(--green); font-weight: 600; }
+
+/* ===== 進場顯示（reveal） =====
+   JS 加上 .in 之後淡入；動畫只播一次 */
+.reveal-line,
+.reveal-group > * {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.reveal-line.in,
+.reveal-group.in > * {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal-group.in > *:nth-child(2) { transition-delay: 0.05s; }
+.reveal-group.in > *:nth-child(3) { transition-delay: 0.1s; }
+.reveal-group.in > *:nth-child(4) { transition-delay: 0.15s; }
+.reveal-group.in > *:nth-child(5) { transition-delay: 0.2s; }
+.reveal-group.in > *:nth-child(6) { transition-delay: 0.25s; }
+.reveal-group.in > *:nth-child(n+7) { transition-delay: 0.3s; }
+
+/* JS 未載入 / reduced-motion：內容照常可見 */
+.no-motion .reveal-line,
+.no-motion .reveal-group > *,
+.no-js .reveal-line,
+.no-js .reveal-group > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+
+/* ===== 區塊標題（glitch 進場） ===== */
+.section-title {
+    position: relative;
+    display: inline-block;
+    color: var(--accent-soft);
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 12px 0 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-strong);
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 42px;
+    height: 3px;
+    background: var(--green);
+}
+
+/* glitch：只在 .glitching 狀態播 0.4s，之後完全靜態 */
+.glitch-text.glitching {
+    animation: glitch-shake 0.4s steps(2) both;
+}
+
+.glitch-text.glitching::before,
+.glitch-text.glitching::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-bottom: none;
+}
+
+.glitch-text.glitching::before {
+    color: #ff3d6e;
+    animation: glitch-slice-a 0.4s steps(3) both;
+}
+
+.glitch-text.glitching::after {
+    color: #29d8ff;
+    animation: glitch-slice-b 0.4s steps(3) both;
+}
+
+@keyframes glitch-shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes glitch-slice-a {
+    0% { clip-path: inset(10% 0 70% 0); transform: translateX(-4px); opacity: 0.8; }
+    50% { clip-path: inset(60% 0 15% 0); transform: translateX(3px); opacity: 0.8; }
+    100% { clip-path: inset(0 0 100% 0); transform: none; opacity: 0; }
+}
+
+@keyframes glitch-slice-b {
+    0% { clip-path: inset(65% 0 10% 0); transform: translateX(4px); opacity: 0.8; }
+    50% { clip-path: inset(20% 0 55% 0); transform: translateX(-3px); opacity: 0.8; }
+    100% { clip-path: inset(100% 0 0 0); transform: none; opacity: 0; }
+}
+
+.sub-heading {
+    color: var(--amber);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    margin: 24px 0 10px;
+}
+
+/* ===== TL;DR 名片 ===== */
+.tldr-card {
+    margin: 12px 0 8px;
+    padding: 20px;
+    background: linear-gradient(160deg, rgba(122, 156, 255, 0.08), rgba(61, 220, 132, 0.05));
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    max-width: 720px;
+}
+
+.tldr-name {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.tldr-name .glitch-text {
+    position: relative;
+    font-size: var(--fs-name);
+    font-weight: 700;
+    color: var(--text);
+    text-shadow: 0 0 24px rgba(122, 156, 255, 0.35);
+}
+
+.tldr-role {
+    color: var(--accent-soft);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+}
+
+.tldr-years {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: var(--fs-body);
+}
+
+.tldr-stack {
+    margin-top: 6px;
+    color: var(--green);
+    font-weight: 500;
+}
+
+.tldr-points {
+    list-style: none;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+.tldr-points li {
+    position: relative;
+    padding-left: 18px;
+    margin: 6px 0;
+    font-family: 'Fira Code', 'Noto Sans TC', monospace, sans-serif;
+}
+
+.tldr-points li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--green);
+}
+
+/* 數字（count-up 目標）：等寬數字避免跳動 */
+.num {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+.num.accent { color: var(--green); }
+
+/* motto */
+.motto {
+    color: var(--green);
+    font-size: var(--fs-h3);
+    letter-spacing: 0.06em;
+    margin: 4px 0 20px;
+}
+
+/* ===== 內容通用 ===== */
+.highlight { color: var(--accent-soft); font-weight: 700; }
+.key { color: var(--accent-soft); font-weight: 600; }
+.info { color: var(--text-dim); }
+.comment { color: #5c6773; }
+.dir { color: var(--accent); font-weight: 600; }
+.file { color: var(--text); }
+.file-main { color: var(--green); font-weight: 600; }
+.link { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--border-strong); word-break: break-all; }
+.link:hover { color: var(--accent-soft); border-bottom-style: solid; }
+.tech-label { color: var(--amber); font-weight: 600; font-size: var(--fs-body); margin: 12px 0 4px; }
+.subtitle { color: var(--amber); font-weight: 600; }
+.project-badge { color: var(--bg); background: var(--green); padding: 1px 8px; border-radius: 3px; font-size: var(--fs-caption); font-weight: 700; }
+.project-name { color: var(--accent-soft); font-weight: 700; }
+.star { font-size: 0.9em; }
+.quote { margin: 16px 0; }
+
+.success-line {
+    color: var(--green);
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(61, 220, 132, 0.07);
+    border-left: 3px solid var(--green);
+    border-radius: 0 4px 4px 0;
+}
+
+.ok-icon { margin-right: 6px; }
+
+.plain-list {
+    list-style: none;
+    margin: 4px 0;
+}
+
+.plain-list li {
+    position: relative;
+    padding-left: 16px;
+    margin: 4px 0;
+}
+
+.plain-list li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    color: var(--accent);
+}
+
+/* ===== 專案卡片（tilt + 掃光） ===== */
+.project-card {
+    position: relative;
+    margin: 20px 0;
+    padding: 18px 16px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (min-width: 768px) {
+    .project-card { padding: 24px; }
+}
+
+.project-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--border);
+}
+
+.project-card .sub-heading { margin-top: 0; }
+
+/* 掃光 */
+.project-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(168, 192, 255, 0.06), transparent);
+    pointer-events: none;
+    transition: left 0.7s ease;
+}
+
+.project-card:hover::after { left: 130%; }
+
+/* ===== 核心成就 details ===== */
+.achievement-group { margin: 6px 0; }
+
+.achievement-item {
+    margin: 4px 0;
+    border-radius: 6px;
+}
+
+.achievement-item summary {
+    cursor: pointer;
+    padding: 10px 8px;
+    border-radius: 6px;
+    list-style: none;
+    transition: background 0.2s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.achievement-item summary::-webkit-details-marker { display: none; }
+
+.achievement-item summary::before {
+    content: "▸";
+    color: var(--green);
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.achievement-item[open] summary::before { transform: rotate(90deg); }
+
+.achievement-item summary:hover { background: rgba(122, 156, 255, 0.06); }
+
+.toggle-hint {
+    color: var(--text-dim);
+    font-size: var(--fs-caption);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
+}
+
+.achievement-detail {
+    padding: 4px 12px 12px 28px;
+}
+
+/* ===== Skills 三欄 ===== */
+.skills-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .skills-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+    .skills-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+}
+
+.skill-tree { min-width: 0; }
+.tree-item { white-space: pre-wrap; }
+
+/* ===== 小時候的 code window ===== */
+.code-window {
+    margin: 16px 0;
+    background: #0a0d13;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 640px;
+}
+
+.code-window-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #131824;
+    border-bottom: 1px solid var(--border);
+}
+
+.code-window-buttons { display: flex; gap: 6px; }
+
+.code-window-buttons span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.cw-close { background: var(--red); }
+.cw-min { background: var(--amber); }
+.cw-max { background: #27c93f; }
+
+.code-window-title { color: var(--text-dim); font-size: var(--fs-caption); }
+
+.code-window-body {
+    padding: 14px 16px;
+    font-size: var(--fs-caption);
+    overflow-x: auto;
+}
+
+.code-window-body .output-line { white-space: pre-wrap; }
+
+/* ===== Mermaid / 架構圖 ===== */
+.mermaid-box {
+    margin-top: 8px;
+    overflow-x: auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.mermaid-box svg { max-width: 100%; height: auto; }
+
+.mermaid-loading { color: var(--text-dim); padding: 8px; }
+
+.arch-img {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    display: block;
+    aspect-ratio: auto;
+}
+
+/* ===== Note 清單 ===== */
+.note-list { list-style: none; }
+
+.note-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.note-item .file { display: block; margin-bottom: 2px; }
+.note-item .link { display: inline-block; padding: 6px 0; font-size: var(--fs-caption); }
+
+/* ===== Stats ===== */
+.stats-container { margin: 8px 0 20px; }
+
+.stat-card-large {
+    width: 100%;
+    max-width: 760px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    display: block;
+    min-height: 80px;
+}
+
+.stat-card-medium {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    display: block;
+    min-height: 160px;
+}
+
+/* ===== footer ===== */
+.footer-prompt { margin-bottom: 0; }
+
+/* ===== 互動指令列 ===== */
+.cmd-bar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 200;
+    width: min(680px, calc(100% - 32px));
+    background: rgba(9, 12, 18, 0.95);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+}
+
+.cmd-feedback {
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 0 14px;
+    color: var(--text-dim);
+    font-size: var(--fs-caption);
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.cmd-feedback:not(:empty) {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cmd-feedback .ok { color: var(--green); }
+.cmd-feedback .err { color: var(--red); }
+
+.cmd-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 14px;
+}
+
+#cmd-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: var(--fs-body);
+    padding: 12px 0;
+    caret-color: var(--green);
+}
+
+#cmd-input:focus { outline: none; }
+#cmd-input::placeholder { color: var(--text-dim); opacity: 0.7; }
+
+.cmd-bar-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 201;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: var(--panel);
+    color: var(--green);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cmd-bar-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 12px var(--glow);
+}
+
+/* 指令列展開時，浮動鈕變關閉樣式 */
+.cmd-bar-toggle[aria-expanded="true"] { color: var(--red); }
+
+/* ===== Konami 暴走模式提示 ===== */
+.konami-toast {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    background: var(--panel);
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    box-shadow: 0 0 32px var(--glow);
+    animation: toast-in 0.3s ease both;
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ===== 手機斷點細調 ===== */
+@media (max-width: 767px) {
+    .terminal-container { margin: 0; border-radius: 0; border-left: none; border-right: none; }
+    .terminal-menu { gap: 0; }
+    .menu-link { padding: 12px 6px; }
+    .tldr-name .glitch-text { font-size: 26px; }
+    .code-window-body { font-size: 11.5px; }
+    /* 手機預設收合指令列，用浮動鈕開啟 */
+}
+
+/* 桌機常駐顯示指令列、隱藏浮動鈕 */
+@media (min-width: 1024px) {
+    .cmd-bar[hidden] { display: block; }
+    .cmd-bar-toggle { display: none; }
+}
+
+/* ===== prefers-reduced-motion：全部動畫停用 ===== */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal-line,
+    .reveal-group > * {
+        opacity: 1;
+        transform: none;
+    }
+
+    #boot-screen { display: none; }
+    .typing-cursor { animation: none; }
+    .project-card::after { display: none; }
+    .terminal-container::before { display: none; }
+}
