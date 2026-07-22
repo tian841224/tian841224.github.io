@@ -1,18 +1,19 @@
-> 🌐 **線上履歷**: https://tian841224.github.io/
+> 🌐 **線上履歷**: https://tian1224.uk/
 
-這是我的個人履歷網站，採用 CMD 終端機風格設計，展示我的專業技能、專案經歷與技術實力。
+這是我的個人履歷網站，採用 IDE（程式碼編輯器）風格設計，展示我的專業技能、專案經歷與技術實力。
 
 ## 💼 專業技能
 
 ### 後端開發
 - **主要語言**: Go (Golang) ⭐, C# (.NET), TypeScript / Node.js
-- **架構設計**: Clean Architecture, SOLID 原則, DRY 原則, 微服務架構
-- **資料庫**: PostgreSQL, MS SQL Server, MySQL, MongoDB, Redis
+- **架構設計**: Clean Architecture, 3-Tier Architecture, 物件導向設計, 微服務架構
+- **資料庫**: PostgreSQL, MS SQL Server, MySQL, MongoDB, SQLite, Redis
 
 ### DevOps & 雲端
 - **容器化**: Docker, Docker Compose
 - **CI/CD**: GitHub Actions, Jenkins
 - **雲端平台**: AWS EC2, GCP CloudRun, Azure, Cloudflare
+- **Web Server**: Nginx
 
 ### 訊息佇列 & 日誌
 - **Message Queue**: RabbitMQ
@@ -26,24 +27,26 @@
 ## 🎯 核心專案經歷
 
 ### 1. 高流量訊息系統重構
-- 效能提升 10 倍 (50-100 TPS → 1000+ TPS)
-- 技術: Go, Redis, RabbitMQ, ELK, Docker
+- 重構後系統吞吐量由 50-100 TPS 提升至 1000+ TPS
+- 技術: Go, MySQL, Redis, RabbitMQ, ELK, Docker
 
-### 2. 微服務架構系統管理後台
-- 從零建構完整權限管理系統
-- 技術: ASP.NET, MS SQL, Redis, Docker, Jenkins
+### 2. 系統管理後台
+- 從零建構完整 RBAC 權限管理系統，微服務架構
+- 技術: C# .NET 8, MS SQL, Redis, RabbitMQ, Docker, Jenkins
 
 ### 3. 台股查詢機器人 (開源專案)
 - 支援 Telegram/LINE 雙平台
-- 技術: Go 1.24, Clean Architecture, PostgreSQL
+- 技術: Go 1.24, Clean Architecture, PostgreSQL, Docker
 - 🔗 [GitHub](https://github.com/tian841224/stock-bot-golang)
 
 ## 🎨 網站特色
 
-- **設計風格**: CMD 終端機主題，深色配色 + 青紫色漸層
-- **技術實作**: 純 HTML5 + CSS3 + Vanilla JavaScript
-- **使用者體驗**: 響應式設計、平滑捲動動畫、打字機特效
-- **SEO 優化**: 完整的 meta tags 與語意化 HTML
+- **設計風格**: IDE 編輯器主題（Tokyo Night 配色）— 檔案總管、分頁編輯器、狀態列
+- **互動體驗**: 內容以「檔案」呈現（README.md / skills.json / experience.md…），
+  Ctrl+P 命令面板可模糊搜尋切換檔案，含 `> sudo hire-me` 彩蛋
+- **技術實作**: 純 HTML5 + CSS3 + Vanilla JavaScript，無框架、無建置工具
+- **無障礙**: 支援 `prefers-reduced-motion`、鍵盤操作、無 JS 時內容仍完整可讀
+- **SEO 優化**: 完整的 meta tags、Open Graph 分享圖與語意化 HTML
 
 ## 📬 聯絡方式
 

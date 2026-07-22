@@ -1,386 +1,298 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="no-js">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Tian - 後端工程師 | 專注於 Go, C#, TypeScript 後端開發,擅長 Clean Architecture 與高流量系統設計">
     <meta name="keywords" content="後端工程師, Go, Golang, C#, TypeScript, Clean Architecture, SOLID, Docker, AWS">
     <meta name="author" content="Tian">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Tian - 後端工程師">
+    <meta property="og:title" content="Tian - Backend Engineer">
     <meta property="og:description" content="成就感來自於學習 | 專注於後端開發與系統架構設計">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tian1224.github.io">
+    <meta property="og:url" content="https://tian1224.uk/">
+    <meta property="og:site_name" content="Tian Portfolio">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:image" content="https://tian1224.uk/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Tian - Backend Engineer IDE 風格個人網站">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tian - 後端工程師">
+    <meta name="twitter:title" content="Tian - Backend Engineer">
     <meta name="twitter:description" content="成就感來自於學習 | 專注於後端開發與系統架構設計">
+    <meta name="twitter:image" content="https://tian1224.uk/assets/images/og-image.png">
+
+    <link rel="canonical" href="https://tian1224.uk/">
 
     <title>Tian - 後端工程師 Portfolio</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
         rel="stylesheet">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/terminal.css">
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="css/ide.css">
 </head>
 
 <body>
-    <!-- 桌面開場動畫覆蓋層 -->
-    <div id="desktop-overlay">
-        <!-- 桌面圖示 -->
-        <div class="desktop-icon" id="cmd-icon" title="雙擊開啟">
-            <div class="desktop-icon-img">
-                <span class="icon-c">C:\</span><span class="icon-cursor">_</span>
-            </div>
-            <div class="desktop-icon-label">portfolio.bat</div>
-        </div>
+    <div class="ide" id="ide">
 
-        <!-- 自動動畫假游標 -->
-        <div id="fake-cursor">
-            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L1 17L5.5 13.5L8.5 20.5L10.5 19.5L7.5 12.5L13 12.5L1 1Z" fill="white" stroke="#333"
-                    stroke-width="1.2" stroke-linejoin="round" />
-            </svg>
-        </div>
+        <!-- ===== 標題列 ===== -->
+        <header class="titlebar">
+            <div class="titlebar-dots" aria-hidden="true"><span class="dot-r"></span><span class="dot-y"></span><span
+                    class="dot-g"></span></div>
+            <div class="titlebar-title">tian_portfolio — Tian ▸ Backend Engineer</div>
+            <button type="button" class="palette-hint" id="palette-open" aria-haspopup="dialog">
+                <span aria-hidden="true">⌘</span> 快速開啟 <kbd>Ctrl</kbd><kbd>P</kbd>
+            </button>
+            <button type="button" class="drawer-toggle" id="drawer-toggle" aria-expanded="false"
+                aria-controls="sidebar" aria-label="開啟檔案總管">☰</button>
+        </header>
 
-        <!-- 雙擊後彈出的迷你 CMD 視窗 -->
-        <div id="mini-cmd-window">
-            <div class="mini-window-header">
-                <div class="mini-window-buttons">
-                    <span class="mw-close"></span>
-                    <span class="mw-min"></span>
-                    <span class="mw-max"></span>
-                </div>
-                <div class="mini-window-title">cmd.exe</div>
-            </div>
-            <div class="mini-window-body">
-                <div class="mw-line"><span class="mw-prompt">Microsoft Windows [Version 10.0]</span></div>
-                <div class="mw-line">
-                    <span class="mw-prompt">C:\Users\tian&gt; </span><span id="mw-cmd-text"></span><span
-                        class="mw-blink" id="mw-cursor">_</span>
-                </div>
-                <div class="mw-line mw-output" id="mw-msg1" style="display:none">Initializing portfolio...</div>
-                <div class="mw-line mw-output" id="mw-msg2" style="display:none">Loading developer profile...</div>
-                <div class="mw-line" id="mw-motto-line" style="display:none">
-                    <span class="mw-prompt">$ </span><span id="mw-motto-cmd"></span><span class="mw-blink"
-                        id="mw-motto-cursor">_</span>
-                </div>
-                <div id="mw-motto-text" style="display:none"></div>
-            </div>
-        </div>
-
-        <!-- 底部工作列 -->
-        <div class="desktop-taskbar">
-            <div class="taskbar-start">
-                <span class="taskbar-win-icon">⊞</span>
-            </div>
-            <div class="taskbar-right">
-                <span class="taskbar-time" id="taskbar-time"></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3D 背景畫布 -->
-    <canvas id="three-canvas"></canvas>
-    <!-- 整個網站就是一個大的終端機視窗 -->
-    <div class="terminal-container">
-        <!-- Terminal Header -->
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn-close"></span>
-                <span class="btn-minimize"></span>
-                <span class="btn-maximize"></span>
-            </div>
-            <a href="https://github.com/tian841224" target="_blank" class="terminal-title">tian@portfolio:~</a>
-            <div class="terminal-menu">
-                <a href="#home" class="menu-link">home</a>
-                <a href="#about" class="menu-link">about</a>
-                <a href="#skills" class="menu-link">skills</a>
-                <a href="#experience" class="menu-link">projects</a>
-                <a href="#blog" class="menu-link">note</a>
-                <a href="#stats" class="menu-link">stats</a>
-                <a href="#contact" class="menu-link">contact</a>
-                <a href="https://github.com/tian841224" target="_blank" class="github-icon" title="GitHub">
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-                        <path
-                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+        <div class="ide-main">
+            <!-- ===== 活動列（桌機） ===== -->
+            <nav class="activitybar" aria-label="活動列">
+                <button type="button" class="act-btn active" aria-label="檔案總管" title="檔案總管">🗂</button>
+                <a class="act-btn" href="https://github.com/tian841224" target="_blank" rel="noopener"
+                    aria-label="GitHub" title="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                     </svg>
                 </a>
-            </div>
-        </div>
+                <a class="act-btn" href="mailto:jacky841224j@gmail.com" aria-label="Email" title="Email">✉</a>
+            </nav>
 
-        <!-- Terminal Body - 所有內容都在這裡 -->
-        <div class="terminal-body" id="terminalBody">
-            <!-- 初始化訊息 -->
-            <div class="cmd-line">
-                <span class="prompt">$</span>
-                <span class="command">
-                    <span id="typing-init-cmd"></span>
-                    <span class="typing-cursor">_</span>
-                </span>
-            </div>
-            <div class="cmd-output" id="init-message-1" style="opacity: 0;"></div>
-            <div class="cmd-output" id="init-message-2" style="opacity: 0;"></div>
-            <div class="cmd-line blank"></div>
+            <!-- ===== 檔案總管 ===== -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-label">檔案總管</div>
+                <div class="tree-root">
+                    <div class="tree-folder" aria-hidden="true">▾ TIAN_PORTFOLIO</div>
+                    <ul class="tree" role="list">
+                        <li><button type="button" class="tree-file" data-file="readme"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>README.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="about"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>about.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="skills"><span class="fi fi-json"
+                                    aria-hidden="true">{}</span>skills.json</button></li>
+                        <li><button type="button" class="tree-file" data-file="experience"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>experience.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="sideprojects"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>side_projects.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="notes"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>notes.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="stats"><span class="fi fi-md"
+                                    aria-hidden="true">M↓</span>stats.md</button></li>
+                        <li><button type="button" class="tree-file" data-file="contact"><span class="fi fi-json"
+                                    aria-hidden="true">{}</span>contact.json</button></li>
+                    </ul>
+                </div>
+                <div class="sidebar-outline">
+                    <div class="sidebar-label">大綱</div>
+                    <div id="outline" class="outline"></div>
+                </div>
+            </aside>
+            <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
 
-            <!-- Home Section - 簡化版 -->
-            <div class="cmd-section" id="home">
-                <div class="cmd-line" id="motto-cmd-line" style="opacity: 0;">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-motto-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="motto-content" style="opacity: 0;">
-                    <div class="output-line motto"><span id="typing-motto"></span><span class="typing-cursor">_</span>
-                    </div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
+            <!-- ===== 編輯器 ===== -->
+            <div class="editor">
+                <div class="tabbar" role="tablist" aria-label="已開啟的檔案" id="tabbar"></div>
+                <div class="breadcrumb" id="breadcrumb" aria-hidden="true">tian_portfolio ▸ README.md</div>
 
-            <!-- About Section -->
-            <div class="cmd-section" id="about">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-about-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="about-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">About Me</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">程式起源從我小六開始，為了解決家裡老電腦跑不動遊戲，</div>
-                    <div class="output-line">自己上網找了很多能最佳化遊戲的方法，不斷的嘗試。</div>
-                    <div class="output-line">從晚上八點開始不停止的爬文做功課，在凌晨五點的早上</div>
-                    <div class="output-line">終於被我完成人生中第一個程式碼。</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">是一個 CMD 的指令：</div>
-                    <div class="output-line blank"></div>
-                    <div class="code-window">
-                        <div class="code-window-header">
-                            <div class="code-window-buttons">
-                                <span class="cw-close"></span>
-                                <span class="cw-min"></span>
-                                <span class="cw-max"></span>
+                <div class="editor-body" id="editor-body">
+
+                    <!-- ========== README.md ========== -->
+                    <section class="page page-md" id="page-readme" role="tabpanel" aria-label="README.md" tabindex="0">
+                        <div class="md-render">
+                            <div class="hero">
+                                <p class="hero-hash" aria-hidden="true"># </p>
+                                <h1 class="hero-name">Tian<span class="hero-caret" aria-hidden="true"></span></h1>
+                                <p class="hero-role">Backend Engineer<span class="hero-years">・<span
+                                            id="years-experience">7</span>+ 年經驗</span></p>
+                                <p class="hero-motto">「成就感來自於學習」</p>
+                                <div class="hero-badges" aria-label="主要技術">
+                                    <span class="badge b-go">Go</span>
+                                    <span class="badge b-cs">C# (.NET)</span>
+                                    <span class="badge b-ts">TypeScript</span>
+                                    <span class="badge b-arch">Clean Architecture</span>
+                                </div>
                             </div>
-                            <div class="code-window-title">nba2k_optimize.bat</div>
-                        </div>
-                        <div class="code-window-body">
-                            <div class="output-line"><span class="key">@echo</span> <span class="info">off</span></div>
-                            <div class="output-line"><span class="comment">:: 開始效能電源模式</span></div>
-                            <div class="output-line"><span class="key">powercfg</span> -duplicatescheme
-                                e9a42b02-d5df-448d-aa00-03f14749eb61</div>
-                            <div class="output-line"><span class="key">powercfg</span> /setactive
-                                e9a42b02-d5df-448d-aa00-03f14749eb61</div>
-                            <div class="output-line blank"></div>
-                            <div class="output-line"><span class="comment">:: 清除系統暫存</span></div>
-                            <div class="output-line"><span class="key">del</span> /q /f /s <span
-                                    class="info">"%TEMP%\*.*"</span></div>
-                            <div class="output-line"><span class="key">del</span> /q /f /s <span
-                                    class="info">"C:\Windows\Temp\*.*"</span></div>
-                            <div class="output-line blank"></div>
-                            <div class="output-line"><span class="comment">:: 清除 Cache</span></div>
-                            <div class="output-line"><span class="key">del</span> /q /s /f <span
-                                    class="info">"%AppData%\2K Sports\NBA 2K11\Cache\*.*"</span></div>
-                            <div class="output-line blank"></div>
-                            <div class="output-line"><span class="comment">:: 啟動nba2k11.exe 指令</span></div>
-                            <div class="output-line"><span class="key">start</span> /high <span class="info">""
-                                    "nba2k11.exe"</span></div>
-                            <div class="output-line blank"></div>
-                            <div class="output-line"><span class="key">exit</span></div>
-                        </div>
-                    </div>
-                    <div class="output-line">當腳本執行、遊戲再次開啟後，看著 FPS 從 30 左右提升到 50+，</div>
-                    <div class="output-line">那種「僅僅幾行程式碼就能讓體驗大幅改善」的衝擊感，</div>
-                    <div class="output-line">加上能馬上看到成果的回饋，讓我獲得了前所未有的成就感。</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">自此，我便慢慢踏入了 Coding 的這條「不歸路」，</div>
-                    <div class="output-line">這份對技術的純粹熱忱延續至今。</div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
 
-            <!-- Skills Section - 簡化版 -->
-            <div class="cmd-section" id="skills">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-skills-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="skills-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Technical Expertise</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-                    <!-- 多欄排列 -->
-                    <div class="skills-columns">
-                        <!-- Column 1 -->
-                        <div>
-                            <div class="output-line"><span class="dir">backend/</span></div>
-                            <div class="output-line"> ├── <span class="file-main">Go (Golang)</span> ⭐</div>
-                            <div class="output-line"> ├── <span class="file">C# (.NET)</span></div>
-                            <div class="output-line"> └── <span class="file">TypeScript / Node.js</span></div>
-                            <div class="output-line blank"></div>
+                            <h2 class="md-h2">## Highlights</h2>
+                            <ul class="hl-list">
+                                <li class="hl-item">
+                                    <span class="hl-num"><span class="num" data-count="10">10</span>x</span>
+                                    <span class="hl-text">高流量訊息系統重構：TPS 由 50-100 提升至 1000+</span>
+                                </li>
+                                <li class="hl-item">
+                                    <span class="hl-num">-<span class="num" data-count="60">60</span>%</span>
+                                    <span class="hl-text">ERP 核心系統優化：重構 Stored Procedure、減少資料庫鎖定時間</span>
+                                </li>
+                                <li class="hl-item">
+                                    <span class="hl-num"><span class="num" data-count="50000"
+                                            data-format="comma">50,000</span>+</span>
+                                    <span class="hl-text">企業應用開發：多執行緒批次處理准考證套印</span>
+                                </li>
+                            </ul>
 
-
-                            <div class="output-line"><span class="dir">architecture/</span></div>
-                            <div class="output-line"> ├── <span class="file">Clean Architecture</span></div>
-                            <div class="output-line"> ├── <span class="file">3-Tier Architecture</span></div>
-                            <div class="output-line"> ├── <span class="file">物件導向設計</span></div>
-                            <div class="output-line"> └── <span class="file">微服務架構</span></div>
-                        </div>
-
-                        <!-- Column 2 -->
-                        <div>
-                            <div class="output-line"><span class="dir">database/</span></div>
-                            <div class="output-line"> ├── <span class="file">PostgreSQL</span></div>
-                            <div class="output-line"> ├── <span class="file">MS SQL Server</span></div>
-                            <div class="output-line"> ├── <span class="file">MySQL</span></div>
-                            <div class="output-line"> ├── <span class="file">MongoDB</span></div>
-                            <div class="output-line"> ├── <span class="file">SQLite</span></div>
-                            <div class="output-line"> ├── <span class="file">Redis</span></div>
-                            <div class="output-line blank"></div>
-
-                            <div class="output-line"><span class="dir">messaging/</span></div>
-                            <div class="output-line"> ├── <span class="file">RabbitMQ</span></div>
-                            <div class="output-line"> └── <span class="file">ELK Stack</span></div>
-                        </div>
-
-                        <!-- Column 3 -->
-                        <div>
-                            <div class="output-line"><span class="dir">devops/</span></div>
-                            <div class="output-line"> ├── <span class="file">Docker / Docker Compose</span></div>
-                            <div class="output-line"> ├── <span class="file">GitHub Actions</span></div>
-                            <div class="output-line"> ├── <span class="file">Jenkins</span></div>
-                            <div class="output-line"> ├── <span class="file">AWS EC2</span></div>
-                            <div class="output-line"> ├── <span class="file">GCP CloudRun</span></div>
-                            <div class="output-line"> ├── <span class="file">Azure</span></div>
-                            <div class="output-line"> ├── <span class="file">Cloudflare</span></div>
-                            <div class="output-line"> └── <span class="file">Nginx</span></div>
-                            <div class="output-line blank"></div>
-
-                            <div class="output-line"><span class="dir">other/</span></div>
-                            <div class="output-line"> ├── <span class="file">Telegram Bot API</span></div>
-                            <div class="output-line"> ├── <span class="file">LINE Bot API</span></div>
-                            <div class="output-line"> ├── <span class="file">Git / GitHub</span></div>
-                            <div class="output-line"> ├── <span class="file">RESTful API</span></div>
-                            <div class="output-line"> └── <span class="file">JWT</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Projects/Experience Section - 改為專案導向 -->
-            <div class="cmd-section" id="experience">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-experience-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="experience-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Projects</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <div class="output-line section-label"><span class="subtitle">▸ 核心成就</span></div>
-                    <div class="achievement-group">
-                        <details class="achievement-item">
-                            <summary class="output-line"> • <span class="key">效能優化</span> - 主導高流量訊息系統重構,成功將系統效能提升 10 倍
-                                <span class="toggle-hint">[detail]</span>
-                            </summary>
-                            <div class="achievement-detail">
-                                <div class="output-line info indent">分析現有系統瓶頸，針對資料庫查詢、快取策略進行深度重構。</div>
-                                <div class="output-line info indent">導入分散式系統架構，有效分流流量壓力，確保高負載下的系統穩定性。</div>
+                            <h2 class="md-h2">## Quick Links</h2>
+                            <div class="quick-links">
+                                <button type="button" class="ql" data-open="skills">skills.json<span
+                                        class="ql-desc">技術棧總覽</span></button>
+                                <button type="button" class="ql" data-open="experience">experience.md<span
+                                        class="ql-desc">工作專案經歷</span></button>
+                                <button type="button" class="ql" data-open="sideprojects">side_projects.md<span
+                                        class="ql-desc">開源作品</span></button>
+                                <button type="button" class="ql" data-open="contact">contact.json<span
+                                        class="ql-desc">聯絡方式</span></button>
                             </div>
-                        </details>
-                        <details class="achievement-item">
-                            <summary class="output-line"> • <span class="key">架構設計能力</span> - 依據專案規模選用合適架構，具備 Clean
-                                Architecture 與 3-tier 的實戰設計經驗 <span class="toggle-hint">[detail]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="output-line info indent">依據專案規模選用架構，小型專案採 3-tier 快速交付，複雜業務導入 Clean
-                                    Architecture，嚴格遵守 SOLID 原則確保模組職責清晰。</div>
-                                <div class="output-line info indent">透過清晰的模組分層與介面抽象，提升開發效率，使系統具備高度的可擴展性與可測試性。</div>
-                            </div>
-                        </details>
-                        <details class="achievement-item">
-                            <summary class="output-line"> • <span class="key">技術債處理</span> - 優化累積多年的 ERP 核心系統,提升程式碼可維護性
-                                <span class="toggle-hint">[detail]</span>
-                            </summary>
-                            <div class="achievement-detail">
-                                <div class="output-line info indent">系統化梳理舊有代碼邏輯，導入現代化開發規範與單元測試。</div>
-                                <div class="output-line info indent">顯著降低系統耦合度，縮短後續新功能開發的交付時間。</div>
-                            </div>
-                        </details>
-                        <details class="achievement-item">
-                            <summary class="output-line"> • <span class="key">DevOps 實踐</span> - 建立完整的 CI/CD
-                                自動化部署流程,提升團隊開發效率 <span class="toggle-hint">[detail]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="output-line info indent">規範團隊 Git Flow 分支流程，建立統一的開發協作規範。</div>
-                                <div class="output-line info indent">實作基於 Docker 的自動化部署流水線，整合 Unit Test 與 Build
-                                    流程，確保每次合併均通過驗證、專案能正確執行。</div>
-                            </div>
-                        </details>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="info">💡 「成就感來自於學習」- 持續精進技術能力,追求卓越的程式碼品質</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
+                            <p class="md-quote">💡 提示：按 <kbd>Ctrl</kbd>+<kbd>P</kbd> 開啟命令面板，可快速切換檔案。</p>
+                        </div>
+                    </section>
 
-                    <!-- Project 1: 高流量訊息系統重構 -->
-                    <div class="output-line"><span class="subtitle">▸ 高流量訊息系統重構與優化</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> 主導舊系統重構,解決高流量場景下的效能瓶頸</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">技術亮點:</span></div>
-                    <div class="output-line"> • 採用 DDD 架構，並嚴格遵守 SOLID 原則</div>
-                    <div class="output-line"> • 導入 Redis 取代 Memory Cache，讓多實例服務可共用快取資料</div>
-                    <div class="output-line"> • 導入 ELK 作為集中式 Log 系統，提升除錯與問題追蹤效率</div>
-                    <div class="output-line"> • 多實例、多服務同步運作</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
-                    <div class="output-line"> • 專案間耦合性過高導致修改功能可能導致其他服務BUG → 引入DDD架構將功能模組化，減少專案間的關聯依賴</div>
-                    <div class="output-line"> • 效能瓶頸難以定位 → 使用EXPLAIN分析資料庫查詢、程式碼加入Log紀錄執行時間，精準定位關鍵路徑瓶頸</div>
-                    <div class="output-line"> • 主流程阻塞影響吞吐量 → 將同步執行流程改為非同步與多執行緒架構，避免主流程阻塞</div>
-                    <div class="output-line"> • 單點吞吐量瓶頸 → 以 RabbitMQ 依訊息類型拆分任務，切分為多組獨立消費者程式並行處理</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="success">成果: 效能提升 10x (50-100 TPS → 1000+
-                            TPS),系統穩定度大幅提升</span></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> Go, MySQL, Redis, RabbitMQ,
-                        ELK,
-                        Docker</div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output"
-                                    style="font-size: 0.85rem; line-height: 1.3; overflow-x: auto; margin-top: 0.5rem;">
-                                    <pre id="arch-mermaid-src" style="display: none;">
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1a1a1a', 'primaryTextColor': '#e6e6e6', 'primaryBorderColor': '#7a9cff', 'lineColor': '#a8c0ff', 'secondaryColor': '#0d0d0d', 'tertiaryColor': '#1a1a1a', 'edgeLabelBackground': '#0d0d0d'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
+                    <!-- ========== about.md ========== -->
+                    <section class="page page-md" id="page-about" role="tabpanel" aria-label="about.md" tabindex="0"
+                        hidden>
+                        <div class="md-render">
+                            <h1 class="md-h1"># About Me</h1>
+                            <div class="reveal-group">
+                                <p>程式起源從我小六開始，為了解決家裡老電腦跑不動遊戲，自己上網找了很多能最佳化遊戲的方法，不斷的嘗試。從晚上八點開始不停止的爬文做功課，在凌晨五點的早上終於被我完成人生中第一個程式碼。</p>
+                                <p>是一個 CMD 的指令：</p>
+                            </div>
+                            <figure class="codeblock" aria-label="nba2k_optimize.bat 程式碼">
+                                <figcaption class="codeblock-cap"><span class="cb-lang">bat</span>
+                                    nba2k_optimize.bat</figcaption>
+                                <pre class="codeblock-body"><code><span class="ln"><span class="c-kw">@echo</span> <span class="c-str">off</span></span>
+<span class="ln"><span class="c-cm">:: 開始效能電源模式</span></span>
+<span class="ln"><span class="c-kw">powercfg</span> -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61</span>
+<span class="ln"><span class="c-kw">powercfg</span> /setactive e9a42b02-d5df-448d-aa00-03f14749eb61</span>
+<span class="ln"> </span>
+<span class="ln"><span class="c-cm">:: 清除系統暫存</span></span>
+<span class="ln"><span class="c-kw">del</span> /q /f /s <span class="c-str">"%TEMP%\*.*"</span></span>
+<span class="ln"><span class="c-kw">del</span> /q /f /s <span class="c-str">"C:\Windows\Temp\*.*"</span></span>
+<span class="ln"> </span>
+<span class="ln"><span class="c-cm">:: 清除 Cache</span></span>
+<span class="ln"><span class="c-kw">del</span> /q /s /f <span class="c-str">"%AppData%\2K Sports\NBA 2K11\Cache\*.*"</span></span>
+<span class="ln"> </span>
+<span class="ln"><span class="c-cm">:: 啟動nba2k11.exe 指令</span></span>
+<span class="ln"><span class="c-kw">start</span> /high <span class="c-str">"" "nba2k11.exe"</span></span>
+<span class="ln"> </span>
+<span class="ln"><span class="c-kw">exit</span></span></code></pre>
+                            </figure>
+                            <div class="reveal-group">
+                                <p>當腳本執行、遊戲再次開啟後，看著 FPS 從 30 左右提升到 50+，那種「僅僅幾行程式碼就能讓體驗大幅改善」的衝擊感，加上能馬上看到成果的回饋，讓我獲得了前所未有的成就感。</p>
+                                <p>自此，我便慢慢踏入了 Coding 的這條「不歸路」，這份對技術的純粹熱忱延續至今。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========== skills.json ========== -->
+                    <section class="page page-code" id="page-skills" role="tabpanel" aria-label="skills.json"
+                        tabindex="0" hidden>
+                        <pre class="json-view"><code><span class="ln">{</span>
+<span class="ln">  <span class="c-key">"backend"</span>: [<span class="c-str">"Go (Golang) ⭐"</span>, <span class="c-str">"C# (.NET)"</span>, <span class="c-str">"TypeScript / Node.js"</span>],</span>
+<span class="ln">  <span class="c-key">"architecture"</span>: [</span>
+<span class="ln">    <span class="c-str">"Clean Architecture"</span>,</span>
+<span class="ln">    <span class="c-str">"3-Tier Architecture"</span>,</span>
+<span class="ln">    <span class="c-str">"物件導向設計"</span>,</span>
+<span class="ln">    <span class="c-str">"微服務架構"</span></span>
+<span class="ln">  ],</span>
+<span class="ln">  <span class="c-key">"database"</span>: [</span>
+<span class="ln">    <span class="c-str">"PostgreSQL"</span>, <span class="c-str">"MS SQL Server"</span>, <span class="c-str">"MySQL"</span>,</span>
+<span class="ln">    <span class="c-str">"MongoDB"</span>, <span class="c-str">"SQLite"</span>, <span class="c-str">"Redis"</span></span>
+<span class="ln">  ],</span>
+<span class="ln">  <span class="c-key">"messaging"</span>: [<span class="c-str">"RabbitMQ"</span>, <span class="c-str">"ELK Stack"</span>],</span>
+<span class="ln">  <span class="c-key">"devops"</span>: [</span>
+<span class="ln">    <span class="c-str">"Docker / Docker Compose"</span>, <span class="c-str">"GitHub Actions"</span>, <span class="c-str">"Jenkins"</span>,</span>
+<span class="ln">    <span class="c-str">"AWS EC2"</span>, <span class="c-str">"GCP CloudRun"</span>, <span class="c-str">"Azure"</span>,</span>
+<span class="ln">    <span class="c-str">"Cloudflare"</span>, <span class="c-str">"Nginx"</span></span>
+<span class="ln">  ],</span>
+<span class="ln">  <span class="c-key">"other"</span>: [</span>
+<span class="ln">    <span class="c-str">"Telegram Bot API"</span>, <span class="c-str">"LINE Bot API"</span>,</span>
+<span class="ln">    <span class="c-str">"Git / GitHub"</span>, <span class="c-str">"RESTful API"</span>, <span class="c-str">"JWT"</span></span>
+<span class="ln">  ]</span>
+<span class="ln">}</span></code></pre>
+                    </section>
+
+                    <!-- ========== experience.md ========== -->
+                    <section class="page page-md" id="page-experience" role="tabpanel" aria-label="experience.md"
+                        tabindex="0" hidden>
+                        <div class="md-render">
+                            <h1 class="md-h1"># Projects</h1>
+
+                            <h2 class="md-h2" data-outline="核心成就">## 核心成就</h2>
+                            <div class="achv-group">
+                                <details class="achv">
+                                    <summary><span class="achv-key">效能優化</span> - 主導高流量訊息系統重構,成功將系統效能提升 10 倍</summary>
+                                    <div class="achv-body">
+                                        <p>分析現有系統瓶頸，針對資料庫查詢、快取策略進行深度重構。</p>
+                                        <p>導入分散式系統架構，有效分流流量壓力，確保高負載下的系統穩定性。</p>
+                                    </div>
+                                </details>
+                                <details class="achv">
+                                    <summary><span class="achv-key">架構設計能力</span> - 依據專案規模選用合適架構，具備 Clean Architecture 與
+                                        3-tier 的實戰設計經驗</summary>
+                                    <div class="achv-body">
+                                        <p>依據專案規模選用架構，小型專案採 3-tier 快速交付，複雜業務導入 Clean Architecture，嚴格遵守 SOLID
+                                            原則確保模組職責清晰。</p>
+                                        <p>透過清晰的模組分層與介面抽象，提升開發效率，使系統具備高度的可擴展性與可測試性。</p>
+                                    </div>
+                                </details>
+                                <details class="achv">
+                                    <summary><span class="achv-key">技術債處理</span> - 優化累積多年的 ERP 核心系統,提升程式碼可維護性</summary>
+                                    <div class="achv-body">
+                                        <p>系統化梳理舊有代碼邏輯，導入現代化開發規範與單元測試。</p>
+                                        <p>顯著降低系統耦合度，縮短後續新功能開發的交付時間。</p>
+                                    </div>
+                                </details>
+                                <details class="achv">
+                                    <summary><span class="achv-key">DevOps 實踐</span> - 建立完整的 CI/CD
+                                        自動化部署流程,提升團隊開發效率</summary>
+                                    <div class="achv-body">
+                                        <p>規範團隊 Git Flow 分支流程，建立統一的開發協作規範。</p>
+                                        <p>實作基於 Docker 的自動化部署流水線，整合 Unit Test 與 Build 流程，確保每次合併均通過驗證、專案能正確執行。</p>
+                                    </div>
+                                </details>
+                            </div>
+                            <p class="md-quote">💡 「成就感來自於學習」- 持續精進技術能力,追求卓越的程式碼品質</p>
+
+                            <!-- 高流量訊息系統 -->
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="高流量訊息系統重構">## 高流量訊息系統重構與優化</h2>
+                                <p class="proj-desc">主導舊系統重構,解決高流量場景下的效能瓶頸</p>
+                                <h3 class="md-h3">### 技術亮點</h3>
+                                <ul class="md-ul">
+                                    <li>採用 DDD 架構，並嚴格遵守 SOLID 原則</li>
+                                    <li>導入 Redis 取代 Memory Cache，讓多實例服務可共用快取資料</li>
+                                    <li>導入 ELK 作為集中式 Log 系統，提升除錯與問題追蹤效率</li>
+                                    <li>多實例、多服務同步運作</li>
+                                </ul>
+                                <h3 class="md-h3">### 挑戰與解決方案</h3>
+                                <ul class="md-ul sol">
+                                    <li>專案間耦合性過高導致修改功能可能導致其他服務BUG → 引入DDD架構將功能模組化，減少專案間的關聯依賴</li>
+                                    <li>效能瓶頸難以定位 → 使用EXPLAIN分析資料庫查詢、程式碼加入Log紀錄執行時間，精準定位關鍵路徑瓶頸</li>
+                                    <li>主流程阻塞影響吞吐量 → 將同步執行流程改為非同步與多執行緒架構，避免主流程阻塞</li>
+                                    <li>單點吞吐量瓶頸 → 以 RabbitMQ 依訊息類型拆分任務，切分為多組獨立消費者程式並行處理</li>
+                                </ul>
+                                <div class="diff-result" role="note">
+                                    <span class="diff-plus" aria-hidden="true">+</span>成果: 效能提升 <span class="num"
+                                        data-count="10">10</span>x (50-100 TPS → <span class="num"
+                                        data-count="1000">1000</span>+ TPS),系統穩定度大幅提升
+                                </div>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> Go, MySQL, Redis,
+                                    RabbitMQ, ELK, Docker</p>
+                                <details class="achv arch" data-mermaid="mmd-src-msg">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <pre class="mermaid-src" id="mmd-src-msg" style="display:none;">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f2335', 'primaryTextColor': '#c0caf5', 'primaryBorderColor': '#7aa2f7', 'lineColor': '#565f89', 'secondaryColor': '#16161e', 'tertiaryColor': '#1f2335', 'edgeLabelBackground': '#16161e'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
 graph TD
     External[外部來源 MQ &lt;br/&gt; 高頻即時流 / 常規資料流] -->|&nbsp;&nbsp;&nbsp;接收外部資料&nbsp;&nbsp;&nbsp;| Receiver
-    
+
     subgraph ReceiverLayer [接收層]
         Receiver[外部接收服務]
         Receiver -->|&nbsp;&nbsp;&nbsp;1: 驗證封包合法性&nbsp;&nbsp;&nbsp;| Valid(驗證通過之封包)
@@ -400,57 +312,52 @@ graph TD
     subgraph DispatcherLayer [分發路由層]
         Dispatcher[事件分發服務]
         Dispatcher -->|&nbsp;&nbsp;&nbsp;7: 判斷資料與業務類型&nbsp;&nbsp;&nbsp;| Router{業務路由}
-        
+
         Router -->|基礎資訊更新| Flow1[基礎資訊更新流程]
         Router -->|狀態進度同步| Flow2[狀態進度同步流程]
         Router -->|核心數值指標| Flow3[核心指標異動 Stored Procedure]
     end
 
-    classDef default fill:#1a1a1a,stroke:#7a9cff,stroke-width:1px,color:#e6e6e6;
-    classDef queue fill:#0d0d0d,stroke:#a8c0ff,stroke-width:2px,color:#a8c0ff;
-    classDef decision fill:#1a1a1a,stroke:#ffbd2e,stroke-width:1px,color:#ffbd2e;
-    
+    classDef default fill:#1f2335,stroke:#7aa2f7,stroke-width:1px,color:#c0caf5;
+    classDef queue fill:#16161e,stroke:#bb9af7,stroke-width:2px,color:#bb9af7;
+    classDef decision fill:#1f2335,stroke:#e0af68,stroke-width:1px,color:#e0af68;
+
     class BufferQ,DomainQ queue;
     class Router decision;
-                                    </pre>
-                                    <div id="arch-mermaid-view"></div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
+                                            </pre>
+                                            <div class="mermaid-view"></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
 
-                    <!-- Project 4: 數據看板系統 -->
-                    <div class="output-line"><span class="subtitle">▸ 即時數據看板系統</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> 採用微服務架構，實作即時資料串流與多端廣播</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">技術亮點:</span></div>
-                    <div class="output-line"> • 採用 gRPC + Protobuf 取代 JSON，二進位序列化降低 Payload 體積與解析耗時</div>
-                    <div class="output-line"> • 引入 Redis Pub/Sub 訊息一次發佈即同步分流，消除服務間點對點傳遞延遲</div>
-                    <div class="output-line"> • 使用 WebSocket 連線取代輪詢機制造成的延遲</div>
-                    <div class="output-line"> • 使用 Redis 與 PostgreSQL 依照需求選擇讀取路徑，減少單一服務負載</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
-                    <div class="output-line"> • 高吞吐量訊息接收 → 使用 RabbitMQ 多 Exchange 並行消費，非同步接收大量即時訊息</div>
-                    <div class="output-line"> • 前端即時性需求高 → 廣播服務訂閱 Redis 頻道後立即透過 WebSocket 推送至前端，省去輪詢，達到即時更新</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> Go, RabbitMQ, gRPC, Redis,
-                        WebSocket, PostgreSQL, Docker</div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details-dashboard">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output"
-                                    style="font-size: 0.85rem; line-height: 1.3; overflow-x: auto; margin-top: 0.5rem;">
-                                    <pre id="arch-mermaid-src-dashboard" style="display: none;">
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1a1a1a', 'primaryTextColor': '#e6e6e6', 'primaryBorderColor': '#7a9cff', 'lineColor': '#a8c0ff', 'secondaryColor': '#0d0d0d', 'tertiaryColor': '#1a1a1a', 'edgeLabelBackground': '#0d0d0d'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
+                            <!-- 即時數據看板 -->
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="即時數據看板系統">## 即時數據看板系統</h2>
+                                <p class="proj-desc">採用微服務架構，實作即時資料串流與多端廣播</p>
+                                <h3 class="md-h3">### 技術亮點</h3>
+                                <ul class="md-ul">
+                                    <li>採用 gRPC + Protobuf 取代 JSON，二進位序列化降低 Payload 體積與解析耗時</li>
+                                    <li>引入 Redis Pub/Sub 訊息一次發佈即同步分流，消除服務間點對點傳遞延遲</li>
+                                    <li>使用 WebSocket 連線取代輪詢機制造成的延遲</li>
+                                    <li>使用 Redis 與 PostgreSQL 依照需求選擇讀取路徑，減少單一服務負載</li>
+                                </ul>
+                                <h3 class="md-h3">### 挑戰與解決方案</h3>
+                                <ul class="md-ul sol">
+                                    <li>高吞吐量訊息接收 → 使用 RabbitMQ 多 Exchange 並行消費，非同步接收大量即時訊息</li>
+                                    <li>前端即時性需求高 → 廣播服務訂閱 Redis 頻道後立即透過 WebSocket 推送至前端，省去輪詢，達到即時更新</li>
+                                </ul>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> Go, RabbitMQ, gRPC,
+                                    Redis, WebSocket, PostgreSQL, Docker</p>
+                                <details class="achv arch" data-mermaid="mmd-src-dashboard">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <pre class="mermaid-src" id="mmd-src-dashboard" style="display:none;">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f2335', 'primaryTextColor': '#c0caf5', 'primaryBorderColor': '#7aa2f7', 'lineColor': '#565f89', 'secondaryColor': '#16161e', 'tertiaryColor': '#1f2335', 'edgeLabelBackground': '#16161e'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
 graph TD
     MQ["RabbitMQ 訊息佇列"] -->|接收訊息| Handler["MQ 訊息處理服務"]
-    
+
     subgraph ProcessLayer [資料解析層]
         Handler -->|步驟 1: 解析 Protobuf| ProtoData("Proto 格式資料")
         ProtoData -->|步驟 2: 轉換為 DTO| DTOData("DTO 資料")
@@ -469,367 +376,337 @@ graph TD
     CacheService -->|健值對儲存 Key-Value| RedisCache[("Redis 快取資料庫")]
     WSService -->|呼叫串流服務| StreamService["資料串流服務"]
     SaveService -->|非同步持久化寫入| PostgresDB[("PostgreSQL 資料庫")]
-    
+
     RedisCache -.->|讀取最新快取狀態| StreamService
     StreamService -->|實時資料推播| Client(("前端 Client / WebSocket"))
 
-    classDef default fill:#1a1a1a,stroke:#7a9cff,stroke-width:1px,color:#e6e6e6;
-    classDef queue fill:#0d0d0d,stroke:#a8c0ff,stroke-width:2px,color:#a8c0ff;
-    classDef decision fill:#1a1a1a,stroke:#ffbd2e,stroke-width:1px,color:#ffbd2e;
-    
+    classDef default fill:#1f2335,stroke:#7aa2f7,stroke-width:1px,color:#c0caf5;
+    classDef queue fill:#16161e,stroke:#bb9af7,stroke-width:2px,color:#bb9af7;
+    classDef decision fill:#1f2335,stroke:#e0af68,stroke-width:1px,color:#e0af68;
+
     class MQ,RedisPubSub,RedisCache,PostgresDB queue;
     class Client decision;
-                                    </pre>
-                                    <div id="arch-mermaid-view-dashboard"></div>
+                                            </pre>
+                                            <div class="mermaid-view"></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
+
+                            <!-- 系統管理後台 -->
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="系統管理後台">## 系統管理後台</h2>
+                                <p class="proj-desc">從零建構系統管理後台</p>
+                                <h3 class="md-h3">### 技術亮點</h3>
+                                <ul class="md-ul">
+                                    <li>從 0 開始獨自開發專案</li>
+                                    <li>使用 JWT + Middleware 驗證，確保 API 安全性</li>
+                                    <li>設計完整的 RBAC 權限系統，支援多層級角色與權限控制</li>
+                                    <li>使用 Docker Compose 統一開發、測試、正式環境</li>
+                                    <li>採用微服務架構，各模組獨立部署，降低變更風險</li>
+                                </ul>
+                                <h3 class="md-h3">### 挑戰與解決方案</h3>
+                                <ul class="md-ul sol">
+                                    <li>需串聯不同系統間訊息傳遞 → 使用 RabbitMQ 實作訊息同步</li>
+                                </ul>
+                                <div class="diff-result" role="note">
+                                    <span class="diff-plus" aria-hidden="true">+</span>成果: 完成系統從 MVP
+                                    到正式版的完整開發，成功上線並投入實際使用
                                 </div>
-                            </div>
-                        </details>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> C# .NET 8, MS SQL,
+                                    Redis, RabbitMQ, Docker, Jenkins</p>
+                            </article>
 
-                    <!-- Project 2: 系統管理後台 -->
-                    <div class="output-line"><span class="subtitle">▸ 系統管理後台</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> 從零建構系統管理後台</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">技術亮點:</span></div>
-                    <div class="output-line"> • 從 0 開始獨自開發專案</div>
-                    <div class="output-line"> • 使用 JWT + Middleware 驗證，確保 API 安全性</div>
-                    <div class="output-line"> • 設計完整的 RBAC 權限系統，支援多層級角色與權限控制</div>
-                    <div class="output-line"> • 使用 Docker Compose 統一開發、測試、正式環境</div>
-                    <div class="output-line"> • 採用微服務架構，各模組獨立部署，降低變更風險</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
-                    <div class="output-line"> • 需串聯不同系統間訊息傳遞 → 使用 RabbitMQ 實作訊息同步</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="success">成果: 完成系統從 MVP 到正式版的完整開發，成功上線並投入實際使用</span></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> C# .NET 8, MS SQL, Redis,
-                        RabbitMQ, Docker, Jenkins</div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- Project 3: ERP 系統優化 -->
-                    <div class="output-line"><span class="subtitle">▸ ERP 核心系統優化與重構</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> 接手累積 5 年技術債的 ERP 系統</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">挑戰與解決方案:</span></div>
-                    <div class="output-line"> • 核心查詢效能低落 → 重構 Stored Procedure，優化查詢邏輯（索引優化、執行計畫分析、Query Tuning），效能提升
-                        300%</div>
-                    <div class="output-line"> • 資料庫鎖定頻繁 → 解決多重關聯問題，使用 NOWAIT、優化 Cursor，減少 60% 鎖定時間</div>
-                    <div class="output-line"> • MRP 計算邏輯長期錯誤 → 深入分析業務規則並修正判斷邏輯，協助公司有效降低呆滯庫存</div>
-                    <div class="output-line"> • 缺乏系統文件 → 系統化梳理舊有代碼邏輯，建立完整技術文件，確保成員無須長時間摸索即可上手</div>
-                    <div class="output-line"> • 程式碼可維護性差 → 導入現代化開發規範與單元測試，重構關鍵模組，顯著降低系統耦合度</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="success">成果: 系統回復可維護狀態，後續功能交付周期顯著縮短，MRP
-                            修正直接改善庫存準確率，減少公司千萬呆滯庫存</span>
-                    </div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> C# .NET 8, MS SQL
-                        AJAX, JavaScript</div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- Project 5: 企業應用系統開發 -->
-                    <div class="output-line"><span class="subtitle">▸ 企業應用系統開發</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> 從需求了解、業務邏輯分析、系統開發到驗收交付的完整流程，開發多個企業應用系統</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">核心專案:</span></div>
-                    <div class="output-line"> • CRM 客戶管理系統 - 實作權限控制、報表、操作日誌與自動化工作流程等核心功能</div>
-                    <div class="output-line"> • 准考證套印系統 - 使用多執行緒優化，處理 50,000+ 張准考證</div>
-                    <div class="output-line"> • 考試報到系統 - SQLite + 區網同步方案，支援離線作業，確保多台主機資料同步</div>
-                    <div class="output-line"> • Delphi 舊系統重寫 - 將舊有 Delphi 系統以 C# 重寫，分析舊有系統功能與優化</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> C# .NET 8, MS
-                        SQL, SQLite, EF, LINQ</div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Open Source Projects Section -->
-            <div class="cmd-section" id="projects">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-projects-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="projects-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Side Projects</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- Project 1 -->
-                    <div class="output-line"><span class="project-badge">[主要專案]</span> <span
-                            class="project-name">stock-bot-golang</span> ⭐ 1</div>
-                    <div class="output-line"> 台股查詢機器人 - 基於 Telegram/LINE 的即時股價、K線圖表、新聞訂閱系統</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="subtitle">專案亮點:</span></div>
-                    <div class="output-line"> • 採用 Clean Architecture 設計,確保程式碼可維護性</div>
-                    <div class="output-line"> • 支援多平台整合 (Telegram + LINE)</div>
-                    <div class="output-line"> • 即時股價查詢與訂閱功能</div>
-                    <div class="output-line"> • K線圖表視覺化呈現</div>
-                    <div class="output-line"> • 完整的 CI/CD 部署流程</div>
-                    <div class="output-line"> • 使用 Zap 套件 搭配 Middleware 紀錄完整 Log 歷程</div>
-                    <div class="output-line"> • 使用 Github Action 定時監控服務狀態，並設定主動通報機制</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> Go 1.24, Clean Architecture,
-                        PostgreSQL, Docker</div>
-                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/stock-bot-golang"
-                            target="_blank" class="link">https://github.com/tian841224/stock-bot-golang</a></div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details-stock-bot">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output"
-                                    style="font-size: 0.85rem; line-height: 1.3; margin-top: 0.5rem;">
-                                    <img src="assets/images/stock-bot-architecture.png" alt="stock-bot-golang 系統架構圖"
-                                        style="max-width: 600px; width: 100%; border-radius: 6px; border: 1px solid #333; display: block;">
+                            <!-- ERP -->
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="ERP 核心系統優化">## ERP 核心系統優化與重構</h2>
+                                <p class="proj-desc">接手累積 5 年技術債的 ERP 系統</p>
+                                <h3 class="md-h3">### 挑戰與解決方案</h3>
+                                <ul class="md-ul sol">
+                                    <li>核心查詢效能低落 → 重構 Stored Procedure，優化查詢邏輯（索引優化、執行計畫分析、Query Tuning），效能提升 <span
+                                            class="num" data-count="300">300</span>%</li>
+                                    <li>資料庫鎖定頻繁 → 解決多重關聯問題，使用 NOWAIT、優化 Cursor，減少 <span class="num"
+                                            data-count="60">60</span>% 鎖定時間</li>
+                                    <li>MRP 計算邏輯長期錯誤 → 深入分析業務規則並修正判斷邏輯，協助公司有效降低呆滯庫存</li>
+                                    <li>缺乏系統文件 → 系統化梳理舊有代碼邏輯，建立完整技術文件，確保成員無須長時間摸索即可上手</li>
+                                    <li>程式碼可維護性差 → 導入現代化開發規範與單元測試，重構關鍵模組，顯著降低系統耦合度</li>
+                                </ul>
+                                <div class="diff-result" role="note">
+                                    <span class="diff-plus" aria-hidden="true">+</span>成果: 系統回復可維護狀態，後續功能交付周期顯著縮短，MRP
+                                    修正直接改善庫存準確率，減少公司千萬呆滯庫存
                                 </div>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> C# .NET 8, MS SQL,
+                                    AJAX, JavaScript</p>
+                            </article>
+
+                            <!-- 企業應用 -->
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="企業應用系統開發">## 企業應用系統開發</h2>
+                                <p class="proj-desc">從需求了解、業務邏輯分析、系統開發到驗收交付的完整流程，開發多個企業應用系統</p>
+                                <h3 class="md-h3">### 核心專案</h3>
+                                <ul class="md-ul">
+                                    <li>CRM 客戶管理系統 - 實作權限控制、報表、操作日誌與自動化工作流程等核心功能</li>
+                                    <li>准考證套印系統 - 使用多執行緒優化，處理 <span class="num" data-count="50000"
+                                            data-format="comma">50,000</span>+ 張准考證</li>
+                                    <li>考試報到系統 - SQLite + 區網同步方案，支援離線作業，確保多台主機資料同步</li>
+                                    <li>Delphi 舊系統重寫 - 將舊有 Delphi 系統以 C# 重寫，分析舊有系統功能與優化</li>
+                                </ul>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> C# .NET 8, MS SQL,
+                                    SQLite, EF, LINQ</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- ========== side_projects.md ========== -->
+                    <section class="page page-md" id="page-sideprojects" role="tabpanel" aria-label="side_projects.md"
+                        tabindex="0" hidden>
+                        <div class="md-render">
+                            <h1 class="md-h1"># Side Projects</h1>
+
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="stock-bot-golang">## stock-bot-golang <span
+                                        class="pin-badge">主要專案</span><span class="star-badge">⭐ 1</span></h2>
+                                <p class="proj-desc">台股查詢機器人 - 基於 Telegram/LINE 的即時股價、K線圖表、新聞訂閱系統</p>
+                                <h3 class="md-h3">### 專案亮點</h3>
+                                <ul class="md-ul">
+                                    <li>採用 Clean Architecture 設計,確保程式碼可維護性</li>
+                                    <li>支援多平台整合 (Telegram + LINE)</li>
+                                    <li>即時股價查詢與訂閱功能</li>
+                                    <li>K線圖表視覺化呈現</li>
+                                    <li>完整的 CI/CD 部署流程</li>
+                                    <li>使用 Zap 套件 搭配 Middleware 紀錄完整 Log 歷程</li>
+                                    <li>使用 Github Action 定時監控服務狀態，並設定主動通報機制</li>
+                                </ul>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> Go 1.24, Clean
+                                    Architecture, PostgreSQL, Docker</p>
+                                <p class="repo-line"><a class="md-link"
+                                        href="https://github.com/tian841224/stock-bot-golang" target="_blank"
+                                        rel="noopener">github.com/tian841224/stock-bot-golang</a></p>
+                                <details class="achv arch">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <img src="assets/images/stock-bot-architecture.png"
+                                                alt="stock-bot-golang 系統架構圖" loading="lazy" class="arch-img"
+                                                onerror="this.style.display='none';this.insertAdjacentHTML('afterend','&lt;p class=&quot;img-fallback&quot;&gt;架構圖載入失敗，請至 GitHub repo 查看&lt;/p&gt;')">
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
+
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="stock_bot_nodejs">## stock_bot_nodejs <span
+                                        class="star-badge">⭐ 1</span></h2>
+                                <p class="proj-desc">台股資訊查詢機器人 (Node.js 版本)</p>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> TypeScript, Node.js,
+                                    Telegram Bot, LINE Bot</p>
+                                <p class="repo-line"><a class="md-link"
+                                        href="https://github.com/tian841224/stock_bot_nodejs" target="_blank"
+                                        rel="noopener">github.com/tian841224/stock_bot_nodejs</a></p>
+                                <details class="achv arch" data-mermaid="mmd-src-nodejs">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <pre class="mermaid-src" id="mmd-src-nodejs" style="display:none;">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f2335', 'primaryTextColor': '#c0caf5', 'primaryBorderColor': '#7aa2f7', 'lineColor': '#565f89', 'secondaryColor': '#16161e', 'tertiaryColor': '#1f2335', 'edgeLabelBackground': '#16161e'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
+graph TD
+    TG["Telegram 使用者"] -->|指令 / Webhook| Bot["NestJS Bot 服務"]
+    LINE["LINE 使用者"] -->|指令 / Webhook| Bot
+
+    subgraph AppLayer [應用層]
+        Bot -->|查詢請求| Crawler["Puppeteer 爬蟲模組"]
+        Bot -->|訂閱管理| Prisma["Prisma ORM"]
+        Scheduler["排程服務"] -->|定時推播訂閱內容| Bot
+    end
+
+    Crawler -->|取得即時股價 / K線 / 新聞| StockSrc["台股資料來源"]
+    Prisma --> PG[("PostgreSQL")]
+    Bot -->|回覆圖表與文字訊息| TG
+    Bot -->|回覆圖表與文字訊息| LINE
+
+    classDef default fill:#1f2335,stroke:#7aa2f7,stroke-width:1px,color:#c0caf5;
+    classDef queue fill:#16161e,stroke:#bb9af7,stroke-width:2px,color:#bb9af7;
+    class PG queue;
+                                            </pre>
+                                            <div class="mermaid-view"></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
+
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="tgbot_rssfeed">## tgbot_rssfeed <span
+                                        class="star-badge">⭐ 1</span></h2>
+                                <p class="proj-desc">Telegram RSS 訂閱服務機器人</p>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> C#, .NET, Telegram
+                                    Bot, RSS</p>
+                                <p class="repo-line"><a class="md-link"
+                                        href="https://github.com/tian841224/tgbot_rssfeed" target="_blank"
+                                        rel="noopener">github.com/tian841224/tgbot_rssfeed</a></p>
+                                <details class="achv arch" data-mermaid="mmd-src-rss">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <pre class="mermaid-src" id="mmd-src-rss" style="display:none;">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f2335', 'primaryTextColor': '#c0caf5', 'primaryBorderColor': '#7aa2f7', 'lineColor': '#565f89', 'secondaryColor': '#16161e', 'tertiaryColor': '#1f2335', 'edgeLabelBackground': '#16161e'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
+graph TD
+    User["Telegram 使用者"] -->|/sub /list /del /send| Bot[".NET Bot 服務 (Long Polling)"]
+
+    subgraph AppLayer [應用層]
+        Bot --> Services["Services 業務邏輯"]
+        Services --> Repo["Repositories 資料存取"]
+    end
+
+    Repo --> DB[("SQLite (RssFeed.db)")]
+    Poller["定時輪詢"] -->|抓取新文章| RSS["RSS 來源"]
+    Poller -->|比對已推送紀錄| Repo
+    Poller -->|推送最新文章| User
+
+    classDef default fill:#1f2335,stroke:#7aa2f7,stroke-width:1px,color:#c0caf5;
+    classDef queue fill:#16161e,stroke:#bb9af7,stroke-width:2px,color:#bb9af7;
+    class DB queue;
+                                            </pre>
+                                            <div class="mermaid-view"></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
+
+                            <article class="proj">
+                                <h2 class="md-h2" data-outline="fetch-sketchfab-data">## fetch-sketchfab-data <span
+                                        class="star-badge">⭐ 1</span></h2>
+                                <p class="proj-desc">Sketchfab 排程 Demo 作品</p>
+                                <p class="stack-line"><span class="stack-label">Tech Stack</span> Go, Web Scraping,
+                                    Scheduler</p>
+                                <p class="repo-line"><a class="md-link"
+                                        href="https://github.com/tian841224/fetch-sketchfab-data" target="_blank"
+                                        rel="noopener">github.com/tian841224/fetch-sketchfab-data</a></p>
+                                <details class="achv arch" data-mermaid="mmd-src-sketchfab">
+                                    <summary>系統架構圖 (Architecture Diagram)</summary>
+                                    <div class="achv-body">
+                                        <div class="mermaid-box">
+                                            <pre class="mermaid-src" id="mmd-src-sketchfab" style="display:none;">
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1f2335', 'primaryTextColor': '#c0caf5', 'primaryBorderColor': '#7aa2f7', 'lineColor': '#565f89', 'secondaryColor': '#16161e', 'tertiaryColor': '#1f2335', 'edgeLabelBackground': '#16161e'}, 'flowchart': {'curve': 'stepAfter', 'padding': 15}}}%%
+graph TD
+    Trigger["單次執行 / 每日排程"] --> App["Go 應用程式 (cmd + internal)"]
+    App -->|呼叫 API 取得模型資料| SF["Sketchfab API"]
+    App -->|比對既有紀錄：新增 / 更新 / 無變化| Mongo[("MongoDB")]
+    Mongo -.-> MongoExpress["MongoDB Express 管理介面"]
+
+    subgraph LogPipeline [日誌監控管線]
+        App -->|應用日誌| Logstash["Logstash"]
+        Logstash --> ES[("Elasticsearch")]
+        ES --> Kibana["Kibana 視覺化"]
+    end
+
+    classDef default fill:#1f2335,stroke:#7aa2f7,stroke-width:1px,color:#c0caf5;
+    classDef queue fill:#16161e,stroke:#bb9af7,stroke-width:2px,color:#bb9af7;
+    class Mongo,ES queue;
+                                            </pre>
+                                            <div class="mermaid-view"></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </article>
+                        </div>
+                    </section>
+
+                    <!-- ========== notes.md ========== -->
+                    <section class="page page-md" id="page-notes" role="tabpanel" aria-label="notes.md" tabindex="0"
+                        hidden>
+                        <div class="md-render">
+                            <h1 class="md-h1"># Note</h1>
+                            <ul class="note-list reveal-group">
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/S1lu8-_41e"
+                                        target="_blank" rel="noopener"><span class="note-title">C#物件導向觀念</span><span
+                                            class="note-url">hackmd.io/@tian841224/S1lu8-_41e</span></a></li>
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/SyDcYGKNyl"
+                                        target="_blank" rel="noopener"><span class="note-title">DRY原則</span><span
+                                            class="note-url">hackmd.io/@tian841224/SyDcYGKNyl</span></a></li>
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/S1qci5UVye"
+                                        target="_blank" rel="noopener"><span class="note-title">SOLID原則</span><span
+                                            class="note-url">hackmd.io/@tian841224/S1qci5UVye</span></a></li>
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/HJu-wx7Cp"
+                                        target="_blank" rel="noopener"><span class="note-title">資料庫觀念</span><span
+                                            class="note-url">hackmd.io/@tian841224/HJu-wx7Cp</span></a></li>
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/HJPmJuws6"
+                                        target="_blank" rel="noopener"><span
+                                            class="note-title">Docker自動部署至EC2</span><span
+                                            class="note-url">hackmd.io/@tian841224/HJPmJuws6</span></a></li>
+                                <li><a class="note-link" href="https://hackmd.io/@tian841224/ryu7bmCq1l"
+                                        target="_blank" rel="noopener"><span
+                                            class="note-title">Cloudflare設定HTTPS</span><span
+                                            class="note-url">hackmd.io/@tian841224/ryu7bmCq1l</span></a></li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- ========== stats.md ========== -->
+                    <section class="page page-md" id="page-stats" role="tabpanel" aria-label="stats.md" tabindex="0"
+                        hidden>
+                        <div class="md-render">
+                            <h1 class="md-h1"># Statistics</h1>
+                            <h2 class="md-h2">## GitHub 貢獻紀錄</h2>
+                            <div class="stats-box">
+                                <img src="https://ghchart.rshah.org/7aa2f7/tian841224" alt="GitHub Contributions"
+                                    class="stat-img-lg" loading="lazy"
+                                    onerror="this.style.display='none';this.insertAdjacentHTML('afterend','&lt;p class=&quot;img-fallback&quot;&gt;GitHub 貢獻圖暫時無法載入，請直接前往 GitHub 查看&lt;/p&gt;')">
                             </div>
-                        </details>
-                    </div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- Project 2 -->
-                    <div class="output-line"><span class="project-name">stock_bot_nodejs</span> ⭐ 1</div>
-                    <div class="output-line"> 台股資訊查詢機器人 (Node.js 版本)</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> TypeScript, Node.js, Telegram
-                        Bot,
-                        LINE Bot</div>
-                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/stock_bot_nodejs"
-                            target="_blank" class="link">https://github.com/tian841224/stock_bot_nodejs</a></div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details-stock-bot-nodejs">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output" style="margin-top: 0.5rem;">
-                                    <div class="output-line info indent">架構圖待補充</div>
-                                </div>
+                            <h2 class="md-h2">## LeetCode 解題紀錄</h2>
+                            <div class="stats-box">
+                                <img src="https://leetcard.jacoblin.cool/Tian1224?theme=dark&font=Noto%20Sans%20TC&ext=heatmap"
+                                    alt="LeetCode Stats" class="stat-img-md" loading="lazy"
+                                    onerror="this.style.display='none';this.insertAdjacentHTML('afterend','&lt;p class=&quot;img-fallback&quot;&gt;LeetCode 統計圖暫時無法載入&lt;/p&gt;')">
                             </div>
-                        </details>
-                    </div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
+                        </div>
+                    </section>
 
-                    <!-- Project 3 -->
-                    <div class="output-line"><span class="project-name">tgbot_rssfeed</span> ⭐ 1</div>
-                    <div class="output-line"> Telegram RSS 訂閱服務機器人</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> C#, .NET, Telegram Bot, RSS
-                    </div>
-                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/tgbot_rssfeed" target="_blank"
-                            class="link">https://github.com/tian841224/tgbot_rssfeed</a>
-                    </div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details-tgbot">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output" style="margin-top: 0.5rem;">
-                                    <div class="output-line info indent">架構圖待補充</div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- Project 4 -->
-                    <div class="output-line"><span class="project-name">fetch-sketchfab-data</span> ⭐ 1</div>
-                    <div class="output-line"> Sketchfab 排程 Demo 作品</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"> <span class="tech-label">Tech Stack:</span> Go, Web Scraping, Scheduler
-                    </div>
-                    <div class="output-line"> 🔗 <a href="https://github.com/tian841224/fetch-sketchfab-data"
-                            target="_blank" class="link">https://github.com/tian841224/fetch-sketchfab-data</a></div>
-                    <div class="achievement-group" style="margin-top: 1rem;">
-                        <details class="achievement-item" id="arch-details-sketchfab">
-                            <summary class="output-line"> <span class="key">▸ 系統架構圖 (Architecture Diagram)</span> <span
-                                    class="toggle-hint">[點擊展開/收合]</span></summary>
-                            <div class="achievement-detail">
-                                <div class="json-output" style="margin-top: 0.5rem;">
-                                    <div class="output-line info indent">架構圖待補充</div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Blog Section -->
-            <div class="cmd-section" id="blog">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-blog-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="blog-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Note</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">C#物件導向觀念</span></div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/S1lu8-_41e" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/S1lu8-_41e</a>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">DRY原則</span></div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/SyDcYGKNyl" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/SyDcYGKNyl</a>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">SOLID原則</span></div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/S1qci5UVye" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/S1qci5UVye</a>
-                    </div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">資料庫觀念</span>
-                    </div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/HJu-wx7Cp" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/HJu-wx7Cp</a></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">Docker自動部署至EC2</span></div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/HJPmJuws6" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/HJPmJuws6</a></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="file">Cloudflare設定HTTPS</span></div>
-                    <div class="output-line"> 🔗 <a href="https://hackmd.io/@tian841224/ryu7bmCq1l" target="_blank"
-                            class="link">https://hackmd.io/@tian841224/ryu7bmCq1l</a>
-                    </div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Stats Section - GitHub & LeetCode -->
-            <div class="cmd-section" id="stats">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-stats-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="stats-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Statistics</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-
-                    <!-- GitHub Stats -->
-                    <div class="output-line"><span class="subtitle">▸ GitHub 貢獻紀錄</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="stats-container-left">
-                        <img src="https://ghchart.rshah.org/7a9cff/tian841224" alt="GitHub Contributions"
-                            class="stat-card-large">
-                    </div>
-                    <div class="output-line blank"></div>
-
-                    <!-- LeetCode Stats -->
-                    <div class="output-line"><span class="subtitle">▸ LeetCode 解題紀錄</span></div>
-                    <div class="output-line blank"></div>
-                    <div class="stats-container-left">
-                        <img src="https://leetcard.jacoblin.cool/Tian1224?theme=dark&font=Noto%20Sans%20TC&ext=heatmap"
-                            alt="LeetCode Stats" class="stat-card-medium">
-                    </div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="cmd-section" id="contact">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command">
-                        <span id="typing-contact-cmd"></span>
-                        <span class="typing-cursor">_</span>
-                    </span>
-                </div>
-                <div class="cmd-output" id="contact-content" style="opacity: 0;">
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line"><span class="highlight">Contact</span></div>
-                    <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="key">GitHub:</span> <a href="https://github.com/tian841224"
-                            target="_blank" class="link">https://github.com/tian841224</a></div>
-                    <div class="output-line"><span class="key">Email:</span> <a href="mailto:jacky841224j@gmail.com"
-                            class="link">jacky841224j@gmail.com</a></div>
-                    <div class="output-line blank"></div>
-                    <div class="output-line"><span class="subtitle">開放合作機會:</span></div>
-                    <div class="output-line"> ▸ 後端開發職位</div>
-                    <div class="output-line"> ▸ 系統架構設計</div>
-                    <div class="output-line"> ▸ 技術諮詢</div>
-                    <div class="output-line"> ▸ 開源專案協作</div>
-                </div>
-                <div class="cmd-line blank"></div>
-            </div>
-
-            <!-- Footer -->
-            <div class="cmd-section">
-                <div class="cmd-line">
-                    <span class="prompt">$</span>
-                    <span class="command typing-cursor">_</span>
+                    <!-- ========== contact.json ========== -->
+                    <section class="page page-code" id="page-contact" role="tabpanel" aria-label="contact.json"
+                        tabindex="0" hidden>
+                        <pre class="json-view"><code><span class="ln">{</span>
+<span class="ln">  <span class="c-key">"github"</span>: <span class="c-str">"<a class="code-link" href="https://github.com/tian841224" target="_blank" rel="noopener">https://github.com/tian841224</a>"</span>,</span>
+<span class="ln">  <span class="c-key">"email"</span>: <span class="c-str">"<a class="code-link" href="mailto:jacky841224j@gmail.com">jacky841224j@gmail.com</a>"</span>,</span>
+<span class="ln">  <span class="c-key">"open_to"</span>: [</span>
+<span class="ln">    <span class="c-str">"後端開發職位"</span>,</span>
+<span class="ln">    <span class="c-str">"系統架構設計"</span>,</span>
+<span class="ln">    <span class="c-str">"技術諮詢"</span>,</span>
+<span class="ln">    <span class="c-str">"開源專案協作"</span></span>
+<span class="ln">  ],</span>
+<span class="ln">  <span class="c-key">"response_time"</span>: <span class="c-str">"usually &lt; 24h"</span></span>
+<span class="ln">}</span></code></pre>
+                    </section>
                 </div>
             </div>
+        </div>
+
+        <!-- ===== 狀態列 ===== -->
+        <footer class="statusbar">
+            <div class="sb-left">
+                <span class="sb-item sb-branch"><span aria-hidden="true">⎇</span> main</span>
+                <span class="sb-item sb-ok"><span aria-hidden="true">✓</span> 0 errors</span>
+            </div>
+            <div class="sb-right">
+                <span class="sb-item sb-pos" id="sb-pos">Ln 1, Col 1</span>
+                <span class="sb-item">UTF-8</span>
+                <span class="sb-item sb-lang" id="sb-lang">Markdown</span>
+                <span class="sb-item sb-exp"><span id="sb-years">7</span>+ yrs</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== 命令面板 ===== -->
+    <div class="palette-overlay" id="palette-overlay" hidden>
+        <div class="palette" role="dialog" aria-modal="true" aria-label="命令面板">
+            <input type="text" id="palette-input" autocomplete="off" spellcheck="false"
+                aria-label="搜尋檔案或指令" placeholder="輸入檔名或 > 指令…">
+            <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜尋結果"></ul>
         </div>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            mermaid.initialize({
-                startOnLoad: false,
-                securityLevel: 'loose',
-                theme: 'dark'
-            });
-
-            const archDetails = document.getElementById('arch-details');
-            if (archDetails) {
-                archDetails.addEventListener('toggle', async function () {
-                    if (archDetails.open && !archDetails.dataset.rendered) {
-                        try {
-                            archDetails.dataset.rendered = "true";
-                            const src = document.getElementById('arch-mermaid-src').textContent;
-                            const { svg } = await mermaid.render('mermaid-arch-graph', src);
-                            document.getElementById('arch-mermaid-view').innerHTML = svg;
-                        } catch (e) {
-                            console.error('Mermaid render error:', e);
-                        }
-                    }
-                });
-            }
-
-            const archDetailsDashboard = document.getElementById('arch-details-dashboard');
-            if (archDetailsDashboard) {
-                archDetailsDashboard.addEventListener('toggle', async function () {
-                    if (archDetailsDashboard.open && !archDetailsDashboard.dataset.rendered) {
-                        try {
-                            archDetailsDashboard.dataset.rendered = "true";
-                            const src = document.getElementById('arch-mermaid-src-dashboard').textContent;
-                            const { svg } = await mermaid.render('mermaid-arch-graph-dashboard', src);
-                            document.getElementById('arch-mermaid-view-dashboard').innerHTML = svg;
-                        } catch (e) {
-                            console.error('Mermaid render error:', e);
-                        }
-                    }
-                });
-            }
-        });
-    </script>
-    <script src="js/three_animation.js"></script>
-    <script src="js/terminal.js"></script>
+    <script src="js/ide.js"></script>
 </body>
 
 </html>

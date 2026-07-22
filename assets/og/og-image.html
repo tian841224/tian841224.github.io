@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- og-image 原始碼：1200x630 社群分享圖（IDE 編輯器風）。
+     產生方式：chrome --headless --screenshot=og-image.png --window-size=1200,630 file:///.../og-image.html -->
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    width: 1200px; height: 630px;
+    background: #0e0e14;
+    font-family: 'JetBrains Mono', 'Noto Sans TC', monospace;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+}
+body::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+        radial-gradient(ellipse 700px 420px at 25% 15%, rgba(122,162,247,0.14), transparent),
+        radial-gradient(ellipse 600px 380px at 85% 90%, rgba(187,154,247,0.12), transparent);
+}
+.win {
+    position: relative; width: 1020px;
+    background: #1a1b26; border: 1px solid #2c3047; border-radius: 14px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.7); overflow: hidden;
+}
+.tabs { display: flex; align-items: center; background: #16161e; border-bottom: 1px solid #2c3047; }
+.dots { display: flex; gap: 9px; padding: 0 20px; }
+.dots span { width: 14px; height: 14px; border-radius: 50%; }
+.d1 { background: #ff5f57; } .d2 { background: #febc2e; } .d3 { background: #28c840; }
+.tab { padding: 14px 24px; font-size: 17px; color: #787fa5; border-right: 1px solid #2c3047; }
+.tab.on { background: #1a1b26; color: #c0caf5; border-top: 2px solid #7aa2f7; }
+.bodyx { display: flex; }
+.lns { padding: 30px 0; width: 64px; text-align: right; color: #3b4261; font-size: 20px; line-height: 2.1; flex-shrink: 0; }
+.code { padding: 30px 36px; font-size: 20px; line-height: 2.1; }
+.kw { color: #bb9af7; } .key { color: #7dcfff; } .str { color: #9ece6a; } .pn { color: #c0caf5; }
+.name-line { font-size: 46px; font-weight: 700; color: #c0caf5; line-height: 1.6; }
+.name-line .str { color: #9ece6a; }
+.role { color: #7aa2f7; font-size: 26px; font-weight: 600; }
+.url { margin-top: 10px; color: #787fa5; font-size: 19px; }
+.cursor { display: inline-block; width: 11px; height: 24px; background: #7aa2f7; vertical-align: middle; }
+</style>
+</head>
+<body>
+<div class="win">
+    <div class="tabs">
+        <div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        <div class="tab on">README.md</div>
+        <div class="tab">skills.json</div>
+        <div class="tab">experience.md</div>
+    </div>
+    <div class="bodyx">
+        <div class="lns">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+        <div class="code">
+            <div><span class="kw">const</span> <span class="pn">engineer</span> = {</div>
+            <div class="name-line">&nbsp;&nbsp;<span class="key">name</span>: <span class="str">"Tian"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">role</span>: <span class="str role">"Backend Engineer"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">stack</span>: [<span class="str">"Go"</span>, <span class="str">"C# (.NET)"</span>, <span class="str">"TypeScript"</span>],</div>
+            <div>&nbsp;&nbsp;<span class="key">focus</span>: <span class="str">"後端系統開發與架構設計"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="key">experience</span>: <span class="str">"7+ 年"</span>,</div>
+            <div>}; <span class="cursor"></span></div>
+            <div class="url">// https://tian1224.uk</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
