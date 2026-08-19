@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "stock-bot-golang",
+    "owner": "tian841224",
+    "repo": "stock-bot-golang",
+    "sourceUrl": "https://github.com/tian841224/stock-bot-golang#readme"
+  },
+  {
+    "slug": "stock_bot_nodejs",
+    "owner": "tian841224",
+    "repo": "stock_bot_nodejs",
+    "sourceUrl": "https://github.com/tian841224/stock_bot_nodejs#readme"
+  },
+  {
+    "slug": "tgbot_rssfeed",
+    "owner": "tian841224",
+    "repo": "tgbot_rssfeed",
+    "sourceUrl": "https://github.com/tian841224/tgbot_rssfeed#readme"
+  },
+  {
+    "slug": "fetch-sketchfab-data",
+    "owner": "tian841224",
+    "repo": "fetch-sketchfab-data",
+    "sourceUrl": "https://github.com/tian841224/fetch-sketchfab-data#readme"
+  }
+]

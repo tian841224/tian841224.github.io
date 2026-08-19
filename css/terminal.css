@@ -1036,3 +1036,83 @@ html {
     transition: width 0.2s ease, height 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
     opacity: 0;
 }
+
+/* 履歷重點優先：保持原始終端機樣式，放大技能與專案資訊 */
+.profile-output .output-line,
+.skills-columns .output-line,
+.project-summary,
+.stats-container .output-line,
+#contact-content .output-line {
+    font-size: 1.12rem;
+    line-height: 1.9;
+}
+
+.profile-output .highlight,
+.section-label .highlight {
+    font-size: 1.7rem;
+}
+
+.skills-columns {
+    gap: 2.6rem;
+}
+
+.skills-columns .dir,
+.skills-columns .file-main {
+    font-size: 1.12rem;
+}
+
+.project-summary {
+    padding: .45rem .6rem;
+    border-left: 3px solid transparent;
+}
+
+.project-summary:hover,
+.achievement-item[open] .project-summary {
+    border-left-color: #7a9cff;
+    background: rgba(122, 156, 255, .07);
+}
+
+.project-summary .subtitle {
+    font-size: 1.25rem;
+}
+
+.project-summary .key,
+.project-summary .success {
+    font-size: 1.05rem;
+}
+
+.project-summary .toggle-hint {
+    font-size: .8rem;
+}
+
+.achievement-detail .output-line {
+    font-size: .98rem;
+    line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+    .profile-output .output-line,
+    .skills-columns .output-line,
+    .project-summary,
+    #contact-content .output-line {
+        font-size: 1rem;
+    }
+
+    .profile-output .highlight,
+    .section-label .highlight {
+        font-size: 1.4rem;
+    }
+
+    .project-summary .subtitle {
+        font-size: 1.08rem;
+    }
+
+    .project-summary .key,
+    .project-summary .success {
+        font-size: .96rem;
+    }
+
+    .achievement-detail .output-line {
+        font-size: .9rem;
+    }
+}

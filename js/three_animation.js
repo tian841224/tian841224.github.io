@@ -54,16 +54,49 @@
 
     let lastTime = 0;
     const fpsInterval = 1000 / 30; // 固定速度
+    let animationFrameId = 0;
+    let pageVisible = !document.hidden;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function animate(time) {
-        requestAnimationFrame(animate);
+        animationFrameId = 0;
+        if (!pageVisible || motionQuery.matches) return;
 
         const elapsed = time - lastTime;
         if (elapsed > fpsInterval) {
             lastTime = time - (elapsed % fpsInterval);
             draw();
         }
+
+        animationFrameId = requestAnimationFrame(animate);
     }
 
-    animate(0);
+    function startAnimation() {
+        if (!pageVisible || motionQuery.matches || animationFrameId) return;
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        pageVisible = !document.hidden;
+        if (pageVisible) {
+            startAnimation();
+        } else if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = 0;
+        }
+    });
+
+    const handleMotionChange = () => {
+        if (motionQuery.matches) {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            animationFrameId = 0;
+            draw();
+        } else {
+            startAnimation();
+        }
+    };
+
+    if (motionQuery.addEventListener) motionQuery.addEventListener('change', handleMotionChange);
+    if (motionQuery.matches) draw();
+    else startAnimation();
 })();
