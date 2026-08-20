@@ -32,10 +32,10 @@ img { max-width: 100%; }
 .site-nav a:hover, .site-nav a:focus-visible, .site-footer a:hover, .site-footer a:focus-visible { color: var(--accent-strong); }
 a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-.hero-section { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr); gap: clamp(3rem, 8vw, 7rem); align-items: center; min-height: 540px; padding: 3rem 0 5rem; }
+.hero-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr); gap: clamp(3rem, 6vw, 5rem); align-items: center; min-height: 540px; padding: 3rem 0 5rem; }
 .section-label { margin: 0 0 1.6rem; color: var(--accent); font-size: .68rem; letter-spacing: .08em; }
 .hero-name { margin: 0 0 .7rem; color: var(--muted); font: 500 1.2rem var(--mono); letter-spacing: .05em; }
-.hero-primary h1 { margin: 0; font-family: var(--sans); font-size: clamp(2.8rem, 6vw, 5.4rem); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
+.hero-primary h1 { margin: 0; font-family: var(--sans); font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
 .hero-primary h1 em { color: var(--accent); font-style: normal; }
 .hero-summary { max-width: 36rem; margin: 1.4rem 0 0; color: var(--accent-strong); font-size: 1.2rem; line-height: 1.75; }
 .hero-about { max-width: 38rem; margin-top: 1.2rem; padding-left: 1.1rem; border-left: 2px solid var(--accent); color: var(--muted); font-size: .96rem; line-height: 1.85; }
@@ -69,15 +69,6 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outli
 .achievement-list summary strong { color: var(--text); font-size: 1rem; font-weight: 600; }
 .achievement-list summary span { display: block; margin-top: .45rem; color: var(--accent); font: 1rem var(--mono); text-align: left; }
 .achievement-list details > p { margin: 0 2rem 1rem 0; color: var(--muted); font-size: 1rem; line-height: 1.75; }
-.hero-experience { align-self: stretch; display: flex; flex-direction: column; justify-content: center; margin: 0; padding: 2rem 0 2rem 2rem; border-left: 1px solid var(--line); }
-.hero-experience-label { margin: 0 0 .65rem; color: var(--accent); font-size: .68rem; letter-spacing: .08em; }
-.hero-experience ul { display: grid; gap: 1.1rem; margin: 0; padding: 0; list-style: none; color: var(--text); font-size: 1.05rem; }
-.hero-experience li::before { content: '—'; margin-right: .7rem; color: var(--accent); font-family: var(--mono); }
-.hero-experience li strong, .hero-experience li span { display: block; margin-left: 1.5rem; }
-.hero-experience li strong { font-size: 1.08rem; }
-.hero-project-link { display: block; color: inherit; text-decoration: none; }
-.hero-project-link:hover strong, .hero-project-link:focus-visible strong { color: var(--accent-strong); }
-.hero-experience li span { margin-top: .2rem; color: var(--muted); font: .76rem var(--mono); }
 .profile-facts { margin: 0; border-top: 1px solid var(--line); }
 .profile-facts > div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .profile-facts dt, .project-fields dt { color: var(--accent); font: .68rem var(--mono); letter-spacing: .04em; }
@@ -89,7 +80,7 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outli
 .section-heading .section-label { margin: 0; }
 .section-heading h2 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -.045em; }
 .core-achievements__heading h2,
-.skills-section .section-heading h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 5.6rem); font-weight: 700; line-height: 1.12; letter-spacing: -.06em; }
+.skills-section .section-heading h2 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 700; line-height: 1.12; letter-spacing: -.06em; }
 .section-heading > p:last-child { margin: 0 0 0 auto; color: var(--muted); font-size: .88rem; }
 .section-intro { margin: .45rem 0 0; color: var(--muted); font-size: .88rem; }
 .section-heading--stacked { align-items: flex-end; }
@@ -103,12 +94,14 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outli
 .project-index { color: var(--accent); font-size: .72rem; }
 .project-main h3 { margin: -.2rem 0 .55rem; font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 700; letter-spacing: -.045em; }
 .project-context { max-width: 46rem; margin: 0 0 1.4rem; color: var(--muted); font-size: .92rem; }
-.project-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.project-fields { display: grid; grid-template-columns: 1fr; gap: 1.1rem; margin-bottom: 1.5rem; }
 .project-fields div { min-width: 0; }
 .project-fields dd { margin: .35rem 0 0; color: var(--text); font-size: .96rem; line-height: 1.7; }
+.project-fields dd ul { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.project-fields dd li { padding-left: 1.1rem; position: relative; }
+.project-fields dd li::before { content: '•'; position: absolute; left: 0; color: var(--accent); }
 .architecture-flow { margin: .55rem 0 0; padding: .75rem .85rem; border: 1px solid rgba(158, 197, 223, .3); background: rgba(17, 29, 40, .72); color: var(--accent-strong); overflow-x: auto; }
 .architecture-flow code { display: block; font: .8rem/1.8 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
-.project-highlight-line { margin-bottom: 1.45rem; }
 .stack-label { margin: 0 0 .35rem; color: var(--accent); font-size: .72rem; letter-spacing: .08em; }
 .stack-line--featured { gap: .65rem .95rem; padding: .72rem .8rem; border: 1px solid rgba(158,197,223,.4); background: rgba(158,197,223,.07); }
 .stack-line--featured span { color: var(--accent-strong); font-size: .95rem; font-weight: 600; }
@@ -206,7 +199,6 @@ details[open] summary::after { content: '−'; }
 @media (max-width: 900px) {
     .site-header { grid-template-columns: auto 1fr; }
     .site-nav { justify-content: flex-end; }
-    .hero-section { gap: 3rem; }
     .project-row { grid-template-columns: 2.2rem minmax(0, 1fr) minmax(180px, .4fr); gap: 1.2rem; }
     .content-grid { gap: 3rem; }
     .achievement-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -219,7 +211,7 @@ details[open] summary::after { content: '−'; }
     .site-nav { justify-self: stretch; justify-content: flex-end; flex-wrap: wrap; gap: .35rem 1rem; margin-top: .9rem; }
     .site-nav a { min-height: 44px; display: inline-flex; align-items: center; }
     .hero-section { display: block; min-height: 0; padding: 2.5rem 0 3.8rem; }
-    .hero-primary h1 { font-size: clamp(2.5rem, 12vw, 4.2rem); }
+    .hero-primary h1 { font-size: clamp(1.7rem, 6vw, 2.5rem); }
     .hero-summary { margin-top: 1.3rem; font-size: .96rem; line-height: 1.65; }
     .hero-about { font-size: .9rem; line-height: 1.7; }
     .hero-code__titlebar { flex-wrap: wrap; }
@@ -227,12 +219,11 @@ details[open] summary::after { content: '−'; }
     .achievement-list { grid-template-columns: 1fr; }
     .achievement-list summary { align-items: flex-start; flex-wrap: wrap; }
     .achievement-list summary span { width: 100%; margin-left: 0; text-align: left; }
-    .hero-experience { margin-top: 2.5rem; padding: 1.5rem 0 0; border-top: 1px solid var(--line); border-left: 0; }
     .core-achievements, .projects-section, .skills-section, .evidence-section, .contact-section { padding: 4rem 0; }
     .section-heading { display: block; margin-bottom: 2rem; }
     .section-heading h2 { margin-top: .35rem; }
     .core-achievements__heading h2,
-    .skills-section .section-heading h2 { font-size: clamp(2.5rem, 12vw, 4.5rem); }
+    .skills-section .section-heading h2 { font-size: clamp(1.7rem, 6vw, 2.5rem); }
     .section-heading > p:last-child { margin-top: .8rem; }
     .project-row { display: block; padding: 2rem 0; }
     .project-index { margin-bottom: .65rem; }
@@ -279,8 +270,6 @@ details[open] summary::after { content: '−'; }
 .achievement-list summary strong,
 .achievement-list summary span,
 .achievement-list details > p,
-.hero-experience-label,
-.hero-experience li span,
 .profile-facts dt,
 .project-fields dt,
 .profile-facts dd,

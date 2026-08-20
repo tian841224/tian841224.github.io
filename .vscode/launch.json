@@ -1,35 +1,30 @@
 {
-    // 使用 IntelliSense 以得知可用的屬性。
-    // 暫留以檢視現有屬性的描述。
-    // 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Edge (file://)",
-            "request": "launch",
+            "name": "啟動網站（Edge）",
             "type": "msedge",
+            "request": "launch",
             "file": "${workspaceFolder}/index.html",
+            "runtimeExecutable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+            "runtimeArgs": [
+                "--user-data-dir=${userHome}/.vscode-edge-debug-profile",
+                "--no-first-run",
+                "--no-default-browser-check"
+            ],
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Launch Chrome (file://)",
+            "name": "啟動網站（Chrome）",
             "type": "chrome",
             "request": "launch",
             "file": "${workspaceFolder}/index.html",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Launch Edge (localhost:8080)",
-            "request": "launch",
-            "type": "msedge",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Launch Chrome (localhost:8080)",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost:8080",
+            "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "runtimeArgs": [
+                "--user-data-dir=${userHome}/.vscode-chrome-debug-profile",
+                "--no-first-run",
+                "--no-default-browser-check"
+            ],
             "webRoot": "${workspaceFolder}"
         }
     ]

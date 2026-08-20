@@ -29,7 +29,9 @@
                     <h1 id="page-title">關於我</h1>
                     <p class="hero-summary">成就感來自於學習</p>
                     <div class="hero-about"><p>程式起源從我小六開始，為了解決家裡老電腦跑不動遊戲，<br>自己上網找了很多能最佳化遊戲的方法，不斷的嘗試。<br>從晚上八點開始不停止的爬文做功課，在凌晨五點的早上<br>終於被我完成人生中第一個程式碼。</p></div>
-                    <div class="hero-code" aria-label="CMD 執行 nba2k_optimize.bat">
+                    <div class="hero-about hero-about--after-code"><p>當腳本執行、遊戲再次開啟後，看著 FPS 從 30 左右提升到 50+，<br>那種「僅僅幾行程式碼就能讓體驗大幅改善」的衝擊感，<br>加上能馬上看到成果的回饋，讓我獲得了前所未有的成就感。<br>自此，我便慢慢踏入了 Coding 的這條「不歸路」，<br>這份對技術的純粹熱忱延續至今。</p></div>
+                </div>
+                <div class="hero-code" aria-label="CMD 執行 nba2k_optimize.bat">
                         <div class="hero-code__titlebar">
                             <div class="hero-code__buttons" aria-hidden="true"><span></span><span></span><span></span></div>
                             <span class="mono">cmd.exe</span>
@@ -56,9 +58,6 @@
                             <div class="hero-code__prompt"><span>C:\Users\tian&gt;</span><span class="hero-code__cursor" aria-hidden="true">_</span></div>
                         </div>
                     </div>
-                    <div class="hero-about hero-about--after-code"><p>當腳本執行、遊戲再次開啟後，看著 FPS 從 30 左右提升到 50+，<br>那種「僅僅幾行程式碼就能讓體驗大幅改善」的衝擊感，<br>加上能馬上看到成果的回饋，讓我獲得了前所未有的成就感。<br>自此，我便慢慢踏入了 Coding 的這條「不歸路」，<br>這份對技術的純粹熱忱延續至今。</p></div>
-                </div>
-                <div class="hero-experience"><p class="hero-experience-label mono">CORE EXPERIENCE</p><ul><li><a class="hero-project-link" href="#experience-high-throughput"><strong>高流量訊息系統重構</strong></a><span>舊系統重構、訊息分流、非同步 consumer 與吞吐量優化</span></li><li><a class="hero-project-link" href="#experience-dashboard"><strong>即時數據看板系統</strong></a><span>微服務、即時資料串流與多端廣播</span></li><li><a class="hero-project-link" href="#experience-erp"><strong>ERP 核心系統優化</strong></a><span>Query tuning、資料庫鎖定與技術債重構</span></li><li><a class="hero-project-link" href="#experience-enterprise"><strong>企業應用系統開發</strong></a><span>CRM、准考證套印、考試報到與舊系統重寫</span></li></ul></div>
             </section>
 
             <section class="core-achievements section-rule" aria-labelledby="core-achievements-title">
@@ -66,19 +65,19 @@
                 <div class="achievement-list">
                     <details open>
                         <summary><strong>效能優化</strong><span>50–100 TPS → 1000+ TPS</span></summary>
-                        <p>分析既有系統瓶頸，針對資料庫查詢、快取策略與訊息處理流程進行重構，將同步阻塞流程拆分為可並行處理的訊息管線。</p>
+                        <p>分析現有系統瓶頸，針對資料庫查詢、快取策略進行深度重構。導入分散式系統架構，有效分流流量壓力，確保高負載下的系統穩定性。</p>
                     </details>
-                    <details>
+                    <details open>
                         <summary><strong>架構設計能力</strong><span>Clean Architecture · 3-tier · DDD</span></summary>
-                        <p>依據專案規模選用合適架構：小型專案採 3-tier 快速交付，複雜業務導入 Clean Architecture 與 DDD，並以 SOLID 維持模組職責清晰。</p>
+                        <p>依據專案規模選用架構，小型專案採 3-tier 快速交付，複雜業務導入 Clean Architecture，嚴格遵守 SOLID 原則確保模組職責清晰。透過清晰的模組分層與介面抽象，提升開發效率，使系統具備高度的可擴展性與可測試性。</p>
                     </details>
-                    <details>
+                    <details open>
                         <summary><strong>技術債處理</strong><span>ERP 核心系統重構</span></summary>
-                        <p>系統化梳理累積多年的舊有程式邏輯，改善查詢效能、資料庫鎖定與文件不足問題，讓後續維護與功能交付更容易接續。</p>
+                        <p>系統化梳理舊有代碼邏輯，導入現代化開發規範與單元測試。顯著降低系統耦合度，縮短後續新功能開發的交付時間。</p>
                     </details>
-                    <details>
+                    <details open>
                         <summary><strong>DevOps 實踐</strong><span>Docker · CI/CD · Cloud</span></summary>
-                        <p>使用 Docker／Docker Compose 統一開發、測試與正式環境，搭配 GitHub Actions、Jenkins 自動化部署，並具備 AWS EC2、Cloudflare 等部署與服務維運經驗。</p>
+                        <p>規範團隊 Git Flow 分支流程，建立統一的開發協作規範。實作基於 Docker 的自動化部署流水線，整合 Unit Test 與 Build 流程，確保每次合併均通過驗證、專案能正確執行。</p>
                     </details>
                 </div>
             </section>
@@ -90,7 +89,7 @@
                 <div class="project-list">
                     <article id="experience-high-throughput" class="project-row">
                         <div class="project-index mono">01</div>
-                        <div class="project-main"><h3>高流量訊息處理系統重構</h3><p class="project-context">主導舊系統重構，將同步阻塞流程拆成可並行處理的訊息管線。</p><dl class="project-fields"><div><dt>Implemented</dt><dd>負責訊息驗證、佇列分流、非同步 consumer、多服務並行與 ELK Log 串接。</dd></div><div><dt>Challenge / Solution</dt><dd>主流程阻塞影響吞吐量，改為非同步與多執行緒；單點瓶頸則依訊息類型拆分 RabbitMQ 任務。</dd></div></dl><p class="stack-label mono">TECHNICAL HIGHLIGHTS</p><div class="stack-line stack-line--featured project-highlight-line"><span>DDD</span><span>SOLID</span><span>Redis 共用快取</span><span>EXPLAIN</span><span>執行時間 Log</span></div><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>Go</span><span>MySQL</span><span>RabbitMQ</span><span>Redis</span><span>ELK</span><span>Docker</span></div></div>
+                        <div class="project-main"><h3>高流量訊息處理系統重構</h3><p class="project-context">主導舊系統重構，解決高流量場景下的效能瓶頸。</p><dl class="project-fields"><div><dt>技術亮點</dt><dd><ul><li>採用 DDD 架構，並嚴格遵守 SOLID 原則</li><li>導入 Redis 取代 Memory Cache，讓多實例服務可共用快取資料</li><li>導入 ELK 作為集中式 Log 系統，提升除錯與問題追蹤效率</li><li>多實例、多服務同步運作</li></ul></dd></div><div><dt>挑戰與解決方案</dt><dd><ul><li>專案間耦合性過高導致修改功能可能導致其他服務 BUG → 引入 DDD 架構將功能模組化，減少專案間的關聯依賴</li><li>效能瓶頸難以定位 → 使用 EXPLAIN 分析資料庫查詢、程式碼加入 Log 紀錄執行時間，精準定位關鍵路徑瓶頸</li><li>主流程阻塞影響吞吐量 → 將同步執行流程改為非同步與多執行緒架構，避免主流程阻塞</li><li>單點吞吐量瓶頸 → 以 RabbitMQ 依訊息類型拆分任務，切分為多組獨立消費者程式並行處理</li></ul></dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>Go</span><span>MySQL</span><span>RabbitMQ</span><span>Redis</span><span>ELK</span><span>Docker</span></div></div>
                         <div class="project-result"><div class="project-architecture"><p class="result-label mono">ARCHITECTURE</p><pre class="architecture-flow"><code>外部來源
   ↓
 接收服務
@@ -105,7 +104,7 @@
                     </article>
                     <article id="experience-dashboard" class="project-row">
                         <div class="project-index mono">02</div>
-                        <div class="project-main"><h3>即時數據看板系統</h3><p class="project-context">以微服務架構建立即時資料串流與多端廣播，取代前端輪詢。</p><dl class="project-fields"><div><dt>Implemented</dt><dd>負責訊息解析、快取服務、資料持久化、廣播服務與前端即時更新。</dd></div><div><dt>Challenge / Solution</dt><dd>大量即時訊息由 RabbitMQ 多 Exchange 並行消費；前端即時性則由 Redis 訂閱後透過 WebSocket 推送。</dd></div></dl><p class="stack-label mono">TECHNICAL HIGHLIGHTS</p><div class="stack-line stack-line--featured project-highlight-line"><span>gRPC + Protobuf</span><span>Redis Pub/Sub</span><span>PostgreSQL</span><span>WebSocket</span></div><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>RabbitMQ</span><span>gRPC</span><span>Redis Pub/Sub</span><span>WebSocket</span><span>PostgreSQL</span><span>Docker</span></div></div>
+                        <div class="project-main"><h3>即時數據看板系統</h3><p class="project-context">採用微服務架構，實作即時資料串流與多端廣播。</p><dl class="project-fields"><div><dt>技術亮點</dt><dd><ul><li>採用 gRPC + Protobuf 取代 JSON，二進位序列化降低 Payload 體積與解析耗時</li><li>引入 Redis Pub/Sub 訊息一次發佈即同步分流，消除服務間點對點傳遞延遲</li><li>使用 WebSocket 連線取代輪詢機制造成的延遲</li><li>使用 Redis 與 PostgreSQL 依照需求選擇讀取路徑，減少單一服務負載</li></ul></dd></div><div><dt>挑戰與解決方案</dt><dd><ul><li>高吞吐量訊息接收 → 使用 RabbitMQ 多 Exchange 並行消費，非同步接收大量即時訊息</li><li>前端即時性需求高 → 廣播服務訂閱 Redis 頻道後立即透過 WebSocket 推送至前端，省去輪詢，達到即時更新</li></ul></dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>RabbitMQ</span><span>gRPC</span><span>Redis Pub/Sub</span><span>WebSocket</span><span>PostgreSQL</span><span>Docker</span></div></div>
                         <div class="project-result project-result--qualitative"><div class="project-architecture"><p class="result-label mono">ARCHITECTURE</p><pre class="architecture-flow"><code>RabbitMQ
   ↓
 Protobuf 解析
@@ -117,7 +116,7 @@ Redis Pub/Sub 分流
                     </article>
                     <article id="experience-erp" class="project-row">
                         <div class="project-index mono">03</div>
-                        <div class="project-main"><h3>ERP 核心系統效能優化</h3><p class="project-context">接手累積多年技術債的 ERP，處理查詢瓶頸、資料庫鎖定與核心業務邏輯。</p><dl class="project-fields"><div><dt>Role / Scope</dt><dd>負責 ERP 核心模組的後端維護、資料庫查詢與既有業務流程調整，並協助釐清跨模組資料流。</dd></div><div><dt>Challenge / Solution</dt><dd>針對查詢效能低落與資料庫鎖定問題，重整 Stored Procedure、索引與交易流程。</dd></div></dl><p class="stack-label mono">TECHNICAL HIGHLIGHTS</p><div class="stack-line stack-line--featured project-highlight-line"><span>EXPLAIN</span><span>執行計畫</span><span>Query timing</span><span>技術文件</span><span>業務規則梳理</span></div><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>C# .NET 8</span><span>MS SQL</span><span>AJAX</span><span>JavaScript</span><span>Query tuning</span></div></div>
+                        <div class="project-main"><h3>ERP 核心系統效能優化</h3><p class="project-context">接手累積 5 年技術債的 ERP 系統。</p><dl class="project-fields"><div><dt>挑戰與解決方案</dt><dd><ul><li>核心查詢效能低落 → 重構 Stored Procedure，優化查詢邏輯（索引優化、執行計畫分析、Query Tuning），效能提升 300%</li><li>資料庫鎖定頻繁 → 解決多重關聯問題，使用 NOWAIT、優化 Cursor，減少 60% 鎖定時間</li><li>MRP 計算邏輯長期錯誤 → 深入分析業務規則並修正判斷邏輯，協助公司有效降低呆滯庫存</li><li>缺乏系統文件 → 系統化梳理舊有代碼邏輯，建立完整技術文件，確保成員無須長時間摸索即可上手</li><li>程式碼可維護性差 → 導入現代化開發規範與單元測試，重構關鍵模組，顯著降低系統耦合度</li></ul></dd></div><div><dt>成果</dt><dd>系統回復可維護狀態，後續功能交付周期顯著縮短，MRP 修正直接改善庫存準確率，減少公司千萬呆滯庫存。</dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>C# .NET 8</span><span>MS SQL</span><span>AJAX</span><span>JavaScript</span><span>Query tuning</span></div></div>
                         <div class="project-result"><div class="project-architecture"><p class="result-label mono">ARCHITECTURE</p><pre class="architecture-flow"><code>C# / .NET 企業應用
   ↓
 Stored Procedure / Query
@@ -126,12 +125,12 @@ MS SQL 資料層</code></pre></div><div class="project-result__summary"><p class
                     </article>
                     <article class="project-row project-row--secondary">
                         <div class="project-index mono">04</div>
-                        <div class="project-main"><h3>系統管理後台</h3><p class="project-context">負責企業內部管理流程、權限控管、API 整合與部署作業。</p><dl class="project-fields"><div><dt>Role / Scope</dt><dd>負責管理後台的功能開發、權限流程、API 串接與服務部署，從需求拆解到正式上線。</dd></div><div><dt>Challenge / Solution</dt><dd>需串聯不同系統間的訊息傳遞，使用 RabbitMQ 實作訊息同步，降低服務之間的直接耦合。</dd></div><div><dt>Technical highlights</dt><dd>以 .NET 8 建立 API，導入 JWT、Middleware 與 RBAC 權限系統，並使用 Docker Compose 統一環境。</dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>.NET 8</span><span>MS SQL</span><span>Redis</span><span>RabbitMQ</span><span>Docker</span><span>Jenkins</span></div></div>
+                        <div class="project-main"><h3>系統管理後台</h3><p class="project-context">從零建構系統管理後台。</p><dl class="project-fields"><div><dt>技術亮點</dt><dd><ul><li>從 0 開始獨自開發專案</li><li>使用 JWT + Middleware 驗證，確保 API 安全性</li><li>設計完整的 RBAC 權限系統，支援多層級角色與權限控制</li><li>使用 Docker Compose 統一開發、測試、正式環境</li><li>採用微服務架構，各模組獨立部署，降低變更風險</li></ul></dd></div><div><dt>挑戰與解決方案</dt><dd><ul><li>需串聯不同系統間訊息傳遞 → 使用 RabbitMQ 實作訊息同步</li></ul></dd></div><div><dt>成果</dt><dd>完成系統從 MVP 到正式版的完整開發，成功上線並投入實際使用。</dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>.NET 8</span><span>MS SQL</span><span>Redis</span><span>RabbitMQ</span><span>Docker</span><span>Jenkins</span></div></div>
                         <div class="project-result project-result--compact"><p class="result-label mono">SCOPE</p><strong>MVP → Release</strong><span>完成正式版上線</span></div>
                     </article>
                     <article id="experience-enterprise" class="project-row">
                         <div class="project-index mono">05</div>
-                        <div class="project-main"><h3>企業應用系統開發</h3><p class="project-context">從需求理解、業務邏輯分析、系統開發到驗收交付，參與多個企業應用系統的完整流程。</p><dl class="project-fields"><div><dt>Role / Scope</dt><dd>負責企業應用系統的需求拆解、流程分析、後端功能開發、資料處理與驗收交付，將現場業務流程轉成可操作的系統功能。</dd></div><div><dt>Challenge / Solution</dt><dd>面對大量列印、離線作業、區網同步與舊系統重寫等不同場景，分別採用多執行緒、SQLite 區網同步與 C# 重寫方案。</dd></div><div><dt>Technical highlights</dt><dd>CRM 客戶管理、准考證套印、考試報到與 Delphi 舊系統重寫；其中准考證套印支援 50,000+ 張資料處理。</dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>C# .NET 8</span><span>MS SQL</span><span>SQLite</span><span>Entity Framework</span><span>LINQ</span></div></div>
+                        <div class="project-main"><h3>企業應用系統開發</h3><p class="project-context">從需求了解、業務邏輯分析、系統開發到驗收交付的完整流程，開發多個企業應用系統。</p><dl class="project-fields"><div><dt>核心專案</dt><dd><ul><li>CRM 客戶管理系統 - 實作權限控制、報表、操作日誌與自動化工作流程等核心功能</li><li>准考證套印系統 - 使用多執行緒優化，處理 50,000+ 張准考證</li><li>考試報到系統 - SQLite + 區網同步方案，支援離線作業，確保多台主機資料同步</li><li>Delphi 舊系統重寫 - 將舊有 Delphi 系統以 C# 重寫，分析舊有系統功能與優化</li></ul></dd></div></dl><p class="stack-label mono">TECH STACK</p><div class="stack-line stack-line--featured"><span>C# .NET 8</span><span>MS SQL</span><span>SQLite</span><span>Entity Framework</span><span>LINQ</span></div></div>
                         <div class="project-result"><div class="project-architecture"><p class="result-label mono">ARCHITECTURE</p><pre class="architecture-flow"><code>需求理解
   ↓
 業務流程分析
