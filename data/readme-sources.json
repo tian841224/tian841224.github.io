@@ -1,5 +1,17 @@
 [
   {
+    "slug": "oneshort",
+    "owner": "tian841224",
+    "repo": "oneshort",
+    "sourceUrl": "https://github.com/tian841224/oneshort#readme"
+  },
+  {
+    "slug": "agent-workflow",
+    "owner": "tian841224",
+    "repo": "agent-workflow",
+    "sourceUrl": "https://github.com/tian841224/agent-workflow#readme"
+  },
+  {
     "slug": "stock-bot-golang",
     "owner": "tian841224",
     "repo": "stock-bot-golang",
