@@ -882,6 +882,7 @@ details[open] summary::after {
     color: var(--dim);
 }
 
+.open-source-section,
 .articles-section,
 .stats-section {
     padding: 5rem 0 6rem;
@@ -1195,6 +1196,7 @@ details[open] summary::after {
         text-align: left;
     }
 
+    .open-source-section,
     .core-achievements,
     .projects-section,
     .skills-section,
