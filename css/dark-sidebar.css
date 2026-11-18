@@ -55,6 +55,8 @@ h1, h2, h3, p { margin: 0; }
     flex-wrap: wrap;
     align-items: flex-start;
     min-height: 100vh;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 /* ───── 左欄 ───── */
@@ -145,6 +147,7 @@ h1, h2, h3, p { margin: 0; }
 .panel {
     flex: 999 1 560px;
     min-width: 0;
+    max-width: 860px;
     margin: 48px 40px 48px 16px;
     border: 1px solid var(--panel-border);
     background: var(--panel-bg);
@@ -233,7 +236,6 @@ h1, h2, h3, p { margin: 0; }
 .shots { display: contents; }
 .proj-text { order: 2; }
 .shots-thumb { order: 1; }
-.shots-view { order: 3; }
 .shots-thumb {
     position: relative;
     flex: 0 0 180px;
@@ -256,22 +258,29 @@ h1, h2, h3, p { margin: 0; }
     line-height: 18px;
     text-align: left;
 }
-.shots-view {
-    flex: 0 0 100%;
+/* 截圖大圖：用 <dialog> 的 showModal() 顯示在視窗正中央，背後蓋暗幕；Esc 可關閉 */
+.shots-dialog {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+}
+.shots-dialog::backdrop { background: rgba(13, 17, 23, 0.82); }
+.shots-box {
     display: grid;
     grid-template-columns: 44px minmax(0, 1fr) 44px;
-    gap: 8px 12px;
+    gap: 12px;
     align-items: center;
-    padding: 12px;
-    background: var(--soft);
+    width: min(1000px, calc(100vw - 24px));
 }
-.shots-view[hidden] { display: none; }
-.shots-view figure { margin: 0; grid-column: 2; grid-row: 1; background: #fff; border: 1px solid var(--rule); }
-.shots-view img { display: block; width: 100%; max-height: 420px; object-fit: contain; }
-.shots-view figcaption { padding: 4px 8px; font-size: 12px; line-height: 18px; color: var(--muted); }
-.shots-view .prev { grid-column: 1; grid-row: 1; }
-.shots-view .next { grid-column: 3; grid-row: 1; }
-.shots-bar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; }
+.shots-box figure { grid-column: 2; grid-row: 1; margin: 0; background: #fff; }
+.shots-box img { display: block; width: 100%; max-height: calc(100vh - 170px); object-fit: contain; }
+.shots-box figcaption { padding: 6px 10px; font-size: 13px; line-height: 20px; color: var(--muted); }
+.shots-box .prev { grid-column: 1; grid-row: 1; }
+.shots-box .next { grid-column: 3; grid-row: 1; }
+.shots-bar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; color: #fff; }
 .shots-count { font: 600 12px/18px var(--mono); }
 .btn {
     min-width: 44px;

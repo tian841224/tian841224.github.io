@@ -177,16 +177,18 @@
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-overview.jpg","label":"公會總覽"},
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-chat.jpg","label":"公會聊天"}
                     ]'>
-                        <button type="button" class="shots-thumb" aria-expanded="false" aria-label="展開 oneshort 截圖，共 5 張">
+                        <button type="button" class="shots-thumb" aria-haspopup="dialog" aria-label="放大檢視 oneshort 截圖，共 5 張">
                             <img src="https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg" alt="" loading="lazy">
-                            <span>共 5 張・點擊展開</span>
+                            <span>共 5 張・點擊放大</span>
                         </button>
-                        <div class="shots-view" hidden>
-                            <button type="button" class="btn icon prev" aria-label="上一張截圖"><svg aria-hidden="true" viewBox="0 0 14 14"><path d="M9 2 L4 7 L9 12"></path></svg></button>
-                            <figure aria-live="polite"><img src="" alt=""><figcaption></figcaption></figure>
-                            <button type="button" class="btn icon next" aria-label="下一張截圖"><svg aria-hidden="true" viewBox="0 0 14 14"><path d="M5 2 L10 7 L5 12"></path></svg></button>
-                            <div class="shots-bar"><span class="shots-count">1 / 5</span><button type="button" class="btn close">收合</button></div>
-                        </div>
+                        <dialog class="shots-dialog" aria-label="oneshort 截圖">
+                            <div class="shots-box">
+                                <button type="button" class="btn icon prev" aria-label="上一張截圖"><svg aria-hidden="true" viewBox="0 0 14 14"><path d="M9 2 L4 7 L9 12"></path></svg></button>
+                                <figure aria-live="polite"><img src="" alt=""><figcaption></figcaption></figure>
+                                <button type="button" class="btn icon next" aria-label="下一張截圖"><svg aria-hidden="true" viewBox="0 0 14 14"><path d="M5 2 L10 7 L5 12"></path></svg></button>
+                                <div class="shots-bar"><span class="shots-count">1 / 5</span><button type="button" class="btn close">關閉</button></div>
+                            </div>
+                        </dialog>
                     </div>
                     <div class="proj-text">
                         <h3><a href="https://github.com/tian841224/oneshort" target="_blank" rel="noreferrer">oneshort</a></h3>
