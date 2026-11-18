@@ -61,8 +61,8 @@ h1, h2, h3, p { margin: 0; }
 
 /* ───── 左欄 ───── */
 .side {
-    flex: 1 1 300px;
-    max-width: 360px;
+    flex: 0 0 320px;
+    max-width: 320px;
     align-self: stretch;
     padding: 48px 28px 48px 40px;
     display: flex;
@@ -108,7 +108,7 @@ h1, h2, h3, p { margin: 0; }
     display: grid;
     gap: 8px;
     margin: 0;
-    font: 12px/17px var(--mono);
+    font: 14px/22px var(--mono);
     color: #c9d1d9;
 }
 .stack dt { color: var(--accent); font-weight: 600; }
@@ -130,6 +130,10 @@ h1, h2, h3, p { margin: 0; }
     width: 100%;
     height: auto;
 }
+/* 貢獻圖：放在白底卡片上（圖內的空格是淺灰，直接放深色底會很刺眼），
+   並以較大的比例只顯示最近的部分，方格才看得清楚 */
+.activity .chart { padding: 8px; border: 0; background: #fff; }
+.activity .chart img { height: 124px; object-fit: cover; object-position: right center; }
 
 .contact {
     display: grid;
@@ -148,7 +152,7 @@ h1, h2, h3, p { margin: 0; }
     flex: 999 1 560px;
     min-width: 0;
     max-width: 860px;
-    margin: 48px 40px 48px 16px;
+    margin: 0 40px 48px 0;
     border: 1px solid var(--panel-border);
     background: var(--panel-bg);
 }
@@ -229,8 +233,8 @@ h1, h2, h3, p { margin: 0; }
 .proj { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
 .proj-text { flex: 1 1 280px; min-width: 0; }
 .proj h3 { font: 900 16px/24px var(--sans); }
-.proj figure { margin: 0; flex: 0 0 180px; }
-.proj figure img { display: block; width: 180px; height: auto; border: 1px solid var(--rule); }
+.proj > figure { margin: 0; flex: 0 0 180px; }
+.proj > figure img { display: block; width: 180px; height: auto; border: 1px solid var(--rule); }
 
 /* 截圖：預設收起成縮圖，點擊展開成大圖檢視 */
 .shots { display: contents; }
@@ -268,19 +272,29 @@ h1, h2, h3, p { margin: 0; }
     overflow: visible;
 }
 .shots-dialog::backdrop { background: rgba(13, 17, 23, 0.82); }
+/* 大圖以原始尺寸顯示；超過視窗時才等比縮小，不會有多餘的白框 */
 .shots-box {
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
-    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    width: min(1000px, calc(100vw - 24px));
+    justify-content: center;
+    gap: 12px;
+    width: fit-content;
+    max-width: calc(100vw - 24px);
 }
-.shots-box figure { grid-column: 2; grid-row: 1; margin: 0; background: #fff; }
-.shots-box img { display: block; width: 100%; max-height: calc(100vh - 170px); object-fit: contain; }
-.shots-box figcaption { padding: 6px 10px; font-size: 13px; line-height: 20px; color: var(--muted); }
-.shots-box .prev { grid-column: 1; grid-row: 1; }
-.shots-box .next { grid-column: 3; grid-row: 1; }
-.shots-bar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; color: #fff; }
+.shots-box figure { margin: 0; order: 2; }
+.shots-box img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: calc(100vw - 150px);
+    max-height: calc(100vh - 150px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.shots-box figcaption { padding-top: 8px; font-size: 13px; line-height: 20px; color: #fff; text-align: center; }
+.shots-box .prev { order: 1; }
+.shots-box .next { order: 3; }
+.shots-bar { order: 4; flex: 0 0 100%; display: flex; align-items: center; justify-content: space-between; color: #fff; }
 .shots-count { font: 600 12px/18px var(--mono); }
 .btn {
     min-width: 44px;
@@ -325,8 +339,8 @@ h1, h2, h3, p { margin: 0; }
     .panel { margin: 16px; flex-basis: 100%; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
-    .flow, .shots-thumb, .proj figure { flex-basis: 100%; }
-    .proj figure img { width: 100%; }
+    .flow, .shots-thumb, .proj > figure { flex-basis: 100%; }
+    .proj > figure img { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
