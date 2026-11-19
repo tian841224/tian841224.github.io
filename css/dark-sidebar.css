@@ -274,6 +274,41 @@ h1, h2, h3, p { margin: 0; }
 .pipe > li.group { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; }
 .pipe > li.group span { padding: 5px 2px; border: 1px solid var(--text); background: #fff; }
 
+/* 改寫前後對照：兩欄程式碼示意，中間以箭頭表示由左改為右；窄螢幕改上下排列。 */
+.diff {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px 24px;
+    padding: 14px 16px;
+    background: var(--soft);
+}
+.diff-col { position: relative; min-width: 0; }
+.diff-col:not(.after)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -17px;
+    width: 7px;
+    height: 7px;
+    margin-top: -4px;
+    border-top: 1.5px solid #4a4b57;
+    border-right: 1.5px solid #4a4b57;
+    transform: rotate(45deg);
+}
+.diff-h { display: block; margin-bottom: 4px; font-size: 12px; line-height: 16px; font-weight: 700; }
+.diff pre {
+    margin: 0;
+    padding: 8px 10px;
+    overflow-x: auto;
+    border: 1px solid var(--text);
+    background: #fff;
+    font: 12px/18px var(--mono, ui-monospace, Consolas, monospace);
+    white-space: pre;
+}
+.diff-col.after pre { background: var(--text); color: #fff; }
+.diff-note { grid-column: 1 / -1; margin: 0; font-size: 12px; line-height: 16px; color: #4a4b57; }
+
 .proj { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
 .proj-text { flex: 1 1 280px; min-width: 0; }
 .proj h3 { font: 900 16px/24px var(--sans); }
@@ -400,6 +435,14 @@ h1, h2, h3, p { margin: 0; }
     .pipe > li.side { grid-column: auto; grid-row: auto; }
     .pipe > li.side::before { content: none; }
     .pipe > li.group { gap: 6px; }
+    .diff { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .diff-col:not(.after)::after {
+        top: 100%;
+        right: auto;
+        left: 50%;
+        margin: 5px 0 0 -4px;
+        transform: rotate(135deg);
+    }
     .proj > figure img { width: 100%; }
 }
 

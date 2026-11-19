@@ -156,14 +156,41 @@
 
                 <article class="exp">
                     <div class="idx">03</div>
-                    <div class="exp-text">
-                        <h3 class="title">ERP 核心系統效能優化</h3>
-                        <div class="tags">C# .NET 8・MS SQL・Stored Procedure・Query tuning</div>
-                        <ul>
-                            <li>重構 Stored Procedure 與索引，查詢效能提升 <strong>300%</strong>、鎖定時間減少 <strong>60%</strong></li>
-                            <li>修正長期錯誤的 MRP 計算邏輯，協助公司減少千萬呆滯庫存</li>
-                            <li>接手 5 年技術債：補齊技術文件，導入開發規範與單元測試</li>
-                        </ul>
+                    <div class="exp-body">
+                        <div class="exp-text">
+                            <h3 class="title">ERP 核心系統效能優化</h3>
+                            <div class="tags">C# .NET 8・MS SQL・Stored Procedure・Query tuning</div>
+                            <ul>
+                                <li>將逐筆迴圈與純量函式改寫為集合式運算，報表以預先彙總表與暫存表取代多層巢狀 View，並以分割資料表與歸檔控制歷史資料量，再依執行計畫補上索引，查詢效能提升 <strong>300%</strong></li>
+                                <li>縮短交易範圍並分批更新，鎖定時間減少 <strong>60%</strong></li>
+                                <li>修正 MRP 的庫存判斷與生產物料計算錯誤，隔年依公司報表，庫存中價值千萬的呆滯物料已消化</li>
+                                <li>統一扣帳與入帳的處理順序並控制併發更新，避免庫存帳實不符</li>
+                                <li>接手 5 年技術債：補齊技術文件，導入開發規範與單元測試</li>
+                            </ul>
+                        </div>
+                        <div class="diff" role="group"
+                            aria-label="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新">
+                            <div class="diff-col">
+                                <span class="diff-h">改寫前：逐筆迴圈</span>
+<pre>DECLARE c CURSOR FOR
+  SELECT Id FROM Items
+WHILE @@FETCH_STATUS = 0
+  UPDATE Items
+  SET Qty = dbo.fn_Calc(@Id)
+  WHERE Id = @Id</pre>
+                            </div>
+                            <div class="diff-col after">
+                                <span class="diff-h">改寫後：集合式運算</span>
+<pre>SELECT Id, SUM(Qty) AS Qty
+INTO #Agg
+FROM Detail GROUP BY Id
+
+UPDATE i SET Qty = a.Qty
+FROM Items i
+JOIN #Agg a ON a.Id = i.Id</pre>
+                            </div>
+                            <p class="diff-note">示意寫法，非實際程式碼</p>
+                        </div>
                     </div>
                 </article>
 
