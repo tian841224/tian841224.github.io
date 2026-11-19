@@ -79,11 +79,14 @@
                         </ol>
                         <div class="exp-text">
                             <h3 class="title">高流量訊息處理系統重構</h3>
-                            <div class="tags">Go・MySQL・RabbitMQ・Redis・ELK・Docker</div>
+                            <div class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</div>
                             <ul>
-                                <li>吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong>（測試環境峰值）</li>
-                                <li>RabbitMQ 依訊息類型拆分任務，多組獨立 consumer 並行；同步改非同步與多執行緒</li>
-                                <li>DDD 模組化降低耦合，Redis 支援多實例，ELK 集中 Log</li>
+                                <li>將多筆資料轉成 JSON 格式，一次性傳入資料庫並以 Stored Procedure 處理，資料庫往返由 N 次降為 1 次，大幅降低處理延遲</li>
+                                <li>將參照資料存放於 Redis，避免大量讀取資料庫；Redis 異常時自動降級至 MemoryCache 或資料庫，兼顧效能與可用性</li>
+                                <li>以多個 consumer 並行消費 RabbitMQ，依實測調校 prefetch 與 consumer 數量，搭配手動 Ack／Nack 與自動重連，在拉高吞吐量的同時確保訊息不遺失</li>
+                                <li>入口過濾訊息，減少不必要的處理</li>
+                                <li>以訊息 Guid 串連各階段耗時 Log 並集中於 Graylog，快速定位延遲發生在哪一段</li>
+                                <li>同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></li>
                             </ul>
                         </div>
                     </div>
