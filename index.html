@@ -223,10 +223,39 @@ JOIN #Agg a ON a.Id = i.Id</pre>
 
                 <article class="exp">
                     <div class="idx">05</div>
+                    <div class="exp-body">
+                        <div class="exp-text">
+                            <h3 class="title">CRM 客戶管理系統</h3>
+                            <div class="tags">ASP.NET・C#・MS SQL・Entity Framework</div>
+                            <ul>
+                                <li>客戶主檔以公司對聯絡人一對多建模，依關鍵欄位比對重複客戶並提供合併，避免同一客戶資料分散</li>
+                                <li>商機依階段推進，以狀態機限制只能依規則轉換</li>
+                                <li>通話與拜訪等互動紀錄整合為時間軸，快速掌握單一客戶歷程</li>
+                                <li>RBAC 角色權限控管，並依組織層級限制資料可見範圍：業務僅看自己的客戶，主管看團隊，管理者看全部</li>
+                                <li>以動態欄位設計支援各單位自訂欄位，新增欄位不需修改資料表</li>
+                                <li>動態條件查詢（Dynamic Query）搭配索引（Index）設計並可儲存常用篩選；大量名單批次匯入（Bulk Import），含欄位對應、資料驗證（Validation）與錯誤報告</li>
+                                <li>以排程掃描逾期未跟進、合約到期等事件並發出提醒</li>
+                                <li>稽核紀錄保存變更前後值，並提供業績與客戶分群的彙總報表與匯出</li>
+                            </ul>
+                        </div>
+                        <ol class="pipe pipe-3"
+                            aria-label="CRM 客戶管理系統架構：瀏覽器連到 ASP.NET 應用程式，存取客戶主檔、商機、互動紀錄；排程提醒與稽核日誌掛在應用程式下方">
+                            <li class="next">瀏覽器</li>
+                            <li class="next">ASP.NET 應用程式</li>
+                            <li class="group"><span>客戶主檔</span><span>商機</span><span>互動紀錄</span></li>
+                            <li class="duo under-2"><span>排程提醒<small>逾期・到期</small></span><span>稽核日誌<small>變更前後值</small></span></li>
+                        </ol>
+                    </div>
+                </article>
+
+                <article class="exp">
+                    <div class="idx">06</div>
                     <div class="exp-text">
-                        <h3 class="title">企業應用系統開發</h3>
-                        <div class="tags">C# .NET 8・MS SQL・SQLite・Entity Framework</div>
-                        <p class="lead">CRM、准考證套印（多執行緒處理 50,000+ 張）、離線考試報到、Delphi 舊系統以 C# 重寫。</p>
+                        <h3 class="title">其他專案</h3>
+                        <div class="tags">C# .NET 8・Delphi・MS SQL・SQLite・Entity Framework</div>
+                        <ul>
+                            <li>教務系統：准考證套印、考試報到登入系統、志願分發、考卷評分系統</li>
+                        </ul>
                     </div>
                 </article>
             </div>

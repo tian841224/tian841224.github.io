@@ -237,6 +237,7 @@ h1, h2, h3, p { margin: 0; }
 .pipe-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .pipe-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .pipe-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pipe-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .pipe > li {
     position: relative;
     padding: 7px 4px;
@@ -437,7 +438,7 @@ h1, h2, h3, p { margin: 0; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
     .flow, .shots-thumb, .proj > figure { flex-basis: 100%; }
-    .pipe-7, .pipe-5, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .pipe-7, .pipe-5, .pipe-4, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
     .pipe > li.duo.under-2 { grid-column: auto; grid-row: auto; }
     .pipe > li.duo::before { content: none; }
     .pipe > li.next::after {
