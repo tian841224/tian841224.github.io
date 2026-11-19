@@ -236,6 +236,7 @@ h1, h2, h3, p { margin: 0; }
 }
 .pipe-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .pipe-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.pipe-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .pipe > li {
     position: relative;
     padding: 7px 4px;
@@ -273,6 +274,18 @@ h1, h2, h3, p { margin: 0; }
 }
 .pipe > li.group { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; }
 .pipe > li.group span { padding: 5px 2px; border: 1px solid var(--text); background: #fff; }
+/* .duo：掛在某節點下方的兩個輔助元件（虛線框）；.under-2 表示掛在第 2 欄。 */
+.pipe > li.duo { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; }
+.pipe > li.duo span { padding: 5px 2px; border: 1px dashed var(--text); background: transparent; }
+.pipe > li.duo.under-2 { grid-column: 2; grid-row: 2; }
+.pipe > li.duo::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    height: 14px;
+    border-left: 1.5px dashed #4a4b57;
+}
 
 /* 改寫前後對照：兩欄程式碼示意，中間以箭頭表示由左改為右；窄螢幕改上下排列。 */
 .diff {
@@ -424,7 +437,9 @@ h1, h2, h3, p { margin: 0; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
     .flow, .shots-thumb, .proj > figure { flex-basis: 100%; }
-    .pipe-7, .pipe-5 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .pipe-7, .pipe-5, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .pipe > li.duo.under-2 { grid-column: auto; grid-row: auto; }
+    .pipe > li.duo::before { content: none; }
     .pipe > li.next::after {
         top: 100%;
         right: auto;

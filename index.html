@@ -196,10 +196,28 @@ JOIN #Agg a ON a.Id = i.Id</pre>
 
                 <article class="exp">
                     <div class="idx">04</div>
-                    <div class="exp-text">
+                    <div class="exp-body">
+                        <div class="exp-text">
                         <h3 class="title">系統管理後台</h3>
                         <div class="tags">.NET 8・MS SQL・Redis・RabbitMQ・Docker・Jenkins</div>
-                        <p class="lead">獨自從 MVP 開發至正式上線：JWT 驗證、RBAC 多層級權限、RabbitMQ 跨系統同步。</p>
+                        <ul>
+                            <li>獨自從 MVP 開發至正式上線，以 DDD 分層將後端拆為後台、報表、圖片與排程服務，各自獨立部署，服務間以 Service Caller 呼叫</li>
+                            <li>登入以領域事件拆為圖形驗證碼、Google 2FA、帳密驗證與登入日誌四個有序步驟，任一步失敗即中止並由補償步驟記錄失敗日誌，流程可獨立擴充與測試</li>
+                            <li>JWT 驗證搭配 Redis 單一 refresh token，偵測重複登入與過期並以回應標頭區分，前端可分別處理重新登入與踢下線</li>
+                            <li>RBAC 多層級權限：依帳號層級與所屬公司限制可見資料與操作範圍</li>
+                            <li>以 RabbitMQ 進行跨系統同步</li>
+                            <li>整合事件採 Dapr 搭配資料庫 Event Log（Outbox 模式），事件與業務資料同交易寫入，避免資料已寫入卻漏發事件</li>
+                            <li>以記憶體加 Redis 的多級快取降低跨服務呼叫與資料庫讀取，未命中才回源</li>
+                            <li>統一回應格式與例外處理，搭配軟刪除全域過濾、啟動時自動 Migration 與種子資料，降低各環境的設定落差</li>
+                        </ul>
+                        </div>
+                        <ol class="pipe pipe-3"
+                            aria-label="系統管理後台架構：前端經後台 API 驗證後，由 Service Caller 呼叫報表、遊戲與圖片三個服務；後台使用 Redis 與 MS SQL">
+                            <li class="next">前端後台</li>
+                            <li class="next">後台 API<small>JWT・領域事件</small></li>
+                            <li class="group"><span>報表服務<small>Dapper 預存程序</small></span><span>遊戲服務</span><span>圖片服務</span></li>
+                            <li class="duo under-2"><span>Redis<small>快取・refresh token</small></span><span>MS SQL<small>EF Core・Event Log</small></span></li>
+                        </ol>
                     </div>
                 </article>
 
