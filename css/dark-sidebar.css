@@ -173,7 +173,8 @@ h1, h2, h3, p { margin: 0; }
     flex: 999 1 560px;
     min-width: 0;
     max-width: 860px;
-    margin: 0 0 48px 0;
+    align-self: stretch;
+    margin: 0;
     border: 1px solid var(--panel-border);
     background: var(--panel-bg);
 }
