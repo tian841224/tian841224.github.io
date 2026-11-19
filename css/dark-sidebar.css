@@ -72,16 +72,15 @@ h1, h2, h3, p { margin: 0; }
     color: var(--side-text);
 }
 
+/* 個人照片：正方形裁切，臉部靠上，不變形 */
 .monogram {
-    width: 96px;
-    height: 96px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    width: 160px;
+    height: 160px;
+    margin-bottom: 18px;
+    object-fit: cover;
+    object-position: center;
     background: var(--accent);
-    color: var(--side-bg);
-    font: 800 40px var(--head);
 }
 
 .side h1 {
@@ -535,7 +534,7 @@ h1, h2, h3, p { margin: 0; }
         background: var(--side-bg);
         color: var(--side-text);
     }
-    .monogram { flex: none; width: 56px; height: 56px; margin: 0; font-size: 24px; }
+    .monogram { flex: none; width: 56px; height: 56px; margin: 0; }
     .side h1 { font-size: 36px; line-height: 38px; }
     .role { margin-top: 2px; font-size: 12px; line-height: 18px; }
     .top-links { margin-left: auto; flex: none; display: flex; gap: 8px; }
