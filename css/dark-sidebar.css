@@ -559,6 +559,9 @@ h1, h2, h3, p { margin: 0; }
     .block { padding: 16px; gap: 18px; }
     .stack-wide { grid-template-columns: 1fr 1fr; gap: 14px 12px; font-size: 12px; }
     .fold > summary { min-height: 44px; }
+    /* 專案的縮圖與流程圖：電腦版一直顯示，手機版和經驗一樣收在折疊裡，展開後才出現 */
+    .proj-body:not(:has(details[open])) > :not(.proj-text) { display: none; }
+    .proj-text { order: 0; flex-basis: 100%; }
     .fold .tags { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     /* 放大視窗：圖滿版，上一張／下一張／關閉放在圖下方並加大到 48px */
     .shots-box {

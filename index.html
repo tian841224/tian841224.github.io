@@ -336,11 +336,11 @@ JOIN #Agg a ON a.Id = i.Id</pre>
 
                 <article class="proj">
                     <div class="idx">01</div>
-                    <details class="fold">
-                        <summary><h3><a href="https://github.com/tian841224/agent-workflow" target="_blank" rel="noreferrer">agent-workflow</a></h3><span class="gist">依實際開發流程與 model 的演進，持續調整的個人 AI 開發工作流。</span></summary>
-                        <div class="proj-body">
+                    <div class="proj-body">
                     <div class="proj-text">
-                            <ul>
+                            <details class="fold">
+                                <summary><h3><a href="https://github.com/tian841224/agent-workflow" target="_blank" rel="noreferrer">agent-workflow</a></h3><span class="gist">依實際開發流程與 model 的演進，持續調整的個人 AI 開發工作流。</span></summary>
+                                <ul>
                             <li>先制定驗收標準，避免需求模糊</li>
                             <li>依風險決定流程</li>
                             <li>依條件判斷是否建立 subagent</li>
@@ -348,6 +348,7 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li>Skills 採漸進式揭露</li>
                             <li>跨任務共用記憶</li>
                         </ul>
+                            </details>
                         </div>
                     <ol class="pipe pipe-7"
                         aria-label="agent-workflow 流程：需求先判斷是否影響行為，不影響則直接處理；影響則先確認規格與驗收案例，建立 task 並依風險編排計畫，實作（有條件才派 subagent），逐條執行驗收，獨立 Review，最後結案">
@@ -362,14 +363,11 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                         <li class="side">subagent<small>依條件才派</small></li>
                     </ol>
                     </div>
-                    </details>
                 </article>
 
                 <article class="proj">
                     <div class="idx">02</div>
-                    <details class="fold">
-                        <summary><h3><a href="https://github.com/tian841224/oneshort" target="_blank" rel="noreferrer">oneshort</a></h3><span class="tags">Go・Next.js・PostgreSQL・Redis・WebSocket</span><span class="gist">楓之谷揪團平台，提供組隊招募、任務協作、公會排團與即時聊天。</span></summary>
-                        <div class="proj-body">
+                    <div class="proj-body">
                     <div class="shots" data-shots='[
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg","label":"首頁"},
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/party-discovery.jpg","label":"組隊招募"},
@@ -402,21 +400,21 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                         </dialog>
                     </div>
                     <div class="proj-text">
-                            <ul>
+                            <details class="fold">
+                                <summary><h3><a href="https://github.com/tian841224/oneshort" target="_blank" rel="noreferrer">oneshort</a></h3><span class="tags">Go・Next.js・PostgreSQL・Redis・WebSocket</span><span class="gist">楓之谷揪團平台，提供組隊招募、任務協作、公會排團與即時聊天。</span></summary>
+                                <ul>
                             <li>Transactional Outbox：業務資料與事件在同一個資料庫交易寫入，Relay Worker 以 <code>SKIP LOCKED</code> 領取並發布至 Redis Streams，避免資料寫入與事件發布不一致</li>
                             <li>WebSocket 即時推送管線：Gateway 以 Redis Streams consumer group 消費事件，接手卡住的訊息，格式錯誤的事件進入 DLQ</li>
                             <li>即時隊伍的並行控制：以 Redis 分散式鎖序列化同一隊伍的修改，並以心跳續期避免鎖過期，防止超收與重複席位</li>
                         </ul>
+                            </details>
                         </div>
                     </div>
-                    </details>
                 </article>
 
                 <article class="proj">
                     <div class="idx">03</div>
-                    <details class="fold">
-                        <summary><h3><a href="https://github.com/tian841224/stock-bot-golang" target="_blank" rel="noreferrer">stock-bot-golang</a></h3><span class="tags">Go・Clean Architecture・PostgreSQL・Docker</span><span class="gist">台股查詢機器人，整合 Telegram／LINE 即時股價、K 線圖表與新聞訂閱。</span></summary>
-                        <div class="proj-body">
+                    <div class="proj-body">
                     <div class="proj-media">
                         <div class="shots" data-shots='[{"src": "assets/images/stock-bot-architecture.png", "label": "系統架構圖：Interface、Application、Infrastructure、Domain 四層"}, {"src": "assets/images/stock-bot-demo/start.gif", "label": "示範：快速開始"}, {"src": "assets/images/stock-bot-demo/k.gif", "label": "示範：K 線圖"}, {"src": "assets/images/stock-bot-demo/d.gif", "label": "示範：個股詳細資訊"}, {"src": "assets/images/stock-bot-demo/p.gif", "label": "示範：個股績效"}, {"src": "assets/images/stock-bot-demo/n.gif", "label": "示範：個股新聞"}, {"src": "assets/images/stock-bot-demo/i.gif", "label": "示範：當日收盤資訊"}, {"src": "assets/images/stock-bot-demo/m.gif", "label": "示範：大盤資訊"}, {"src": "assets/images/stock-bot-demo/t.gif", "label": "示範：交易量排行"}, {"src": "assets/images/stock-bot-demo/add.gif", "label": "示範：訂閱股票"}]'>
                             <button type="button" class="shots-thumb fit" data-start="0" aria-haspopup="dialog"
@@ -444,16 +442,18 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                         </div>
                     </div>
                     <div class="proj-text">
-                            <ul>
+                            <details class="fold">
+                                <summary><h3><a href="https://github.com/tian841224/stock-bot-golang" target="_blank" rel="noreferrer">stock-bot-golang</a></h3><span class="tags">Go・Clean Architecture・PostgreSQL・Docker</span><span class="gist">台股查詢機器人，整合 Telegram／LINE 即時股價、K 線圖表與新聞訂閱。</span></summary>
+                                <ul>
                             <li>Clean Architecture 四層分離（Interface／Application／Infrastructure／Domain）：Telegram 與 LINE 共用同一套應用層邏輯，只在介面層各自處理 webhook</li>
                             <li>Webhook 驗證 Secret Token，背景處理並設定逾時與 panic recovery，避免平台因逾時重送；以 request_id 串連 Zap 日誌</li>
                             <li>Bot、資料同步與定時推播拆為獨立服務，並以同步時間 watermark 避免同一批資料重複推播</li>
                             <li>以 Go 的 freetype 自行繪製圖表，上傳圖床回傳給使用者</li>
                             <li>以 GitHub Actions 建立 CI/CD Pipeline，測試通過後自動部署</li>
                         </ul>
+                            </details>
                         </div>
                     </div>
-                    </details>
                 </article>
 
                 <div class="others">
