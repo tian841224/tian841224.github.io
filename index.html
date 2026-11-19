@@ -69,14 +69,6 @@
                 <article class="exp">
                     <div class="idx">01</div>
                     <div class="exp-body">
-                        <ol class="flow" aria-label="高流量訊息處理系統架構">
-                            <li>外部來源</li>
-                            <li>接收服務</li>
-                            <li>內部緩衝 MQ</li>
-                            <li>轉發服務</li>
-                            <li>業務分類 MQ</li>
-                            <li class="end">多組 consumer</li>
-                        </ol>
                         <div class="exp-text">
                             <h3 class="title">高流量訊息處理系統重構</h3>
                             <div class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</div>
@@ -89,6 +81,16 @@
                                 <li>同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></li>
                             </ul>
                         </div>
+                        <ol class="pipe pipe-7" aria-label="高流量訊息處理系統架構：外部來源經接收服務、內部緩衝 MQ、轉發服務、業務分類 MQ，由多組 consumer 寫入資料庫；轉發服務使用 Redis 參照資料">
+                            <li class="next">外部來源</li>
+                            <li class="next">接收服務</li>
+                            <li class="next">內部緩衝 MQ</li>
+                            <li class="next">轉發服務</li>
+                            <li class="next">業務分類 MQ</li>
+                            <li class="next">多組 consumer</li>
+                            <li class="end">資料庫<small>批次預存程序</small></li>
+                            <li class="side">Redis<small>參照資料</small></li>
+                        </ol>
                     </div>
                 </article>
 
@@ -104,16 +106,12 @@
                                 <li>Redis Pub/Sub 分流至快取、持久化與廣播，WebSocket 取代輪詢</li>
                             </ul>
                         </div>
-                        <ol class="flow wide" data-flow aria-label="即時數據看板系統架構，點選節點可反白">
-                            <li><button type="button" class="node" aria-pressed="true">RabbitMQ</button></li>
-                            <li><button type="button" class="node" aria-pressed="false">Protobuf 解析</button></li>
-                            <li><button type="button" class="node" aria-pressed="false">Redis Pub/Sub 分流</button></li>
-                            <li class="row">
-                                <button type="button" class="node" aria-pressed="false">快取</button>
-                                <button type="button" class="node" aria-pressed="false">持久化</button>
-                                <button type="button" class="node" aria-pressed="false">廣播</button>
-                            </li>
-                            <li><button type="button" class="node end" aria-pressed="false">WebSocket 推送前端</button></li>
+                        <ol class="pipe pipe-5" aria-label="即時數據看板系統架構：RabbitMQ、Protobuf 解析、Redis Pub/Sub 分流，分送快取、持久化、廣播，再由 WebSocket 推送前端">
+                            <li class="next">RabbitMQ</li>
+                            <li class="next">Protobuf 解析</li>
+                            <li class="next">Redis Pub/Sub 分流</li>
+                            <li class="group next"><span>快取</span><span>持久化</span><span>廣播</span></li>
+                            <li class="end">WebSocket 推送前端</li>
                         </ol>
                     </div>
                 </article>

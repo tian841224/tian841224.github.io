@@ -55,7 +55,7 @@ h1, h2, h3, p { margin: 0; }
     flex-wrap: wrap;
     align-items: flex-start;
     min-height: 100vh;
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
 }
 
@@ -152,7 +152,7 @@ h1, h2, h3, p { margin: 0; }
     flex: 999 1 560px;
     min-width: 0;
     max-width: 860px;
-    margin: 0 40px 48px 0;
+    margin: 0 0 48px 0;
     border: 1px solid var(--panel-border);
     background: var(--panel-bg);
 }
@@ -196,17 +196,14 @@ h1, h2, h3, p { margin: 0; }
     line-height: 16px;
     text-align: center;
 }
-.flow.wide { flex-basis: 200px; }
-.flow li, .flow .node {
+.flow li {
     padding: 2px 6px;
     border: 1px solid var(--text);
     background: #fff;
     color: var(--text);
     font: inherit;
 }
-.flow li.end, .flow .node.end { background: var(--text); color: #fff; font-weight: 700; }
-.flow > li:not(:last-child)::after,
-.flow > li > .node:not(:last-child)::after { content: none; }
+.flow li.end { background: var(--text); color: #fff; font-weight: 700; }
 .flow > li:not(:last-child) { margin-bottom: 16px; position: relative; }
 .flow > li:not(:last-child)::after {
     content: '';
@@ -220,15 +217,62 @@ h1, h2, h3, p { margin: 0; }
     border-bottom: 1.5px solid #4a4b57;
     transform: rotate(45deg);
 }
-.flow li.row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 0; border: 0; background: transparent; }
 
-/* 可點選的節點 */
-.flow button.node {
-    width: 100%;
-    cursor: pointer;
+/* 橫向管線圖：經驗區塊用，跨滿內容寬度，放在文字下方。
+   .next 表示「這個節點右側接箭頭」；.side 是掛在主線下方的輔助元件（虛線框）。
+   窄螢幕改為由上往下的單欄，箭頭改指向下。 */
+.pipe {
+    flex: 0 0 100%;
+    display: grid;
+    gap: 14px 24px;
+    align-items: center;
+    margin: 0;
+    padding: 14px 16px;
+    list-style: none;
+    background: var(--soft);
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
 }
-.flow button.node:hover { background: #e4e5ea; }
-.flow button.node[aria-pressed='true'] { background: var(--text); color: #fff; font-weight: 700; }
+.pipe-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.pipe-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.pipe > li {
+    position: relative;
+    padding: 7px 4px;
+    border: 1px solid var(--text);
+    background: #fff;
+    color: var(--text);
+}
+.pipe > li.end { background: var(--text); color: #fff; font-weight: 700; }
+.pipe small { display: block; font-size: 12px; font-weight: 400; }
+.pipe > li.next::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -17px;
+    width: 7px;
+    height: 7px;
+    margin-top: -4px;
+    border-top: 1.5px solid #4a4b57;
+    border-right: 1.5px solid #4a4b57;
+    transform: rotate(45deg);
+}
+.pipe > li.side {
+    grid-column: 4;
+    grid-row: 2;
+    border-style: dashed;
+    background: transparent;
+}
+.pipe > li.side::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    height: 14px;
+    border-left: 1.5px dashed #4a4b57;
+}
+.pipe > li.group { display: grid; gap: 4px; padding: 0; border: 0; background: transparent; }
+.pipe > li.group span { padding: 5px 2px; border: 1px solid var(--text); background: #fff; }
 
 .proj { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
 .proj-text { flex: 1 1 280px; min-width: 0; }
@@ -332,6 +376,11 @@ h1, h2, h3, p { margin: 0; }
 
 .legacy-link { padding: 0 28px 28px; font-size: 12px; color: var(--muted); }
 
+/* 視窗比內容（320 + 860）還窄時，右欄與視窗邊緣之間留一點空隙 */
+@media (max-width: 1240px) {
+    .panel { margin-right: 24px; }
+}
+
 /* ───── 窄螢幕：左欄疊到上方 ───── */
 @media (max-width: 720px) {
     .side { max-width: none; flex-basis: 100%; padding: 32px 20px; }
@@ -340,6 +389,17 @@ h1, h2, h3, p { margin: 0; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
     .flow, .shots-thumb, .proj > figure { flex-basis: 100%; }
+    .pipe-7, .pipe-5 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .pipe > li.next::after {
+        top: 100%;
+        right: auto;
+        left: 50%;
+        margin: 5px 0 0 -4px;
+        transform: rotate(135deg);
+    }
+    .pipe > li.side { grid-column: auto; grid-row: auto; }
+    .pipe > li.side::before { content: none; }
+    .pipe > li.group { gap: 6px; }
     .proj > figure img { width: 100%; }
 }
 
