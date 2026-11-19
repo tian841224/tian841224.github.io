@@ -175,6 +175,32 @@ h1, h2, h3, p { margin: 0; }
     column-gap: 10px;
 }
 .exp-body { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+
+/* 經驗項目可收合：summary 固定顯示標題、標籤與一句成果，展開後才出現條列與架構圖。 */
+.fold { min-width: 0; }
+.fold > summary {
+    position: relative;
+    padding-right: 28px;
+    list-style: none;
+    cursor: pointer;
+}
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--accent-ink);
+    border-bottom: 2px solid var(--accent-ink);
+    transform: rotate(45deg);
+}
+.fold[open] > summary::after { top: 12px; transform: rotate(-135deg); }
+.fold > summary:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
+.fold .tags, .fold .gist { display: block; }
+.fold .gist { margin-top: 2px; font-size: 13px; line-height: 20px; }
+.fold > .exp-body { margin-top: 10px; }
 .exp-text { flex: 1 1 280px; min-width: 0; }
 
 .title { font: 900 15px/24px var(--sans); }

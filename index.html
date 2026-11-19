@@ -101,11 +101,11 @@
 
                 <article class="exp">
                     <div class="idx">01</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">高流量訊息處理系統重構</h3>
-                            <div class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">高流量訊息處理系統重構</h3><span class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</span><span class="gist">同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>將多筆資料轉成 JSON 格式，一次性傳入資料庫並以 Stored Procedure 處理，資料庫往返由 N 次降為 1 次，大幅降低處理延遲</li>
                                 <li>將參照資料存放於 Redis，避免大量讀取資料庫；Redis 異常時自動降級至 MemoryCache 或資料庫，兼顧效能與可用性</li>
                                 <li>以多個 consumer 並行消費 RabbitMQ，依實測調校 prefetch 與 consumer 數量，搭配手動 Ack／Nack
@@ -114,7 +114,7 @@
                                 <li>以訊息 Guid 串連各階段耗時 Log 並集中於 Graylog，快速定位延遲發生在哪一段</li>
                                 <li>同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></li>
                             </ul>
-                        </div>
+                            </div>
                         <ol class="pipe pipe-7"
                             aria-label="高流量訊息處理系統架構：外部來源經接收服務、內部緩衝 MQ、轉發服務、業務分類 MQ，由多組 consumer 寫入資料庫；轉發服務使用 Redis 參照資料">
                             <li class="next">外部來源</li>
@@ -126,16 +126,17 @@
                             <li class="end">資料庫<small>批次預存程序</small></li>
                             <li class="side">Redis<small>參照資料</small></li>
                         </ol>
-                    </div>
+                        </div>
+                    </details>
                 </article>
 
                 <article class="exp">
                     <div class="idx">02</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">即時數據看板系統</h3>
-                            <div class="tags">Go・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">即時數據看板系統</h3><span class="tags">Go・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</span><span class="gist">從 0 到 1 獨立完成，以 Redis Pub/Sub 讓推播不再等待資料庫寫入</span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>從 0 到 1 獨立完成技術選型、微服務架構設計與容器化部署</li>
                                 <li>以 Protobuf 解析上游二進位資料，RabbitMQ 採用 Quorum Queue 搭配訊息 TTL 與自動重連，確保訊息可靠且過期訊息不堆積</li>
                                 <li>原本資料需先寫入 PostgreSQL，再由觸發器 NOTIFY 通知推播，即時推送受資料庫寫入速度牽制；改為解析後直接發佈至 Redis Pub/Sub，由
@@ -144,7 +145,7 @@
                                     確認才送下一批，並支援斷點續傳與增量同步，避免大量資料壓垮連線；另定期偵測逾時未更新的資料並主動推送</li>
                                 <li>舊資料改為分批刪除並設定批次間隔，避免長時間鎖表造成資料庫逾時</li>
                             </ul>
-                        </div>
+                            </div>
                         <ol class="pipe pipe-5"
                             aria-label="即時數據看板系統架構：RabbitMQ、Protobuf 解析、Redis Pub/Sub 分流，分送至 Redis 快取與 PostgreSQL 持久化，WebSocket 推播服務讀取 Redis 快取後推送前端">
                             <li class="next">RabbitMQ</li>
@@ -153,16 +154,17 @@
                             <li class="group next"><span>Redis</span><span>PostgreSQL</span></li>
                             <li class="end">WebSocket 推送前端<small>讀取 Redis</small></li>
                         </ol>
-                    </div>
+                        </div>
+                    </details>
                 </article>
 
                 <article class="exp">
                     <div class="idx">03</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">ERP 核心系統效能優化</h3>
-                            <div class="tags">C#・MS SQL・Stored Procedure・Query tuning</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">ERP 核心系統效能優化</h3><span class="tags">C#・MS SQL・Stored Procedure・Query tuning</span><span class="gist">查詢效能提升 <strong>300%</strong>、鎖定時間減少 <strong>60%</strong></span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>將逐筆迴圈與純量函式改寫為集合式運算，報表以預先彙總表與暫存表取代多層巢狀 View，並以分割資料表與歸檔控制歷史資料量，再依執行計畫補上索引，查詢效能提升
                                     <strong>300%</strong></li>
                                 <li>縮短交易範圍並分批更新，鎖定時間減少 <strong>60%</strong></li>
@@ -170,7 +172,7 @@
                                 <li>統一扣帳與入帳的處理順序並控制併發更新，避免庫存帳實不符</li>
                                 <li>接手 5 年技術債：補齊技術文件，導入開發規範與單元測試</li>
                             </ul>
-                        </div>
+                            </div>
                         <div class="diff" role="group" aria-label="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新">
                             <div class="diff-col">
                                 <span class="diff-h">改寫前：逐筆迴圈</span>
@@ -193,16 +195,17 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             </div>
                             <p class="diff-note">示意寫法，非實際程式碼</p>
                         </div>
-                    </div>
+                        </div>
+                    </details>
                 </article>
 
                 <article class="exp">
                     <div class="idx">04</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">系統管理後台</h3>
-                            <div class="tags">C#・MS SQL・Redis・RabbitMQ・Docker・Jenkins</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">系統管理後台</h3><span class="tags">C#・MS SQL・Redis・RabbitMQ・Docker・Jenkins</span><span class="gist">獨自從 MVP 開發至正式上線，含登入驗證、權限與跨服務事件</span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>獨自從 MVP 開發至正式上線，以 DDD 分層將後端拆為後台、報表、圖片與排程服務，各自獨立部署，服務間以 Service Caller 呼叫</li>
                                 <li>登入以領域事件拆為圖形驗證碼、Google 2FA、帳密驗證與登入日誌四個有序步驟，任一步失敗即中止並由補償步驟記錄失敗日誌，流程可獨立擴充與測試</li>
                                 <li>JWT 驗證搭配 Redis 單一 refresh token，偵測重複登入與過期並以回應標頭區分，前端可分別處理重新登入與踢下線</li>
@@ -212,7 +215,7 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                                 <li>以記憶體加 Redis 的多級快取降低跨服務呼叫與資料庫讀取，未命中才回源</li>
                                 <li>統一回應格式與例外處理，搭配軟刪除全域過濾、啟動時自動 Migration 與種子資料，降低各環境的設定落差</li>
                             </ul>
-                        </div>
+                            </div>
                         <ol class="pipe pipe-3"
                             aria-label="系統管理後台架構：前端經後台 API 驗證後，由 Service Caller 呼叫報表、遊戲與圖片三個服務；後台使用 Redis 與 MS SQL">
                             <li class="next">前端後台</li>
@@ -222,16 +225,17 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li class="duo under-2"><span>Redis<small>快取・refresh token</small></span><span>MS
                                     SQL<small>EF Core・Event Log</small></span></li>
                         </ol>
-                    </div>
+                        </div>
+                    </details>
                 </article>
 
                 <article class="exp">
                     <div class="idx">05</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">CRM 客戶管理系統</h3>
-                            <div class="tags">ASP.NET・MS SQL・Entity Framework</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">CRM 客戶管理系統</h3><span class="tags">ASP.NET・MS SQL・Entity Framework</span><span class="gist">客戶主檔、商機、互動紀錄與排程提醒</span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>客戶主檔以公司對聯絡人一對多建模，依關鍵欄位比對重複客戶並提供合併，避免同一客戶資料分散</li>
                                 <li>商機依階段推進，以狀態機限制只能依規則轉換</li>
                                 <li>通話與拜訪等互動紀錄整合為時間軸，快速掌握單一客戶歷程</li>
@@ -242,7 +246,7 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                                 <li>以排程掃描逾期未跟進、合約到期等事件並發出提醒</li>
                                 <li>稽核紀錄保存變更前後值，並提供業績與客戶分群的彙總報表與匯出</li>
                             </ul>
-                        </div>
+                            </div>
                         <ol class="pipe pipe-3"
                             aria-label="CRM 客戶管理系統架構：瀏覽器連到 ASP.NET 應用程式，存取客戶主檔、商機、互動紀錄；排程提醒與稽核日誌掛在應用程式下方">
                             <li class="next">瀏覽器</li>
@@ -251,30 +255,32 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li class="duo under-2">
                                 <span>排程提醒<small>逾期・到期</small></span><span>稽核日誌<small>變更前後值</small></span></li>
                         </ol>
-                    </div>
+                        </div>
+                    </details>
                 </article>
 
                 <article class="exp">
                     <div class="idx">06</div>
-                    <div class="exp-body">
-                        <div class="exp-text">
-                            <h3 class="title">教務系統</h3>
-                            <div class="tags">C#・Delphi・MS SQL・SQLite・Entity Framework</div>
-                            <ul>
+                    <details class="fold">
+                        <summary><h3 class="title">教務系統</h3><span class="tags">C#・Delphi・MS SQL・SQLite・Entity Framework</span><span class="gist">從准考證套印、報到、評分到志願分發的教務流程</span></summary>
+                        <div class="exp-body">
+                            <div class="exp-text">
+<ul>
                                 <li>准考證套印</li>
                                 <li>考試報到登入系統</li>
                                 <li>考卷評分系統</li>
                                 <li>志願分發系統</li>
                                 <li>Delphi 舊系統以 C# 重寫</li>
                             </ul>
-                        </div>
+                            </div>
                         <ol class="pipe pipe-4" aria-label="教務系統流程：准考證套印、考試報到、考卷評分、志願分發">
                             <li class="next">准考證套印</li>
                             <li class="next">考試報到</li>
                             <li class="next">考卷評分</li>
                             <li class="end">志願分發</li>
                         </ol>
-                    </div>
+                        </div>
+                    </details>
                 </article>
             </div>
 
