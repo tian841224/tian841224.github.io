@@ -168,6 +168,11 @@ h1, h2, h3, p { margin: 0; }
 .contact .stroke { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .contact .fill { fill: var(--accent); }
 
+/* 姓名列上的圖示連結：只在手機版顯示，取代最下方的 CONTACT 區塊 */
+.top-links { display: none; }
+.top-links .stroke { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.top-links .fill { fill: var(--accent); }
+
 /* ───── 右欄 ───── */
 .panel {
     flex: 999 1 560px;
@@ -517,10 +522,61 @@ h1, h2, h3, p { margin: 0; }
 
 /* ───── 窄螢幕：左欄疊到上方 ───── */
 @media (max-width: 720px) {
-    .side { max-width: none; flex-basis: 100%; padding: 32px 20px; }
-    .side h1 { font-size: 52px; line-height: 52px; }
-    .panel { margin: 16px; flex-basis: 100%; }
-    .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
+    /* 手機版順序：姓名與圖示連結 → TECH STACK／經驗／專案 → NOTE → ACTIVITY。
+       左欄改為 display: contents，讓它的區塊可以和右欄一起用 order 重新排序。 */
+    .side { display: contents; }
+    .brand {
+        order: 1;
+        flex: 0 0 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 24px 20px;
+        background: var(--side-bg);
+        color: var(--side-text);
+    }
+    .monogram { flex: none; width: 56px; height: 56px; margin: 0; font-size: 24px; }
+    .side h1 { font-size: 36px; line-height: 38px; }
+    .role { margin-top: 2px; font-size: 12px; line-height: 18px; }
+    .top-links { margin-left: auto; flex: none; display: flex; gap: 8px; }
+    .top-links a {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--side-dashed);
+    }
+    .top-links a:hover { text-decoration: none; background: #161b22; }
+    .top-links svg { width: 20px; height: 20px; }
+    .panel { order: 2; margin: 12px; flex-basis: 100%; }
+    .side > section { flex: 0 0 100%; padding: 24px 20px; background: var(--side-bg); color: var(--side-text); }
+    .side > section[aria-labelledby="note-title"] { order: 3; padding-bottom: 8px; }
+    .side > section[aria-labelledby="activity-title"] { order: 4; }
+    .side > section[aria-labelledby="contact-title"] { display: none; }
+    .note-side { grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 13px; }
+    .panel h2.bar { padding: 10px 16px; font-size: 17px; line-height: 26px; }
+    .block { padding: 16px; gap: 18px; }
+    .stack-wide { grid-template-columns: 1fr 1fr; gap: 14px 12px; font-size: 12px; }
+    .fold > summary { min-height: 44px; }
+    .fold .tags { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* 放大視窗：圖滿版，上一張／下一張／關閉放在圖下方並加大到 48px */
+    .shots-box {
+        width: calc(100vw - 32px);
+        max-width: none;
+        display: grid;
+        grid-template-columns: 48px 1fr 48px;
+        gap: 12px;
+        align-items: center;
+    }
+    .shots-box figure { grid-column: 1 / -1; grid-row: 1; order: 0; }
+    .shots-box img, .shots-box img[src$='.gif'] { width: 100%; max-width: none; max-height: calc(100vh - 220px); }
+    .shots-box .prev { grid-column: 1; grid-row: 2; order: 0; }
+    .shots-box .next { grid-column: 3; grid-row: 2; order: 0; }
+    .shots-bar { display: contents; }
+    .shots-count { grid-column: 2; grid-row: 2; text-align: center; }
+    .shots-bar .close { grid-column: 1 / -1; grid-row: 3; min-height: 48px; }
+    .shots-box .btn.icon { min-width: 48px; min-height: 48px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
     .flow, .shots-thumb, .proj-media, .proj-body > figure { flex-basis: 100%; }
     .pipe-7, .pipe-5, .pipe-4, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
