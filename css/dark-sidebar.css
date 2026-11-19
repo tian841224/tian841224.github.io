@@ -370,11 +370,35 @@ h1, h2, h3, p { margin: 0; }
 .diff-col.after pre { background: var(--text); color: #fff; }
 .diff-note { grid-column: 1 / -1; margin: 0; font-size: 12px; line-height: 16px; color: #4a4b57; }
 
-.proj { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.proj {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    column-gap: 10px;
+}
+.proj-body { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
 .proj-text { flex: 1 1 280px; min-width: 0; }
 .proj h3 { font: 900 16px/24px var(--sans); }
-.proj > figure { margin: 0; flex: 0 0 180px; }
-.proj > figure img { display: block; width: 180px; height: auto; border: 1px solid var(--rule); }
+
+/* 專案連結：強調色加底線與外開箭頭，一眼看得出可以點擊。 */
+.proj h3 a, .others a {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+.proj h3 a::after, .others a::after {
+    content: '';
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.3em;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3H3v10h10v-3M9 3h4v4M13 3L7 9'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3H3v10h10v-3M9 3h4v4M13 3L7 9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.proj h3 a:hover, .others a:hover { background: var(--soft); text-decoration-thickness: 3px; }
+.proj-body > figure { margin: 0; flex: 0 0 180px; }
+.proj-body > figure img { display: block; width: 180px; height: auto; border: 1px solid var(--rule); }
 
 /* 截圖：預設收起成縮圖，點擊展開成大圖檢視 */
 .shots { display: contents; }
@@ -484,7 +508,7 @@ h1, h2, h3, p { margin: 0; }
     .panel { margin: 16px; flex-basis: 100%; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
-    .flow, .shots-thumb, .proj > figure { flex-basis: 100%; }
+    .flow, .shots-thumb, .proj-body > figure { flex-basis: 100%; }
     .pipe-7, .pipe-5, .pipe-4, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
     .pipe > li.duo.under-2 { grid-column: auto; grid-row: auto; }
     .pipe > li.duo::before { content: none; }
@@ -506,7 +530,7 @@ h1, h2, h3, p { margin: 0; }
         margin: 5px 0 0 -4px;
         transform: rotate(135deg);
     }
-    .proj > figure img { width: 100%; }
+    .proj-body > figure img { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

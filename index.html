@@ -108,7 +108,7 @@
                     </div>
                     <div>
                         <dt>cloud/</dt>
-                        <dd>AWS · GCP · Supabase</dd>
+                        <dd>AWS · GCP · Supabase · Vercel</dd>
                     </div>
                     <div>
                         <dt>devops/</dt>
@@ -320,26 +320,27 @@ JOIN #Agg a ON a.Id = i.Id</pre>
             <div class="block">
 
                 <article class="proj">
-                    <ol class="flow" style="flex-basis: 180px" aria-label="agent-workflow 流程">
-                        <li>任務規劃</li>
-                        <li>按需載入 Skills</li>
-                        <li>可執行驗收案例</li>
-                        <li>獨立審查</li>
-                        <li class="end">跨任務共用記憶</li>
-                    </ol>
+                    <div class="idx">01</div>
+                    <div class="proj-body">
                     <div class="proj-text">
                         <h3><a href="https://github.com/tian841224/agent-workflow" target="_blank"
                                 rel="noreferrer">agent-workflow</a></h3>
-                        <div class="tags">Node.js・TypeScript・Multi-Agent</div>
-                        <p class="lead">依日常開發流程打造的 Agent 架構，整合任務規劃、驗收、獨立審查與共用記憶。</p>
+                        <p class="lead">依實際開發流程與 model 的演進，持續調整的個人 AI 開發工作流。</p>
                         <ul>
-                            <li>Claude Code、Codex 與 Antigravity 跨平台支援</li>
-                            <li>按需載入 Skills 指引與跨任務共用記憶</li>
+                            <li>先制定驗收標準，避免需求模糊</li>
+                            <li>依風險決定流程</li>
+                            <li>依條件判斷是否建立 subagent</li>
+                            <li>Claude Code、Codex 與 Antigravity 共用同一套規則與 runtime</li>
+                            <li>Skills 採漸進式揭露</li>
+                            <li>跨任務共用記憶</li>
                         </ul>
+                    </div>
                     </div>
                 </article>
 
                 <article class="proj">
+                    <div class="idx">02</div>
+                    <div class="proj-body">
                     <div class="shots" data-shots='[
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg","label":"首頁"},
                         {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/party-discovery.jpg","label":"組隊招募"},
@@ -374,16 +375,20 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="proj-text">
                         <h3><a href="https://github.com/tian841224/oneshort" target="_blank"
                                 rel="noreferrer">oneshort</a></h3>
-                        <div class="tags">Go・Gin・Next.js 16・PostgreSQL・Redis・WebSocket</div>
+                        <div class="tags">Go・Next.js・PostgreSQL・Redis・WebSocket</div>
                         <p class="lead">楓之谷揪團平台，提供組隊招募、任務協作、公會排團與即時聊天。</p>
                         <ul>
-                            <li>公會 BOSS 排團試算、草案調整與自動配對</li>
-                            <li>大廳、隊伍與公會 WebSocket 即時聊天通知</li>
+                            <li>Transactional Outbox：業務資料與事件在同一個資料庫交易寫入，Relay Worker 以 <code>SKIP LOCKED</code> 領取並發布至 Redis Streams，避免資料寫入與事件發布不一致</li>
+                            <li>WebSocket 即時推送管線：Gateway 以 Redis Streams consumer group 消費事件，接手卡住的訊息，格式錯誤的事件進入 DLQ</li>
+                            <li>即時隊伍的並行控制：以 Redis 分散式鎖序列化同一隊伍的修改，並以心跳續期避免鎖過期，防止超收與重複席位</li>
                         </ul>
+                    </div>
                     </div>
                 </article>
 
                 <article class="proj">
+                    <div class="idx">03</div>
+                    <div class="proj-body">
                     <figure><img src="assets/images/stock-bot-architecture.png"
                             alt="stock-bot-golang 系統架構圖：Interface、Application、Infrastructure、Domain 四層" loading="lazy">
                     </figure>
@@ -396,6 +401,7 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li>Interface／Application／Infrastructure／Domain 四層分離</li>
                             <li>Zap + Middleware Log 與 GitHub Actions 監控</li>
                         </ul>
+                    </div>
                     </div>
                 </article>
 
