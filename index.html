@@ -335,6 +335,18 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li>跨任務共用記憶</li>
                         </ul>
                     </div>
+                    <ol class="pipe pipe-7"
+                        aria-label="agent-workflow 流程：需求先判斷是否影響行為，不影響則直接處理；影響則先確認規格與驗收案例，建立 task 並依風險編排計畫，實作（有條件才派 subagent），逐條執行驗收，獨立 Review，最後結案">
+                        <li class="next">需求分流<small>是否影響行為</small></li>
+                        <li class="next">規格確認<small>含驗收案例</small></li>
+                        <li class="next">建立 task<small>依風險編計畫</small></li>
+                        <li class="next">實作</li>
+                        <li class="next">逐條驗收<small>runtime 執行</small></li>
+                        <li class="next">獨立 Review</li>
+                        <li class="end">結案</li>
+                        <li class="side under-1">直接處理<small>不影響行為</small></li>
+                        <li class="side">subagent<small>依條件才派</small></li>
+                    </ol>
                     </div>
                 </article>
 

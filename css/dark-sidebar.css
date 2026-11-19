@@ -312,6 +312,7 @@ h1, h2, h3, p { margin: 0; }
     border-style: dashed;
     background: transparent;
 }
+.pipe > li.side.under-1 { grid-column: 1; }
 .pipe > li.side::before {
     content: '';
     position: absolute;
@@ -403,6 +404,7 @@ h1, h2, h3, p { margin: 0; }
 /* 截圖：預設收起成縮圖，點擊展開成大圖檢視 */
 .shots { display: contents; }
 .proj-text { order: 2; }
+.proj-body > .pipe { order: 3; }
 .shots-thumb { order: 1; }
 .shots-thumb {
     position: relative;
@@ -519,7 +521,7 @@ h1, h2, h3, p { margin: 0; }
         margin: 5px 0 0 -4px;
         transform: rotate(135deg);
     }
-    .pipe > li.side { grid-column: auto; grid-row: auto; }
+    .pipe > li.side, .pipe > li.side.under-1 { grid-column: auto; grid-row: auto; }
     .pipe > li.side::before { content: none; }
     .pipe > li.group { gap: 6px; }
     .diff { grid-template-columns: minmax(0, 1fr); gap: 18px; }
