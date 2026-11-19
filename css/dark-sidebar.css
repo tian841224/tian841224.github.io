@@ -221,7 +221,7 @@ h1, h2, h3, p { margin: 0; }
 .fold > summary:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 4px; }
 .fold .tags, .fold .gist { display: block; }
 .fold .gist { margin-top: 2px; font-size: 13px; line-height: 20px; }
-.fold > .exp-body { margin-top: 10px; }
+.fold > .exp-body, .fold > .proj-body { margin-top: 10px; }
 .exp-text { flex: 1 1 280px; min-width: 0; }
 
 .title { font: 900 15px/24px var(--sans); }
@@ -406,6 +406,9 @@ h1, h2, h3, p { margin: 0; }
 .proj-text { order: 2; }
 .proj-body > .pipe { order: 3; }
 .shots-thumb { order: 1; }
+/* 同一個專案有多組縮圖時，垂直堆疊在左欄 */
+.proj-media { order: 1; flex: 0 0 180px; display: grid; gap: 12px; }
+.proj-media .shots-thumb { width: 100%; }
 .shots-thumb {
     position: relative;
     flex: 0 0 180px;
@@ -416,6 +419,8 @@ h1, h2, h3, p { margin: 0; }
     font: inherit;
 }
 .shots-thumb img { display: block; width: 100%; height: 96px; object-fit: cover; }
+/* 架構圖縮圖：圖的比例接近正方形，完整顯示不裁切 */
+.shots-thumb.fit img { height: 140px; object-fit: contain; background: #fff; }
 .shots-thumb span {
     position: absolute;
     left: 0;
@@ -457,7 +462,13 @@ h1, h2, h3, p { margin: 0; }
     max-height: calc(100vh - 150px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
+.shots-box img[src$='.gif'] {
+    width: min(880px, calc(100vw - 150px));
+    object-fit: contain;
+    background: #fff;
+}
 .shots-box figcaption { padding-top: 8px; font-size: 13px; line-height: 20px; color: #fff; text-align: center; }
+.shots-box [hidden] { display: none; }
 .shots-box .prev { order: 1; }
 .shots-box .next { order: 3; }
 .shots-bar { order: 4; flex: 0 0 100%; display: flex; align-items: center; justify-content: space-between; color: #fff; }
@@ -510,7 +521,7 @@ h1, h2, h3, p { margin: 0; }
     .panel { margin: 16px; flex-basis: 100%; }
     .panel h2.bar, .block { padding-left: 16px; padding-right: 16px; }
     .legacy-link { padding-left: 16px; padding-right: 16px; }
-    .flow, .shots-thumb, .proj-body > figure { flex-basis: 100%; }
+    .flow, .shots-thumb, .proj-media, .proj-body > figure { flex-basis: 100%; }
     .pipe-7, .pipe-5, .pipe-4, .pipe-3 { grid-template-columns: minmax(0, 1fr); gap: 18px; }
     .pipe > li.duo.under-2 { grid-column: auto; grid-row: auto; }
     .pipe > li.duo::before { content: none; }
