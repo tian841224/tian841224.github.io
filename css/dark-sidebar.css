@@ -117,7 +117,28 @@ h1, h2, h3, p { margin: 0; }
     gap: 6px;
     margin: 0;
 }
-.stack dd::before { content: '└─'; flex: none; color: var(--side-muted); }
+.stack dd::before { content: '├─'; flex: none; color: var(--side-muted); }
+.stack dd:last-of-type::before { content: '└─'; }
+/* 放在右欄（淺底）時的 TECH STACK：改用深色文字並依寬度自動分欄 */
+.stack-wide {
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: 14px 24px;
+    color: var(--text);
+}
+.stack-wide dt { color: var(--accent-ink); }
+.stack-wide dd::before { color: var(--muted); }
+
+.note-side {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    line-height: 22px;
+}
+.note-side a { color: var(--side-text); }
+.note-side a:hover { color: var(--accent); }
 
 .activity { display: grid; gap: 8px; }
 .activity a {
