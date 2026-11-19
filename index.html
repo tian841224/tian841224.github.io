@@ -134,12 +134,14 @@
                     <div class="exp-body">
                         <div class="exp-text">
                             <h3 class="title">即時數據看板系統</h3>
-                            <div class="tags">C#・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</div>
+                            <div class="tags">Go・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</div>
                             <ul>
                                 <li>從 0 到 1 獨立完成技術選型、微服務架構設計與容器化部署</li>
                                 <li>以 Protobuf 解析上游二進位資料，RabbitMQ 採用 Quorum Queue 搭配訊息 TTL 與自動重連，確保訊息可靠且過期訊息不堆積</li>
-                                <li>原本資料需先寫入 PostgreSQL，再由觸發器 NOTIFY 通知推播，即時推送受資料庫寫入速度牽制；改為解析後直接發佈至 Redis Pub/Sub，由 Redis 寫入、PostgreSQL 寫入與 WebSocket 推播三個服務各自訂閱，推播不再等待資料庫，各服務也可獨立部署與擴充</li>
-                                <li>WebSocket 以 SCAN 分批讀取 Redis 快取，每批經前端 ACK 確認才送下一批，並支援斷點續傳與增量同步，避免大量資料壓垮連線；另定期偵測逾時未更新的資料並主動推送</li>
+                                <li>原本資料需先寫入 PostgreSQL，再由觸發器 NOTIFY 通知推播，即時推送受資料庫寫入速度牽制；改為解析後直接發佈至 Redis Pub/Sub，由
+                                    Redis 寫入、PostgreSQL 寫入與 WebSocket 推播三個服務各自訂閱，推播不再等待資料庫，各服務也可獨立部署與擴充</li>
+                                <li>WebSocket 以 SCAN 分批讀取 Redis 快取，每批經前端 ACK
+                                    確認才送下一批，並支援斷點續傳與增量同步，避免大量資料壓垮連線；另定期偵測逾時未更新的資料並主動推送</li>
                                 <li>舊資料改為分批刪除並設定批次間隔，避免長時間鎖表造成資料庫逾時</li>
                             </ul>
                         </div>
@@ -159,20 +161,20 @@
                     <div class="exp-body">
                         <div class="exp-text">
                             <h3 class="title">ERP 核心系統效能優化</h3>
-                            <div class="tags">C# .NET 8・MS SQL・Stored Procedure・Query tuning</div>
+                            <div class="tags">C#・MS SQL・Stored Procedure・Query tuning</div>
                             <ul>
-                                <li>將逐筆迴圈與純量函式改寫為集合式運算，報表以預先彙總表與暫存表取代多層巢狀 View，並以分割資料表與歸檔控制歷史資料量，再依執行計畫補上索引，查詢效能提升 <strong>300%</strong></li>
+                                <li>將逐筆迴圈與純量函式改寫為集合式運算，報表以預先彙總表與暫存表取代多層巢狀 View，並以分割資料表與歸檔控制歷史資料量，再依執行計畫補上索引，查詢效能提升
+                                    <strong>300%</strong></li>
                                 <li>縮短交易範圍並分批更新，鎖定時間減少 <strong>60%</strong></li>
                                 <li>修正 MRP 的庫存判斷與生產物料計算錯誤，隔年依公司報表，庫存中價值千萬的呆滯物料已消化</li>
                                 <li>統一扣帳與入帳的處理順序並控制併發更新，避免庫存帳實不符</li>
                                 <li>接手 5 年技術債：補齊技術文件，導入開發規範與單元測試</li>
                             </ul>
                         </div>
-                        <div class="diff" role="group"
-                            aria-label="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新">
+                        <div class="diff" role="group" aria-label="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新">
                             <div class="diff-col">
                                 <span class="diff-h">改寫前：逐筆迴圈</span>
-<pre>DECLARE c CURSOR FOR
+                                <pre>DECLARE c CURSOR FOR
   SELECT Id FROM Items
 WHILE @@FETCH_STATUS = 0
   UPDATE Items
@@ -181,7 +183,7 @@ WHILE @@FETCH_STATUS = 0
                             </div>
                             <div class="diff-col after">
                                 <span class="diff-h">改寫後：集合式運算</span>
-<pre>SELECT Id, SUM(Qty) AS Qty
+                                <pre>SELECT Id, SUM(Qty) AS Qty
 INTO #Agg
 FROM Detail GROUP BY Id
 
@@ -198,25 +200,27 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="idx">04</div>
                     <div class="exp-body">
                         <div class="exp-text">
-                        <h3 class="title">系統管理後台</h3>
-                        <div class="tags">.NET 8・MS SQL・Redis・RabbitMQ・Docker・Jenkins</div>
-                        <ul>
-                            <li>獨自從 MVP 開發至正式上線，以 DDD 分層將後端拆為後台、報表、圖片與排程服務，各自獨立部署，服務間以 Service Caller 呼叫</li>
-                            <li>登入以領域事件拆為圖形驗證碼、Google 2FA、帳密驗證與登入日誌四個有序步驟，任一步失敗即中止並由補償步驟記錄失敗日誌，流程可獨立擴充與測試</li>
-                            <li>JWT 驗證搭配 Redis 單一 refresh token，偵測重複登入與過期並以回應標頭區分，前端可分別處理重新登入與踢下線</li>
-                            <li>RBAC 多層級權限：依帳號層級與所屬公司限制可見資料與操作範圍</li>
-                            <li>以 RabbitMQ 進行跨系統同步</li>
-                            <li>整合事件採 Dapr 搭配資料庫 Event Log（Outbox 模式），事件與業務資料同交易寫入，避免資料已寫入卻漏發事件</li>
-                            <li>以記憶體加 Redis 的多級快取降低跨服務呼叫與資料庫讀取，未命中才回源</li>
-                            <li>統一回應格式與例外處理，搭配軟刪除全域過濾、啟動時自動 Migration 與種子資料，降低各環境的設定落差</li>
-                        </ul>
+                            <h3 class="title">系統管理後台</h3>
+                            <div class="tags">C#・MS SQL・Redis・RabbitMQ・Docker・Jenkins</div>
+                            <ul>
+                                <li>獨自從 MVP 開發至正式上線，以 DDD 分層將後端拆為後台、報表、圖片與排程服務，各自獨立部署，服務間以 Service Caller 呼叫</li>
+                                <li>登入以領域事件拆為圖形驗證碼、Google 2FA、帳密驗證與登入日誌四個有序步驟，任一步失敗即中止並由補償步驟記錄失敗日誌，流程可獨立擴充與測試</li>
+                                <li>JWT 驗證搭配 Redis 單一 refresh token，偵測重複登入與過期並以回應標頭區分，前端可分別處理重新登入與踢下線</li>
+                                <li>RBAC 多層級權限：依帳號層級與所屬公司限制可見資料與操作範圍</li>
+                                <li>以 RabbitMQ 進行跨系統同步</li>
+                                <li>整合事件採 Dapr 搭配資料庫 Event Log（Outbox 模式），事件與業務資料同交易寫入，避免資料已寫入卻漏發事件</li>
+                                <li>以記憶體加 Redis 的多級快取降低跨服務呼叫與資料庫讀取，未命中才回源</li>
+                                <li>統一回應格式與例外處理，搭配軟刪除全域過濾、啟動時自動 Migration 與種子資料，降低各環境的設定落差</li>
+                            </ul>
                         </div>
                         <ol class="pipe pipe-3"
                             aria-label="系統管理後台架構：前端經後台 API 驗證後，由 Service Caller 呼叫報表、遊戲與圖片三個服務；後台使用 Redis 與 MS SQL">
                             <li class="next">前端後台</li>
                             <li class="next">後台 API<small>JWT・領域事件</small></li>
-                            <li class="group"><span>報表服務<small>Dapper 預存程序</small></span><span>遊戲服務</span><span>圖片服務</span></li>
-                            <li class="duo under-2"><span>Redis<small>快取・refresh token</small></span><span>MS SQL<small>EF Core・Event Log</small></span></li>
+                            <li class="group"><span>報表服務<small>Dapper
+                                        預存程序</small></span><span>遊戲服務</span><span>圖片服務</span></li>
+                            <li class="duo under-2"><span>Redis<small>快取・refresh token</small></span><span>MS
+                                    SQL<small>EF Core・Event Log</small></span></li>
                         </ol>
                     </div>
                 </article>
@@ -226,14 +230,15 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="exp-body">
                         <div class="exp-text">
                             <h3 class="title">CRM 客戶管理系統</h3>
-                            <div class="tags">ASP.NET・C#・MS SQL・Entity Framework</div>
+                            <div class="tags">ASP.NET・MS SQL・Entity Framework</div>
                             <ul>
                                 <li>客戶主檔以公司對聯絡人一對多建模，依關鍵欄位比對重複客戶並提供合併，避免同一客戶資料分散</li>
                                 <li>商機依階段推進，以狀態機限制只能依規則轉換</li>
                                 <li>通話與拜訪等互動紀錄整合為時間軸，快速掌握單一客戶歷程</li>
                                 <li>RBAC 角色權限控管，並依組織層級限制資料可見範圍：業務僅看自己的客戶，主管看團隊，管理者看全部</li>
                                 <li>以動態欄位設計支援各單位自訂欄位，新增欄位不需修改資料表</li>
-                                <li>動態條件查詢（Dynamic Query）搭配索引（Index）設計並可儲存常用篩選；大量名單批次匯入（Bulk Import），含欄位對應、資料驗證（Validation）與錯誤報告</li>
+                                <li>動態條件查詢（Dynamic Query）搭配索引（Index）設計並可儲存常用篩選；大量名單批次匯入（Bulk
+                                    Import），含欄位對應、資料驗證（Validation）與錯誤報告</li>
                                 <li>以排程掃描逾期未跟進、合約到期等事件並發出提醒</li>
                                 <li>稽核紀錄保存變更前後值，並提供業績與客戶分群的彙總報表與匯出</li>
                             </ul>
@@ -243,19 +248,32 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li class="next">瀏覽器</li>
                             <li class="next">ASP.NET 應用程式</li>
                             <li class="group"><span>客戶主檔</span><span>商機</span><span>互動紀錄</span></li>
-                            <li class="duo under-2"><span>排程提醒<small>逾期・到期</small></span><span>稽核日誌<small>變更前後值</small></span></li>
+                            <li class="duo under-2">
+                                <span>排程提醒<small>逾期・到期</small></span><span>稽核日誌<small>變更前後值</small></span></li>
                         </ol>
                     </div>
                 </article>
 
                 <article class="exp">
                     <div class="idx">06</div>
-                    <div class="exp-text">
-                        <h3 class="title">其他專案</h3>
-                        <div class="tags">C# .NET 8・Delphi・MS SQL・SQLite・Entity Framework</div>
-                        <ul>
-                            <li>教務系統：准考證套印、考試報到登入系統、志願分發、考卷評分系統</li>
-                        </ul>
+                    <div class="exp-body">
+                        <div class="exp-text">
+                            <h3 class="title">教務系統</h3>
+                            <div class="tags">C#・Delphi・MS SQL・SQLite・Entity Framework</div>
+                            <ul>
+                                <li>准考證套印</li>
+                                <li>考試報到登入系統</li>
+                                <li>考卷評分系統</li>
+                                <li>志願分發系統</li>
+                                <li>Delphi 舊系統以 C# 重寫</li>
+                            </ul>
+                        </div>
+                        <ol class="pipe pipe-4" aria-label="教務系統流程：准考證套印、考試報到、考卷評分、志願分發">
+                            <li class="next">准考證套印</li>
+                            <li class="next">考試報到</li>
+                            <li class="next">考卷評分</li>
+                            <li class="end">志願分發</li>
+                        </ol>
                     </div>
                 </article>
             </div>
