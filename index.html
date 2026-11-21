@@ -21,6 +21,7 @@
 
 <body>
     <a class="skip-link" href="#main-content">跳到主要內容</a>
+    <button type="button" class="lang-toggle lang-toggle-label" aria-label="切換語言 / Switch language">EN</button>
     <div class="page">
 
         <aside class="side" aria-label="個人資訊">
@@ -149,10 +150,10 @@
                 <article class="exp">
                     <div class="idx">01</div>
                     <details class="fold">
-                        <summary><h3 class="title">高流量訊息處理系統重構</h3><span class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</span><span class="gist">同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></span></summary>
+                        <summary><h3 class="title"><span class="t-zh">高流量訊息處理系統重構</span><span class="t-en" hidden>High-Throughput Message Processing System Refactor</span></h3><span class="tags">Go・MySQL・RabbitMQ・Redis・Graylog・Docker</span><span class="gist"><span class="t-zh">同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></span><span class="t-en" hidden>Throughput increased from 50–100 TPS to over <strong>1000+ TPS</strong> in the same test environment</span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>將多筆資料轉成 JSON 格式，一次性傳入資料庫並以 Stored Procedure 處理，資料庫往返由 N 次降為 1 次，大幅降低處理延遲</li>
                                 <li>將參照資料存放於 Redis，避免大量讀取資料庫；Redis 異常時自動降級至 MemoryCache 或資料庫，兼顧效能與可用性</li>
                                 <li>以多個 consumer 並行消費 RabbitMQ，依實測調校 prefetch 與 consumer 數量，搭配手動 Ack／Nack
@@ -161,17 +162,26 @@
                                 <li>以訊息 Guid 串連各階段耗時 Log 並集中於 Graylog，快速定位延遲發生在哪一段</li>
                                 <li>同一測試環境下，吞吐量由 50–100 TPS 提升至 <strong>1000+ TPS</strong></li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Batched multiple records into a single JSON payload and processed them in one round trip via a stored procedure, cutting database round trips from N to 1 and significantly reducing processing latency</li>
+                                <li>Cached reference data in Redis to avoid heavy database reads; falls back automatically to an in-memory cache or the database when Redis is unavailable, balancing performance and availability</li>
+                                <li>Consumed RabbitMQ with multiple parallel consumers, tuning prefetch count and consumer count based on load testing, with manual Ack/Nack and automatic reconnection to raise throughput while guaranteeing no message loss</li>
+                                <li>Filtered messages at the entry point to reduce unnecessary processing</li>
+                                <li>Correlated per-stage timing logs by message GUID and centralized them in Graylog to quickly pinpoint where latency occurs</li>
+                                <li>Throughput increased from 50–100 TPS to over <strong>1000+ TPS</strong> in the same test environment</li>
+                            </ul>
                             </div>
                         <ol class="pipe pipe-7"
-                            aria-label="高流量訊息處理系統架構：外部來源經接收服務、內部緩衝 MQ、轉發服務、業務分類 MQ，由多組 consumer 寫入資料庫；轉發服務使用 Redis 參照資料">
-                            <li class="next">外部來源</li>
-                            <li class="next">接收服務</li>
-                            <li class="next">內部緩衝 MQ</li>
-                            <li class="next">轉發服務</li>
-                            <li class="next">業務分類 MQ</li>
-                            <li class="next">多組 consumer</li>
-                            <li class="end">資料庫<small>批次預存程序</small></li>
-                            <li class="side">Redis<small>參照資料</small></li>
+                            data-aria-zh="高流量訊息處理系統架構：外部來源經接收服務、內部緩衝 MQ、轉發服務、業務分類 MQ，由多組 consumer 寫入資料庫；轉發服務使用 Redis 參照資料"
+                            data-aria-en="High-throughput message processing architecture: external sources flow through a receiving service, an internal buffer MQ, a forwarding service, and a business-classified MQ, with multiple consumer groups writing to the database; the forwarding service uses Redis for reference data">
+                            <li class="next"><span class="t-zh">外部來源</span><span class="t-en" hidden>External sources</span></li>
+                            <li class="next"><span class="t-zh">接收服務</span><span class="t-en" hidden>Receiving service</span></li>
+                            <li class="next"><span class="t-zh">內部緩衝 MQ</span><span class="t-en" hidden>Internal buffer MQ</span></li>
+                            <li class="next"><span class="t-zh">轉發服務</span><span class="t-en" hidden>Forwarding service</span></li>
+                            <li class="next"><span class="t-zh">業務分類 MQ</span><span class="t-en" hidden>Business-classified MQ</span></li>
+                            <li class="next"><span class="t-zh">多組 consumer</span><span class="t-en" hidden>Multiple consumer groups</span></li>
+                            <li class="end"><span class="t-zh">資料庫</span><span class="t-en" hidden>Database</span><small><span class="t-zh">批次預存程序</span><span class="t-en" hidden>Batch stored procedure</span></small></li>
+                            <li class="side">Redis<small><span class="t-zh">參照資料</span><span class="t-en" hidden>Reference data</span></small></li>
                         </ol>
                         </div>
                     </details>
@@ -180,10 +190,10 @@
                 <article class="exp">
                     <div class="idx">02</div>
                     <details class="fold">
-                        <summary><h3 class="title">即時數據看板系統</h3><span class="tags">Go・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</span><span class="gist">從 0 到 1 獨立完成，以 Redis Pub/Sub 讓推播不再等待資料庫寫入</span></summary>
+                        <summary><h3 class="title"><span class="t-zh">即時數據看板系統</span><span class="t-en" hidden>Real-Time Dashboard System</span></h3><span class="tags">Go・RabbitMQ・Protobuf・Redis Pub/Sub・WebSocket・PostgreSQL・Docker</span><span class="gist"><span class="t-zh">從 0 到 1 獨立完成，以 Redis Pub/Sub 讓推播不再等待資料庫寫入</span><span class="t-en" hidden>Built independently from 0 to 1; used Redis Pub/Sub so push delivery no longer waits on database writes</span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>從 0 到 1 獨立完成技術選型、微服務架構設計與容器化部署</li>
                                 <li>以 Protobuf 解析上游二進位資料，RabbitMQ 採用 Quorum Queue 搭配訊息 TTL 與自動重連，確保訊息可靠且過期訊息不堆積</li>
                                 <li>原本資料需先寫入 PostgreSQL，再由觸發器 NOTIFY 通知推播，即時推送受資料庫寫入速度牽制；改為解析後直接發佈至 Redis Pub/Sub，由
@@ -192,14 +202,22 @@
                                     確認才送下一批，並支援斷點續傳與增量同步，避免大量資料壓垮連線；另定期偵測逾時未更新的資料並主動推送</li>
                                 <li>舊資料改為分批刪除並設定批次間隔，避免長時間鎖表造成資料庫逾時</li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Independently handled technology selection, microservice architecture design, and containerized deployment from scratch</li>
+                                <li>Parsed upstream binary data with Protobuf; used RabbitMQ Quorum Queues with message TTL and automatic reconnection to ensure reliable delivery without expired messages piling up</li>
+                                <li>Previously, data had to be written to PostgreSQL first and a trigger's NOTIFY would signal the push, so real-time delivery was bottlenecked by database write speed. Changed to publish directly to Redis Pub/Sub right after parsing, with the Redis-write, PostgreSQL-write, and WebSocket-push services each subscribing independently — push delivery no longer waits on the database, and each service can be deployed and scaled independently</li>
+                                <li>The WebSocket service reads the Redis cache in batches via SCAN, sending the next batch only after the frontend ACKs the previous one, with resumable transfer and incremental sync to avoid overwhelming the connection with large volumes of data; it also periodically detects stale, un-updated data and proactively pushes it</li>
+                                <li>Switched to deleting old data in batches with intervals between them, avoiding long table locks that could cause database timeouts</li>
+                            </ul>
                             </div>
                         <ol class="pipe pipe-5"
-                            aria-label="即時數據看板系統架構：RabbitMQ、Protobuf 解析、Redis Pub/Sub 分流，分送至 Redis 快取與 PostgreSQL 持久化，WebSocket 推播服務讀取 Redis 快取後推送前端">
+                            data-aria-zh="即時數據看板系統架構：RabbitMQ、Protobuf 解析、Redis Pub/Sub 分流，分送至 Redis 快取與 PostgreSQL 持久化，WebSocket 推播服務讀取 Redis 快取後推送前端"
+                            data-aria-en="Real-time dashboard architecture: RabbitMQ, Protobuf parsing, and Redis Pub/Sub fan-out distribute to Redis caching and PostgreSQL persistence; the WebSocket push service reads the Redis cache and pushes to the frontend">
                             <li class="next">RabbitMQ</li>
-                            <li class="next">Protobuf 解析</li>
-                            <li class="next">Redis Pub/Sub 分流</li>
+                            <li class="next"><span class="t-zh">Protobuf 解析</span><span class="t-en" hidden>Protobuf parsing</span></li>
+                            <li class="next"><span class="t-zh">Redis Pub/Sub 分流</span><span class="t-en" hidden>Redis Pub/Sub fan-out</span></li>
                             <li class="group next"><span>Redis</span><span>PostgreSQL</span></li>
-                            <li class="end">WebSocket 推送前端<small>讀取 Redis</small></li>
+                            <li class="end"><span class="t-zh">WebSocket 推送前端</span><span class="t-en" hidden>WebSocket push to frontend</span><small><span class="t-zh">讀取 Redis</span><span class="t-en" hidden>Reads Redis</span></small></li>
                         </ol>
                         </div>
                     </details>
@@ -208,10 +226,10 @@
                 <article class="exp">
                     <div class="idx">03</div>
                     <details class="fold">
-                        <summary><h3 class="title">ERP 核心系統效能優化</h3><span class="tags">C#・MS SQL・Stored Procedure・Query tuning</span><span class="gist">查詢效能提升 <strong>300%</strong>、鎖定時間減少 <strong>60%</strong></span></summary>
+                        <summary><h3 class="title"><span class="t-zh">ERP 核心系統效能優化</span><span class="t-en" hidden>ERP Core System Performance Optimization</span></h3><span class="tags">C#・MS SQL・Stored Procedure・Query tuning</span><span class="gist"><span class="t-zh">查詢效能提升 <strong>300%</strong>、鎖定時間減少 <strong>60%</strong></span><span class="t-en" hidden>Query performance improved by <strong>300%</strong>, lock time reduced by <strong>60%</strong></span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>將逐筆迴圈與純量函式改寫為集合式運算，報表以預先彙總表與暫存表取代多層巢狀 View，並以分割資料表與歸檔控制歷史資料量，再依執行計畫補上索引，查詢效能提升
                                     <strong>300%</strong></li>
                                 <li>縮短交易範圍並分批更新，鎖定時間減少 <strong>60%</strong></li>
@@ -219,10 +237,17 @@
                                 <li>統一扣帳與入帳的處理順序並控制併發更新，避免庫存帳實不符</li>
                                 <li>接手 5 年技術債：補齊技術文件，導入開發規範與單元測試</li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Rewrote row-by-row loops and scalar functions as set-based operations; replaced deeply nested views in reports with pre-aggregated and temp tables, controlled historical data volume via table partitioning and archiving, then added indexes based on execution plan analysis — query performance improved by <strong>300%</strong></li>
+                                <li>Shortened transaction scope and switched to batched updates, reducing lock time by <strong>60%</strong></li>
+                                <li>Fixed MRP inventory evaluation and production material calculation errors; per the company's report the following year, tens of millions in dead stock had been worked down</li>
+                                <li>Standardized the processing order of debits and credits and controlled concurrent updates to prevent inventory book-to-physical mismatches</li>
+                                <li>Took over 5 years of technical debt: filled in missing technical documentation and introduced coding standards and unit tests</li>
+                            </ul>
                             </div>
-                        <div class="diff" role="group" aria-label="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新">
+                        <div class="diff" role="group" data-aria-zh="查詢改寫示意：逐筆游標迴圈呼叫純量函式，改為先彙總至暫存表，再以單一 UPDATE JOIN 一次更新" data-aria-en="Query rewrite illustration: a row-by-row cursor loop calling a scalar function, rewritten to aggregate into a temp table first and then update once with a single UPDATE JOIN">
                             <div class="diff-col">
-                                <span class="diff-h">改寫前：逐筆迴圈</span>
+                                <span class="diff-h"><span class="t-zh">改寫前：逐筆迴圈</span><span class="t-en" hidden>Before: row-by-row loop</span></span>
                                 <pre>DECLARE c CURSOR FOR
   SELECT Id FROM Items
 WHILE @@FETCH_STATUS = 0
@@ -231,7 +256,7 @@ WHILE @@FETCH_STATUS = 0
   WHERE Id = @Id</pre>
                             </div>
                             <div class="diff-col after">
-                                <span class="diff-h">改寫後：集合式運算</span>
+                                <span class="diff-h"><span class="t-zh">改寫後：集合式運算</span><span class="t-en" hidden>After: set-based operation</span></span>
                                 <pre>SELECT Id, SUM(Qty) AS Qty
 INTO #Agg
 FROM Detail GROUP BY Id
@@ -240,7 +265,7 @@ UPDATE i SET Qty = a.Qty
 FROM Items i
 JOIN #Agg a ON a.Id = i.Id</pre>
                             </div>
-                            <p class="diff-note">示意寫法，非實際程式碼</p>
+                            <p class="diff-note"><span class="t-zh">示意寫法，非實際程式碼</span><span class="t-en" hidden>Illustrative pseudocode, not actual production code</span></p>
                         </div>
                         </div>
                     </details>
@@ -249,10 +274,10 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                 <article class="exp">
                     <div class="idx">04</div>
                     <details class="fold">
-                        <summary><h3 class="title">系統管理後台</h3><span class="tags">C#・MS SQL・Redis・RabbitMQ・Docker・Jenkins</span><span class="gist">獨自從 MVP 開發至正式上線，含登入驗證、權限與跨服務事件</span></summary>
+                        <summary><h3 class="title"><span class="t-zh">系統管理後台</span><span class="t-en" hidden>Admin Management Platform</span></h3><span class="tags">C#・MS SQL・Redis・RabbitMQ・Docker・Jenkins</span><span class="gist"><span class="t-zh">獨自從 MVP 開發至正式上線，含登入驗證、權限與跨服務事件</span><span class="t-en" hidden>Built solo from MVP to production, including login authentication, permissions, and cross-service events</span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>獨自從 MVP 開發至正式上線，以 DDD 分層將後端拆為後台、報表、圖片與排程服務，各自獨立部署，服務間以 Service Caller 呼叫</li>
                                 <li>登入以領域事件拆為圖形驗證碼、Google 2FA、帳密驗證與登入日誌四個有序步驟，任一步失敗即中止並由補償步驟記錄失敗日誌，流程可獨立擴充與測試</li>
                                 <li>JWT 驗證搭配 Redis 單一 refresh token，偵測重複登入與過期並以回應標頭區分，前端可分別處理重新登入與踢下線</li>
@@ -262,15 +287,26 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                                 <li>以記憶體加 Redis 的多級快取降低跨服務呼叫與資料庫讀取，未命中才回源</li>
                                 <li>統一回應格式與例外處理，搭配軟刪除全域過濾、啟動時自動 Migration 與種子資料，降低各環境的設定落差</li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Built solo from MVP to production; used DDD layering to split the backend into admin, reporting, image, and scheduling services, each deployed independently and communicating via a Service Caller</li>
+                                <li>Login was split via domain events into four ordered steps — CAPTCHA, Google 2FA, credential verification, and login logging. Any step failing aborts the flow, with a compensating step logging the failure, so the process can be extended and tested independently</li>
+                                <li>JWT authentication paired with a single Redis refresh token, detecting duplicate logins and expiry and distinguishing them via response headers, so the frontend can handle re-login and forced logout separately</li>
+                                <li>Multi-level RBAC permissions: restricting visible data and operation scope by account tier and company</li>
+                                <li>Used RabbitMQ for cross-system synchronization</li>
+                                <li>Integration events use Dapr with a database event log (Outbox pattern); events and business data are written in the same transaction to prevent data being written without the corresponding event being published</li>
+                                <li>Used a multi-level in-memory + Redis cache to reduce cross-service calls and database reads, falling back to the source only on a cache miss</li>
+                                <li>Standardized response format and exception handling, paired with global soft-delete filtering and automatic migration and seed data on startup, reducing configuration drift across environments</li>
+                            </ul>
                             </div>
                         <ol class="pipe pipe-3"
-                            aria-label="系統管理後台架構：前端經後台 API 驗證後，由 Service Caller 呼叫報表、遊戲與圖片三個服務；後台使用 Redis 與 MS SQL">
-                            <li class="next">前端後台</li>
-                            <li class="next">後台 API<small>JWT・領域事件</small></li>
-                            <li class="group"><span>報表服務<small>Dapper
-                                        預存程序</small></span><span>遊戲服務</span><span>圖片服務</span></li>
-                            <li class="duo under-2"><span>Redis<small>快取・refresh token</small></span><span>MS
-                                    SQL<small>EF Core・Event Log</small></span></li>
+                            data-aria-zh="系統管理後台架構：前端經後台 API 驗證後，由 Service Caller 呼叫報表、遊戲與圖片三個服務；後台使用 Redis 與 MS SQL"
+                            data-aria-en="Admin platform architecture: the frontend authenticates via the admin API, which uses a Service Caller to call the reporting, game, and image services; the backend uses Redis and MS SQL">
+                            <li class="next"><span class="t-zh">前端後台</span><span class="t-en" hidden>Admin frontend</span></li>
+                            <li class="next"><span class="t-zh">後台 API</span><span class="t-en" hidden>Admin API</span><small><span class="t-zh">JWT・領域事件</span><span class="t-en" hidden>JWT · Domain events</span></small></li>
+                            <li class="group"><span><span class="t-zh">報表服務</span><span class="t-en" hidden>Reporting service</span><small><span class="t-zh">Dapper
+                                        預存程序</span><span class="t-en" hidden>Dapper stored procedures</span></small></span><span><span class="t-zh">遊戲服務</span><span class="t-en" hidden>Game service</span></span><span><span class="t-zh">圖片服務</span><span class="t-en" hidden>Image service</span></span></li>
+                            <li class="duo under-2"><span>Redis<small><span class="t-zh">快取・refresh token</span><span class="t-en" hidden>Cache · refresh token</span></small></span><span>MS
+                                    SQL<small><span class="t-zh">EF Core・Event Log</span><span class="t-en" hidden>EF Core · Event log</span></small></span></li>
                         </ol>
                         </div>
                     </details>
@@ -279,10 +315,10 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                 <article class="exp">
                     <div class="idx">05</div>
                     <details class="fold">
-                        <summary><h3 class="title">CRM 客戶管理系統</h3><span class="tags">ASP.NET・MS SQL・Entity Framework</span><span class="gist">客戶主檔、商機、互動紀錄與排程提醒</span></summary>
+                        <summary><h3 class="title"><span class="t-zh">CRM 客戶管理系統</span><span class="t-en" hidden>CRM Customer Management System</span></h3><span class="tags">ASP.NET・MS SQL・Entity Framework</span><span class="gist"><span class="t-zh">客戶主檔、商機、互動紀錄與排程提醒</span><span class="t-en" hidden>Customer records, sales opportunities, interaction history, and scheduled reminders</span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>客戶主檔以公司對聯絡人一對多建模，依關鍵欄位比對重複客戶並提供合併，避免同一客戶資料分散</li>
                                 <li>商機依階段推進，以狀態機限制只能依規則轉換</li>
                                 <li>通話與拜訪等互動紀錄整合為時間軸，快速掌握單一客戶歷程</li>
@@ -293,14 +329,25 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                                 <li>以排程掃描逾期未跟進、合約到期等事件並發出提醒</li>
                                 <li>稽核紀錄保存變更前後值，並提供業績與客戶分群的彙總報表與匯出</li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Modeled customer records as a one-to-many company-to-contact relationship; matched duplicate customers on key fields and provided merging to prevent the same customer's data from being scattered</li>
+                                <li>Sales opportunities progress through stages via a state machine that only allows rule-defined transitions</li>
+                                <li>Consolidated interaction records such as calls and visits into a timeline for quickly understanding a single customer's history</li>
+                                <li>RBAC role-based access control, with data visibility restricted by organizational level: sales reps see only their own customers, managers see their team's, and administrators see everything</li>
+                                <li>Used a dynamic field design to support custom fields per unit, so adding a field never requires altering the database schema</li>
+                                <li>Dynamic query with supporting index design and saved filters; bulk list import with field mapping, validation, and error reporting</li>
+                                <li>Used a scheduler to scan for overdue follow-ups, contract expirations, and similar events and send reminders</li>
+                                <li>Audit logs retain before/after values, with summary reports and exports for sales performance and customer segmentation</li>
+                            </ul>
                             </div>
                         <ol class="pipe pipe-3"
-                            aria-label="CRM 客戶管理系統架構：瀏覽器連到 ASP.NET 應用程式，存取客戶主檔、商機、互動紀錄；排程提醒與稽核日誌掛在應用程式下方">
-                            <li class="next">瀏覽器</li>
-                            <li class="next">ASP.NET 應用程式</li>
-                            <li class="group"><span>客戶主檔</span><span>商機</span><span>互動紀錄</span></li>
+                            data-aria-zh="CRM 客戶管理系統架構：瀏覽器連到 ASP.NET 應用程式，存取客戶主檔、商機、互動紀錄；排程提醒與稽核日誌掛在應用程式下方"
+                            data-aria-en="CRM architecture: the browser connects to the ASP.NET application, which accesses customer records, sales opportunities, and interaction history; scheduled reminders and audit logs sit underneath the application">
+                            <li class="next"><span class="t-zh">瀏覽器</span><span class="t-en" hidden>Browser</span></li>
+                            <li class="next"><span class="t-zh">ASP.NET 應用程式</span><span class="t-en" hidden>ASP.NET application</span></li>
+                            <li class="group"><span><span class="t-zh">客戶主檔</span><span class="t-en" hidden>Customer records</span></span><span><span class="t-zh">商機</span><span class="t-en" hidden>Sales opportunities</span></span><span><span class="t-zh">互動紀錄</span><span class="t-en" hidden>Interaction history</span></span></li>
                             <li class="duo under-2">
-                                <span>排程提醒<small>逾期・到期</small></span><span>稽核日誌<small>變更前後值</small></span></li>
+                                <span><span class="t-zh">排程提醒</span><span class="t-en" hidden>Scheduled reminders</span><small><span class="t-zh">逾期・到期</span><span class="t-en" hidden>Overdue · expiring</span></small></span><span><span class="t-zh">稽核日誌</span><span class="t-en" hidden>Audit log</span><small><span class="t-zh">變更前後值</span><span class="t-en" hidden>Before/after values</span></small></span></li>
                         </ol>
                         </div>
                     </details>
@@ -309,22 +356,29 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                 <article class="exp">
                     <div class="idx">06</div>
                     <details class="fold">
-                        <summary><h3 class="title">教務系統</h3><span class="tags">C#・Delphi・MS SQL・SQLite・Entity Framework</span><span class="gist">從准考證套印、報到、評分到志願分發的教務流程</span></summary>
+                        <summary><h3 class="title"><span class="t-zh">教務系統</span><span class="t-en" hidden>Academic Affairs System</span></h3><span class="tags">C#・Delphi・MS SQL・SQLite・Entity Framework</span><span class="gist"><span class="t-zh">從准考證套印、報到、評分到志願分發的教務流程</span><span class="t-en" hidden>Academic workflow covering admission ticket printing, check-in, grading, and preference-based placement</span></span></summary>
                         <div class="exp-body">
                             <div class="exp-text">
-<ul>
+<ul class="t-zh">
                                 <li>准考證套印</li>
                                 <li>考試報到登入系統</li>
                                 <li>考卷評分系統</li>
                                 <li>志願分發系統</li>
                                 <li>Delphi 舊系統以 C# 重寫</li>
                             </ul>
+<ul class="t-en" hidden>
+                                <li>Admission ticket printing</li>
+                                <li>Exam check-in system</li>
+                                <li>Exam grading system</li>
+                                <li>Preference-based placement system</li>
+                                <li>Rewrote the legacy Delphi system in C#</li>
+                            </ul>
                             </div>
-                        <ol class="pipe pipe-4" aria-label="教務系統流程：准考證套印、考試報到、考卷評分、志願分發">
-                            <li class="next">准考證套印</li>
-                            <li class="next">考試報到</li>
-                            <li class="next">考卷評分</li>
-                            <li class="end">志願分發</li>
+                        <ol class="pipe pipe-4" data-aria-zh="教務系統流程：准考證套印、考試報到、考卷評分、志願分發" data-aria-en="Academic affairs workflow: admission ticket printing, exam check-in, exam grading, and preference-based placement">
+                            <li class="next"><span class="t-zh">准考證套印</span><span class="t-en" hidden>Admission ticket printing</span></li>
+                            <li class="next"><span class="t-zh">考試報到</span><span class="t-en" hidden>Exam check-in</span></li>
+                            <li class="next"><span class="t-zh">考卷評分</span><span class="t-en" hidden>Exam grading</span></li>
+                            <li class="end"><span class="t-zh">志願分發</span><span class="t-en" hidden>Placement</span></li>
                         </ol>
                         </div>
                     </details>
@@ -339,8 +393,8 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="proj-body">
                     <div class="proj-text">
                             <details class="fold">
-                                <summary><h3><a href="https://github.com/tian841224/agent-workflow" target="_blank" rel="noreferrer">agent-workflow</a></h3><span class="gist">依實際開發流程與 model 的演進，持續調整的個人 AI 開發工作流。</span></summary>
-                                <ul>
+                                <summary><h3><a href="https://github.com/tian841224/agent-workflow" target="_blank" rel="noreferrer">agent-workflow</a></h3><span class="gist"><span class="t-zh">依實際開發流程與 model 的演進，持續調整的個人 AI 開發工作流。</span><span class="t-en" hidden>A personal AI development workflow continuously tuned to real development practices and the evolution of models.</span></span></summary>
+                                <ul class="t-zh">
                             <li>先制定驗收標準，避免需求模糊</li>
                             <li>依風險決定流程</li>
                             <li>依條件判斷是否建立 subagent</li>
@@ -348,19 +402,28 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                             <li>Skills 採漸進式揭露</li>
                             <li>跨任務共用記憶</li>
                         </ul>
+                                <ul class="t-en" hidden>
+                            <li>Define acceptance criteria first to avoid ambiguous requirements</li>
+                            <li>Choose the process based on risk</li>
+                            <li>Decide whether to spawn a subagent based on conditions</li>
+                            <li>Claude Code, Codex, and Antigravity share the same rules and runtime</li>
+                            <li>Skills use progressive disclosure</li>
+                            <li>Shared memory across tasks</li>
+                        </ul>
                             </details>
                         </div>
                     <ol class="pipe pipe-7"
-                        aria-label="agent-workflow 流程：需求先判斷是否影響行為，不影響則直接處理；影響則先確認規格與驗收案例，建立 task 並依風險編排計畫，實作（有條件才派 subagent），逐條執行驗收，獨立 Review，最後結案">
-                        <li class="next">需求分流<small>是否影響行為</small></li>
-                        <li class="next">規格確認<small>含驗收案例</small></li>
-                        <li class="next">建立 task<small>依風險編計畫</small></li>
-                        <li class="next">實作</li>
-                        <li class="next">逐條驗收<small>runtime 執行</small></li>
-                        <li class="next">獨立 Review</li>
-                        <li class="end">結案</li>
-                        <li class="side under-1">直接處理<small>不影響行為</small></li>
-                        <li class="side">subagent<small>依條件才派</small></li>
+                        data-aria-zh="agent-workflow 流程：需求先判斷是否影響行為，不影響則直接處理；影響則先確認規格與驗收案例，建立 task 並依風險編排計畫，實作（有條件才派 subagent），逐條執行驗收，獨立 Review，最後結案"
+                        data-aria-en="agent-workflow process: requests are first classified by whether they affect behavior; if not, they're handled directly; if so, the spec and acceptance cases are confirmed first, a task is created with a plan ordered by risk, implementation follows (spawning a subagent only when conditions call for it), acceptance criteria are checked one by one, an independent review is run, and the task is closed">
+                        <li class="next"><span class="t-zh">需求分流</span><span class="t-en" hidden>Request triage</span><small><span class="t-zh">是否影響行為</span><span class="t-en" hidden>Affects behavior?</span></small></li>
+                        <li class="next"><span class="t-zh">規格確認</span><span class="t-en" hidden>Spec confirmation</span><small><span class="t-zh">含驗收案例</span><span class="t-en" hidden>Incl. acceptance cases</span></small></li>
+                        <li class="next"><span class="t-zh">建立 task</span><span class="t-en" hidden>Create task</span><small><span class="t-zh">依風險編計畫</span><span class="t-en" hidden>Plan by risk</span></small></li>
+                        <li class="next"><span class="t-zh">實作</span><span class="t-en" hidden>Implementation</span></li>
+                        <li class="next"><span class="t-zh">逐條驗收</span><span class="t-en" hidden>Checklist verification</span><small><span class="t-zh">runtime 執行</span><span class="t-en" hidden>Runtime execution</span></small></li>
+                        <li class="next"><span class="t-zh">獨立 Review</span><span class="t-en" hidden>Independent review</span></li>
+                        <li class="end"><span class="t-zh">結案</span><span class="t-en" hidden>Close</span></li>
+                        <li class="side under-1"><span class="t-zh">直接處理</span><span class="t-en" hidden>Handle directly</span><small><span class="t-zh">不影響行為</span><span class="t-en" hidden>No behavior impact</span></small></li>
+                        <li class="side">subagent<small><span class="t-zh">依條件才派</span><span class="t-en" hidden>Spawned conditionally</span></small></li>
                     </ol>
                     </div>
                 </article>
@@ -369,43 +432,48 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="idx">02</div>
                     <div class="proj-body">
                     <div class="shots" data-shots='[
-                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg","label":"首頁"},
-                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/party-discovery.jpg","label":"組隊招募"},
-                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/boss-party-detail.jpg","label":"BOSS 隊伍詳情"},
-                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-overview.jpg","label":"公會總覽"},
-                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-chat.jpg","label":"公會聊天"}
+                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg","label":"首頁","label_en":"Home"},
+                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/party-discovery.jpg","label":"組隊招募","label_en":"Party recruitment"},
+                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/boss-party-detail.jpg","label":"BOSS 隊伍詳情","label_en":"Boss party details"},
+                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-overview.jpg","label":"公會總覽","label_en":"Guild overview"},
+                        {"src":"https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/guild-chat.jpg","label":"公會聊天","label_en":"Guild chat"}
                     ]'>
                         <button type="button" class="shots-thumb" aria-haspopup="dialog"
-                            aria-label="放大檢視 oneshort 截圖，共 5 張">
+                            data-aria-zh="放大檢視 oneshort 截圖，共 5 張" data-aria-en="View enlarged oneshort screenshots, 5 total">
                             <img src="https://raw.githubusercontent.com/tian841224/oneshort/main/images/screenshots/home-adventure.jpg"
                                 alt="" loading="lazy">
-                            <span>共 5 張・點擊放大</span>
+                            <span><span class="t-zh">共 5 張・點擊放大</span><span class="t-en" hidden>5 screenshots · click to enlarge</span></span>
                         </button>
-                        <dialog class="shots-dialog" aria-label="oneshort 截圖">
+                        <dialog class="shots-dialog" data-aria-zh="oneshort 截圖" data-aria-en="oneshort screenshots">
                             <div class="shots-box">
-                                <button type="button" class="btn icon prev" aria-label="上一張截圖"><svg aria-hidden="true"
+                                <button type="button" class="btn icon prev" data-aria-zh="上一張截圖" data-aria-en="Previous screenshot"><svg aria-hidden="true"
                                         viewBox="0 0 14 14">
                                         <path d="M9 2 L4 7 L9 12"></path>
                                     </svg></button>
                                 <figure aria-live="polite"><img src="" alt="">
                                     <figcaption></figcaption>
                                 </figure>
-                                <button type="button" class="btn icon next" aria-label="下一張截圖"><svg aria-hidden="true"
+                                <button type="button" class="btn icon next" data-aria-zh="下一張截圖" data-aria-en="Next screenshot"><svg aria-hidden="true"
                                         viewBox="0 0 14 14">
                                         <path d="M5 2 L10 7 L5 12"></path>
                                     </svg></button>
                                 <div class="shots-bar"><span class="shots-count">1 / 5</span><button type="button"
-                                        class="btn close">關閉</button></div>
+                                        class="btn close"><span class="t-zh">關閉</span><span class="t-en" hidden>Close</span></button></div>
                             </div>
                         </dialog>
                     </div>
                     <div class="proj-text">
                             <details class="fold">
-                                <summary><h3><a href="https://github.com/tian841224/oneshort" target="_blank" rel="noreferrer">oneshort</a></h3><span class="tags">Go・Next.js・PostgreSQL・Redis・WebSocket</span><span class="gist">楓之谷揪團平台，提供組隊招募、任務協作、公會排團與即時聊天。</span></summary>
-                                <ul>
+                                <summary><h3><a href="https://github.com/tian841224/oneshort" target="_blank" rel="noreferrer">oneshort</a></h3><span class="tags">Go・Next.js・PostgreSQL・Redis・WebSocket</span><span class="gist"><span class="t-zh">楓之谷揪團平台，提供組隊招募、任務協作、公會排團與即時聊天。</span><span class="t-en" hidden>A MapleStory party-finding platform offering party recruitment, quest coordination, guild raid scheduling, and real-time chat.</span></span></summary>
+                                <ul class="t-zh">
                             <li>Transactional Outbox：業務資料與事件在同一個資料庫交易寫入，Relay Worker 以 <code>SKIP LOCKED</code> 領取並發布至 Redis Streams，避免資料寫入與事件發布不一致</li>
                             <li>WebSocket 即時推送管線：Gateway 以 Redis Streams consumer group 消費事件，接手卡住的訊息，格式錯誤的事件進入 DLQ</li>
                             <li>即時隊伍的並行控制：以 Redis 分散式鎖序列化同一隊伍的修改，並以心跳續期避免鎖過期，防止超收與重複席位</li>
+                        </ul>
+                                <ul class="t-en" hidden>
+                            <li>Transactional Outbox: business data and events are written in the same database transaction; a relay worker claims rows with <code>SKIP LOCKED</code> and publishes them to Redis Streams, preventing inconsistency between data writes and event publishing</li>
+                            <li>WebSocket real-time push pipeline: the gateway consumes events via a Redis Streams consumer group, takes over stalled messages, and routes malformed events to a dead-letter queue</li>
+                            <li>Concurrency control for live parties: a Redis distributed lock serializes modifications to the same party, with heartbeat renewal to prevent lock expiry, avoiding overbooking and duplicate seats</li>
                         </ul>
                             </details>
                         </div>
@@ -416,40 +484,47 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                     <div class="idx">03</div>
                     <div class="proj-body">
                     <div class="proj-media">
-                        <div class="shots" data-shots='[{"src": "assets/images/stock-bot-architecture.png", "label": "系統架構圖：Interface、Application、Infrastructure、Domain 四層"}, {"src": "assets/images/stock-bot-demo/start.gif", "label": "示範：快速開始"}, {"src": "assets/images/stock-bot-demo/k.gif", "label": "示範：K 線圖"}, {"src": "assets/images/stock-bot-demo/d.gif", "label": "示範：個股詳細資訊"}, {"src": "assets/images/stock-bot-demo/p.gif", "label": "示範：個股績效"}, {"src": "assets/images/stock-bot-demo/n.gif", "label": "示範：個股新聞"}, {"src": "assets/images/stock-bot-demo/i.gif", "label": "示範：當日收盤資訊"}, {"src": "assets/images/stock-bot-demo/m.gif", "label": "示範：大盤資訊"}, {"src": "assets/images/stock-bot-demo/t.gif", "label": "示範：交易量排行"}, {"src": "assets/images/stock-bot-demo/add.gif", "label": "示範：訂閱股票"}]'>
+                        <div class="shots" data-shots='[{"src": "assets/images/stock-bot-architecture.png", "label": "系統架構圖：Interface、Application、Infrastructure、Domain 四層", "label_en": "System architecture: Interface, Application, Infrastructure, and Domain layers"}, {"src": "assets/images/stock-bot-demo/start.gif", "label": "示範：快速開始", "label_en": "Demo: Quick start"}, {"src": "assets/images/stock-bot-demo/k.gif", "label": "示範：K 線圖", "label_en": "Demo: Candlestick chart"}, {"src": "assets/images/stock-bot-demo/d.gif", "label": "示範：個股詳細資訊", "label_en": "Demo: Stock details"}, {"src": "assets/images/stock-bot-demo/p.gif", "label": "示範：個股績效", "label_en": "Demo: Stock performance"}, {"src": "assets/images/stock-bot-demo/n.gif", "label": "示範：個股新聞", "label_en": "Demo: Stock news"}, {"src": "assets/images/stock-bot-demo/i.gif", "label": "示範：當日收盤資訊", "label_en": "Demo: Daily closing info"}, {"src": "assets/images/stock-bot-demo/m.gif", "label": "示範：大盤資訊", "label_en": "Demo: Market overview"}, {"src": "assets/images/stock-bot-demo/t.gif", "label": "示範：交易量排行", "label_en": "Demo: Volume ranking"}, {"src": "assets/images/stock-bot-demo/add.gif", "label": "示範：訂閱股票", "label_en": "Demo: Subscribe to a stock"}]'>
                             <button type="button" class="shots-thumb fit" data-start="0" aria-haspopup="dialog"
-                                aria-label="放大檢視 stock-bot-golang 系統架構圖與操作示範，共 10 張">
+                                data-aria-zh="放大檢視 stock-bot-golang 系統架構圖與操作示範，共 10 張" data-aria-en="View enlarged stock-bot-golang architecture diagram and demos, 10 total">
                                 <img src="assets/images/stock-bot-architecture.png" alt="" loading="lazy">
-                                <span>架構圖與示範・共 10 張</span>
+                                <span><span class="t-zh">架構圖與示範・共 10 張</span><span class="t-en" hidden>Architecture &amp; demos · 10 total</span></span>
                             </button>
-                            <dialog class="shots-dialog" aria-label="stock-bot-golang 架構圖與操作示範">
+                            <dialog class="shots-dialog" data-aria-zh="stock-bot-golang 架構圖與操作示範" data-aria-en="stock-bot-golang architecture diagram and demos">
                                 <div class="shots-box">
-                                    <button type="button" class="btn icon prev" aria-label="上一張"><svg aria-hidden="true"
+                                    <button type="button" class="btn icon prev" data-aria-zh="上一張" data-aria-en="Previous"><svg aria-hidden="true"
                                             viewBox="0 0 14 14">
                                             <path d="M9 2 L4 7 L9 12"></path>
                                         </svg></button>
                                     <figure aria-live="polite"><img src="" alt="">
                                         <figcaption></figcaption>
                                     </figure>
-                                    <button type="button" class="btn icon next" aria-label="下一張"><svg aria-hidden="true"
+                                    <button type="button" class="btn icon next" data-aria-zh="下一張" data-aria-en="Next"><svg aria-hidden="true"
                                             viewBox="0 0 14 14">
                                             <path d="M5 2 L10 7 L5 12"></path>
                                         </svg></button>
                                     <div class="shots-bar"><span class="shots-count">1 / 10</span><button type="button"
-                                            class="btn close">關閉</button></div>
+                                            class="btn close"><span class="t-zh">關閉</span><span class="t-en" hidden>Close</span></button></div>
                                 </div>
                             </dialog>
                         </div>
                     </div>
                     <div class="proj-text">
                             <details class="fold">
-                                <summary><h3><a href="https://github.com/tian841224/stock-bot-golang" target="_blank" rel="noreferrer">stock-bot-golang</a></h3><span class="tags">Go・Clean Architecture・PostgreSQL・Docker</span><span class="gist">台股查詢機器人，整合 Telegram／LINE 即時股價、K 線圖表與新聞訂閱。</span></summary>
-                                <ul>
+                                <summary><h3><a href="https://github.com/tian841224/stock-bot-golang" target="_blank" rel="noreferrer">stock-bot-golang</a></h3><span class="tags">Go・Clean Architecture・PostgreSQL・Docker</span><span class="gist"><span class="t-zh">台股查詢機器人，整合 Telegram／LINE 即時股價、K 線圖表與新聞訂閱。</span><span class="t-en" hidden>A Taiwan stock-query bot integrating Telegram/LINE for real-time quotes, candlestick charts, and news subscriptions.</span></span></summary>
+                                <ul class="t-zh">
                             <li>Clean Architecture 四層分離（Interface／Application／Infrastructure／Domain）：Telegram 與 LINE 共用同一套應用層邏輯，只在介面層各自處理 webhook</li>
                             <li>Webhook 驗證 Secret Token，背景處理並設定逾時與 panic recovery，避免平台因逾時重送；以 request_id 串連 Zap 日誌</li>
                             <li>Bot、資料同步與定時推播拆為獨立服務，並以同步時間 watermark 避免同一批資料重複推播</li>
                             <li>以 Go 的 freetype 自行繪製圖表，上傳圖床回傳給使用者</li>
                             <li>以 GitHub Actions 建立 CI/CD Pipeline，測試通過後自動部署</li>
+                        </ul>
+                                <ul class="t-en" hidden>
+                            <li>Clean Architecture with four separated layers (Interface / Application / Infrastructure / Domain): Telegram and LINE share the same application-layer logic, each handling its own webhook only at the interface layer</li>
+                            <li>Webhooks verify a secret token and are processed in the background with timeouts and panic recovery to avoid retry storms from platform timeouts; logs are correlated by request_id using Zap</li>
+                            <li>Split the bot, data sync, and scheduled push into independent services, using a sync-time watermark to prevent the same batch of data from being pushed twice</li>
+                            <li>Rendered charts in-house with Go's freetype library and uploaded them to an image host to return to users</li>
+                            <li>Built a CI/CD pipeline with GitHub Actions, auto-deploying once tests pass</li>
                         </ul>
                             </details>
                         </div>
@@ -459,17 +534,17 @@ JOIN #Agg a ON a.Id = i.Id</pre>
                 <div class="others">
                     <div><a href="https://github.com/tian841224/stock_bot_nodejs" target="_blank"
                             rel="noreferrer">stock_bot_nodejs</a>
-                        <div>台股查詢機器人的 Node.js／TypeScript 版本</div>
+                        <div><span class="t-zh">台股查詢機器人的 Node.js／TypeScript 版本</span><span class="t-en" hidden>Node.js/TypeScript version of the Taiwan stock-query bot</span></div>
                         <div class="tags">TypeScript・Node.js</div>
                     </div>
                     <div><a href="https://github.com/tian841224/tgbot_rssfeed" target="_blank"
                             rel="noreferrer">tgbot_rssfeed</a>
-                        <div>Telegram RSS 訂閱推播機器人</div>
+                        <div><span class="t-zh">Telegram RSS 訂閱推播機器人</span><span class="t-en" hidden>Telegram RSS feed push bot</span></div>
                         <div class="tags">C#・.NET</div>
                     </div>
                     <div><a href="https://github.com/tian841224/fetch-sketchfab-data" target="_blank"
                             rel="noreferrer">fetch-sketchfab-data</a>
-                        <div>Sketchfab 資料擷取與排程 Demo</div>
+                        <div><span class="t-zh">Sketchfab 資料擷取與排程 Demo</span><span class="t-en" hidden>Sketchfab data-fetching and scheduling demo</span></div>
                         <div class="tags">Go・Scheduler</div>
                     </div>
                 </div>
@@ -477,7 +552,8 @@ JOIN #Agg a ON a.Id = i.Id</pre>
 
         </main>
     </div>
-    <script src="js/dark-sidebar.js?v=202611200218" defer></script>
+    <script src="js/i18n.js?v=202611220001" defer></script>
+    <script src="js/dark-sidebar.js?v=202611220001" defer></script>
 </body>
 
 </html>

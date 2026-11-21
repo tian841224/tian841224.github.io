@@ -18,15 +18,24 @@
             count.hidden = true;
         }
 
+        function label(slide) {
+            return document.documentElement.dataset.lang === 'en' && slide.label_en ? slide.label_en : slide.label;
+        }
+
         function show(next) {
             index = (next + slides.length) % slides.length;
             /* 先清空再指定，讓只播一次的 GIF 每次切換或開啟都從頭播放 */
             image.removeAttribute('src');
             image.src = slides[index].src;
-            image.alt = slides[index].label;
-            caption.textContent = slides[index].label;
+            image.alt = label(slides[index]);
+            caption.textContent = label(slides[index]);
             count.textContent = (index + 1) + ' / ' + slides.length;
         }
+
+        /* 切換語言時，若對話框已開啟（有畫面可見），同步更新目前這張的說明文字 */
+        document.addEventListener('langchange', function () {
+            if (dialog.open) show(index);
+        });
 
         /* 同一個視窗可有多個縮圖入口，用 data-start 指定開啟時的起始張 */
         thumbs.forEach(function (thumb) {
