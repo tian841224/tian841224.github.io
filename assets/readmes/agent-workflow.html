@@ -13,17 +13,15 @@
 </ul>
 <h2 dir="auto">安裝方式</h2>
 <p dir="auto">需要 <strong>Node.js 20 以上、npm、Git</strong>，以及要使用的 Claude Code、Codex 或 Antigravity。</p>
-<pre lang="powershell" class="notranslate"><code class="notranslate">git clone https://github.com/tian841224/agent-workflow.git
-cd agent-workflow
+<div class="highlight highlight-source-powershell" dir="auto"><pre class="notranslate">git clone https:<span class="pl-k">//</span><span class="pl-c1">github.com</span><span class="pl-k">/</span>tian841224<span class="pl-k">/</span>agent<span class="pl-k">-</span>workflow.git
+cd agent<span class="pl-k">-</span>workflow
 npm install
 npm run build
 npm run setup
-agent-workflow verify
-</code></pre>
+agent<span class="pl-k">-</span>workflow verify</pre></div>
 <p dir="auto">安裝時依提示選擇 Skills。若只使用 Codex，將最後兩步改成：</p>
-<pre lang="powershell" class="notranslate"><code class="notranslate">npm run setup -- --target-agent Codex
-agent-workflow verify --target-agent Codex
-</code></pre>
+<div class="highlight highlight-source-powershell" dir="auto"><pre class="notranslate">npm run setup <span class="pl-k">--</span> <span class="pl-k">--</span>target<span class="pl-k">-</span>agent Codex
+agent<span class="pl-k">-</span>workflow verify <span class="pl-k">--</span>target<span class="pl-k">-</span>agent Codex</pre></div>
 <p dir="auto">安裝位置、更新與選用整合見 <a href="https://github.com/tian841224/agent-workflow/blob/main/docs/installation.md">安裝與維護</a>。</p>
 <h2 dir="auto">Skills</h2>
 <p dir="auto">依用途分類；名稱可點開查看完整指引。必裝與選用項目以 <a href="https://github.com/tian841224/agent-workflow/blob/main/adapters/managed-manifest.json">安裝清單</a> 為準。</p>
@@ -107,7 +105,7 @@ agent-workflow verify --target-agent Codex
 </table></markdown-accessiblity-table>
 <p dir="auto">維護本 repo 時另有未納入安裝清單的 <a href="https://github.com/tian841224/agent-workflow/blob/main/.agents/skills/writing-for-agents/SKILL.md">writing-for-agents</a>，用於撰寫 agent 與 skill 指引。</p>
 <h2 dir="auto">專案架構</h2>
-<section class="js-render-needs-enrichment render-needs-enrichment position-relative" data-identity="b06763eb-9d69-41b9-b568-d57bace3c46a" data-host="https://viewscreen.githubusercontent.com" data-src="https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com" data-type="mermaid" aria-label="mermaid rendered output container">
+<section class="js-render-needs-enrichment render-needs-enrichment position-relative" data-identity="5abb14f1-ffb3-4b08-a59f-b8114bc87ed8" data-host="https://viewscreen.githubusercontent.com" data-src="https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com" data-type="mermaid" aria-label="mermaid rendered output container">
   <div class="js-render-enrichment-target" data-json="{&quot;data&quot;:&quot;flowchart TD\n    P[\&quot;Claude Code · Codex · Antigravity\&quot;] --&gt; A[\&quot;平台 Adapters：hooks 與 agent 設定\&quot;]\n    A --&gt; R[\&quot;共用 Node.js runtime / CLI\&quot;]\n    S[\&quot;Skills：依情境提供工作指引\&quot;] --&gt; P\n    R --&gt; T[\&quot;任務計畫、驗收與結案\&quot;]\n    R --&gt; K[\&quot;文件、記憶與歷程\&quot;]\n&quot;}" data-plain="flowchart TD
     P[&quot;Claude Code · Codex · Antigravity&quot;] --&gt; A[&quot;平台 Adapters：hooks 與 agent 設定&quot;]
     A --&gt; R[&quot;共用 Node.js runtime / CLI&quot;]
